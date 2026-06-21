@@ -1,0 +1,243 @@
+@import 'tailwindcss';
+
+/*
+ * Memolink design tokens — sourced 1:1 from the approved design spec (§7).
+ * Dark, media-first, premium. Dark canvas makes media pop; chrome stays quiet.
+ * Tailwind v4 `@theme` exposes each token as a utility (bg-surface, text-muted, …).
+ */
+@theme {
+  /* Surfaces */
+  --color-base: #0b0b0f;
+  --color-sidebar: #0d0d13;
+  --color-surface: #15151c;
+  --color-surface-raised: #1e1e28;
+  --color-surface-hover: #1a1a22;
+
+  /* Borders */
+  --color-border: #2a2a36;
+  --color-border-strong: #3a3a48;
+  --color-hairline: #1f1f29;
+
+  /* Text */
+  --color-text: #f5f5f7;
+  --color-text-secondary: #a1a1b5;
+  --color-text-muted: #6b6b80;
+
+  /* Brand / accent */
+  --color-accent: #6d5ef6;
+  --color-accent-hover: #5b4de0;
+  --color-accent-soft: #9d7bff;
+
+  /* Status (single source of truth — §8.1) */
+  --color-pending: #e0a33e;
+  --color-approved: #3dd68c;
+  --color-rejected: #f0556e;
+  --color-featured: #6d5ef6;
+  --color-processing: #4aa8ff;
+
+  /* Typography */
+  --font-sans: 'Geist', system-ui, -apple-system, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, monospace;
+
+  /* Radius (§7.4) */
+  --radius-card: 16px;
+  --radius-control: 10px;
+  --radius-tile: 8px;
+
+  /* Shadows — subtle; reserved for floating surfaces */
+  --shadow-accent: 0 4px 16px rgba(109, 94, 246, 0.32);
+  --shadow-pop: 0 16px 50px rgba(0, 0, 0, 0.6);
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    margin: 0;
+    background: var(--color-base);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border-radius: 8px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-border-strong);
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  /* Tabular figures for all data/numeric surfaces */
+  .font-mono {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Accessible focus ring (§10) */
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+}
+
+/* Motion — respected app-wide; disabled under reduced-motion (§10) */
+@keyframes ml-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes ml-pulse {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@keyframes ml-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes ml-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes ml-shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+/* Refined success seal — stroke draws itself; a single ring pings out once. */
+@keyframes ml-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes ml-ring {
+  from {
+    transform: scale(0.7);
+    opacity: 0.4;
+  }
+  to {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+@keyframes ml-pop-in {
+  0% {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.08);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+.animate-pop-in {
+  animation: ml-pop-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-in {
+  animation: ml-in 0.16s ease both;
+}
+.animate-pop {
+  animation: ml-pop 0.14s ease both;
+}
+.animate-pulse-dot {
+  animation: ml-pulse 1.8s ease-in-out infinite;
+}
+
+/* react-day-picker — themed to the Memolink dark palette */
+.ml-rdp .rdp-root {
+  --rdp-accent-color: var(--color-accent);
+  --rdp-accent-background-color: rgba(109, 94, 246, 0.18);
+  --rdp-today-color: var(--color-accent-soft);
+  --rdp-day-width: 38px;
+  --rdp-day-height: 38px;
+  --rdp-day_button-width: 34px;
+  --rdp-day_button-height: 34px;
+  --rdp-day_button-border-radius: 9px;
+  --rdp-selected-border: 2px solid var(--color-accent);
+  --rdp-outside-opacity: 0.4;
+  --rdp-disabled-opacity: 0.3;
+  margin: 0;
+  color: var(--color-text);
+  font-size: 13px;
+}
+.ml-rdp .rdp-caption_label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+.ml-rdp .rdp-weekday {
+  color: var(--color-text-muted);
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+.ml-rdp .rdp-day_button {
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+.ml-rdp .rdp-day_button:hover {
+  background: var(--color-surface-hover);
+}
+.ml-rdp .rdp-selected .rdp-day_button {
+  background: var(--color-accent);
+  color: #fff;
+  border: none;
+}
+.ml-rdp .rdp-today:not(.rdp-selected) .rdp-day_button {
+  color: var(--color-accent-soft);
+  font-weight: 700;
+}
+.ml-rdp .rdp-chevron {
+  fill: var(--color-text-secondary);
+}
+.ml-rdp .rdp-button_previous:hover,
+.ml-rdp .rdp-button_next:hover {
+  background: var(--color-surface-hover);
+  border-radius: 8px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
