@@ -21,7 +21,8 @@
     "comingSoon": "Tez orada",
     "today": "bugun",
     "lastHour": "soʻnggi soat",
-    "undo": "Bekor qilish"
+    "undo": "Bekor qilish",
+    "send": "Yuborish"
   },
   "language": {
     "label": "Til",
@@ -32,32 +33,198 @@
   "nav": {
     "dashboard": "Boshqaruv paneli",
     "events": "Tadbirlar",
+    "photographers": "Fotograflar",
     "branding": "Brending",
     "delivery": "Yetkazib berish",
     "analytics": "Analitika",
     "teamRoles": "Jamoa va rollar",
     "billing": "Toʻlovlar",
     "settings": "Sozlamalar",
+    "assignments": "Mening topshiriqlarim",
+    "myUploads": "Mening yuklamalarim",
+    "profile": "Profil",
     "collapse": "Yigʻish",
     "switchWorkspace": "Ish makonini almashtirish",
     "eventOrganizer": "Tadbir tashkilotchisi"
+  },
+  "lens": {
+    "switch": "Rejimni almashtirish",
+    "organizer": "Tashkilotchi",
+    "organizerDesc": "Tadbirlar va galereyalarni boshqarish",
+    "photographer": "Fotograf",
+    "photographerDesc": "Suratlarni yuklash va kuzatish"
+  },
+  "workspace": {
+    "workspaces": "Ish makonlari",
+    "create": "Tashkilot yaratish"
+  },
+  "orgCreate": {
+    "title": "Tashkilot yaratish",
+    "subtitle": "Yangi tashkilot ish makonini sozlang.",
+    "onboardingTitle": "Tashkilotingizni yarating",
+    "onboardingSubtitle": "Tashkilot tadbirlaringiz, jamoangiz va medialaringizni birlashtiradi. Boshlash uchun bittasini yarating — siz uning admini bo‘lasiz.",
+    "nameLabel": "Tashkilot nomi",
+    "nameHint": "Buni keyinroq o‘zgartirish mumkin.",
+    "namePlaceholder": "Acme Events",
+    "submit": "Tashkilot yaratish",
+    "failed": "Tashkilotni yaratib bo‘lmadi.",
+    "adminKind": "Admin"
+  },
+  "photographers": {
+    "title": "Fotograflar",
+    "subtitle": "Tashkilotingizda suratga oluvchilar.",
+    "invite": "Fotograf taklif qilish",
+    "inviteTitle": "Fotograf taklif qilish",
+    "inviteDesc": "Tashkilotga qoʻshilib, media yuklashni boshlash uchun taklif yuboring.",
+    "emailLabel": "Email manzil",
+    "emailPh": "name@studio.com",
+    "send": "Taklif yuborish",
+    "invited": "Taklif {{email}} ga yuborildi.",
+    "colName": "Ism",
+    "colStatus": "Holat",
+    "colEvents": "Tadbirlar",
+    "colUploads": "Yuklamalar",
+    "colLastActive": "Faollik",
+    "status": {
+      "active": "Faol",
+      "invited": "Taklif qilingan",
+      "inactive": "Nofaol"
+    },
+    "inviteFailed": "Taklifni yuborib boʻlmadi.",
+    "emptyTitle": "Hozircha fotograflar yoʻq",
+    "emptyDesc": "Tashkilotingizga fotograflarni taklif qiling.",
+    "colGear": "Jihozlar",
+    "colVisibility": "Koʻrinish",
+    "colAvailability": "Mavjudlik",
+    "portfolio": "Portfolio",
+    "public": "Ommaviy",
+    "private": "Maxfiy",
+    "windows_one": "{{count}} oraliq",
+    "windows_other": "{{count}} oraliq"
+  },
+  "assignments": {
+    "title": "Mening topshiriqlarim",
+    "subtitle": "Siz suratga olishingiz kerak boʻlgan tadbirlar.",
+    "emptyTitle": "Hozircha topshiriq yoʻq",
+    "emptyDesc": "Tashkilotchi sizni tadbirga tayinlaganda, u shu yerda koʻrinadi.",
+    "hostedBy": "Tashkilotchi",
+    "quota": "Yuklash kvotasi",
+    "upload": "Yuklash",
+    "myUploads": "Yuklamalarim",
+    "status": {
+      "upcoming": "Rejada",
+      "shooting": "Suratga olinmoqda",
+      "closed": "Yopilgan"
+    },
+    "attendees_one": "{{count}} ishtirokchi",
+    "attendees_other": "{{count}} ishtirokchi"
+  },
+  "upload": {
+    "title": "Yuklash",
+    "subtitle": "Suratga olganlaringizni qoʻshing — surat va videoni torting.",
+    "titleTo": "“{{name}}” tadbiriga yuklash",
+    "storageQuota": "Xotira kvotasi",
+    "dropTitle": "Surat va videoni shu yerga tashlang",
+    "dropSubtitle": "yoki tanlash uchun bosing · toʻplamli · davom etadigan · RAW + MP4",
+    "selectFiles": "Fayllarni tanlash",
+    "uploading": "Yuklanmoqda",
+    "doneCount": "{{done}} / {{total}} tayyor",
+    "retryFailed": "Qayta urinish ({{count}})",
+    "clearCompleted": "Tugaganlarni tozalash",
+    "transcoding": "Video qayta kodlanmoqda…",
+    "uploaded": "Yuklandi",
+    "resumeNote": "Aloqa uzilsa, yuklash avtomatik davom etadi — fayllar yoʻqolmaydi.",
+    "viewMyUploads": "Yuklamalarimni koʻrish →",
+    "added": "Navbatga {{count}} ta fayl qoʻshildi.",
+    "accessLevel": "Kirish darajasi",
+    "access": {
+      "PRIVATE_TO_ME": "Faqat menga",
+      "EVENT_ATTENDEES_ONLY": "Faqat tadbir ishtirokchilariga",
+      "PUBLIC": "Ommaviy"
+    },
+    "failedGeneric": "Yuklash xatosi.",
+    "delivered": "Fotolar yetkazildi.",
+    "deliverFailed": "Fotolarni yetkazib boʻlmadi.",
+    "deliver": "Yetkazish",
+    "uploadingState": "Yuklanmoqda… {{pct}}%"
+  },
+  "myUploads": {
+    "title": "Mening yuklamalarim",
+    "subtitle": "Yuklagan barcha narsalaringiz holatini kuzating.",
+    "emptyTitle": "Bu yerda hozircha boʻsh",
+    "emptyDesc": "Tadbirga qoʻshgan yuklamalaringiz koʻrib chiqilish holati bilan shu yerda paydo boʻladi.",
+    "liveInGallery": "Galereyada",
+    "filters": {
+      "all": "Hammasi",
+      "pending": "Koʻrib chiqilmoqda",
+      "approved": "Tasdiqlangan",
+      "rejected": "Rad etilgan",
+      "featured": "Tanlangan"
+    },
+    "review": {
+      "pending": "Koʻrib chiqilmoqda",
+      "approved": "Galereyada",
+      "rejected": "Tanlanmadi",
+      "featured": "Galereyada tanlangan"
+    }
+  },
+  "profile": {
+    "title": "Profil va mavjudlik",
+    "subtitle": "Maʼlumotlaringiz va qachon boʻshligingiz.",
+    "changePhoto": "Rasmni almashtirish",
+    "changePhotoToast": "Rasm yuklash — faqat koʻrinish.",
+    "identitySub": "Fotograf",
+    "fullName": "Toʻliq ism",
+    "specialty": "Mutaxassislik",
+    "bio": "Oʻzim haqimda",
+    "defaultSpecialty": "Tadbirlar · Portret",
+    "defaultBio": "San-Frantsiskodagi tadbir va tahririy fotograf. Dam olish kunlari boʻshman.",
+    "availabilityTitle": "Shu haftadagi mavjudlik",
+    "days": [
+      "Du",
+      "Se",
+      "Cho",
+      "Pa",
+      "Ju",
+      "Sha",
+      "Ya"
+    ],
+    "saved": "Profil saqlandi.",
+    "saveFailed": "Profilni saqlab boʻlmadi.",
+    "photoUploaded": "Foto yangilandi.",
+    "photoFailed": "Fotoni yuklab boʻlmadi.",
+    "gear": "Jihozlar",
+    "portfolioUrl": "Portfolio havolasi",
+    "portfolioPh": "https://portfolioingiz",
+    "public": "Ommaviy profil",
+    "from": "Dan",
+    "to": "Gacha",
+    "note": "Izoh",
+    "notePh": "Ixtiyoriy izoh",
+    "addWindow": "Qoʻshish",
+    "noWindows": "Mavjudlik oraliqlari yoʻq",
+    "noWindowsDesc": "Suratga olishga boʻsh vaqtlaringizni qoʻshing.",
+    "availabilityOrder": "Boshlanish vaqti tugash vaqtidan oldin boʻlishi kerak.",
+    "availabilityFailed": "Oraliqni qoʻshib boʻlmadi."
   },
   "topbar": {
     "searchPlaceholder": "Tadbir, fotograf qidirish…"
   },
   "command": {
-    "placeholder": "Tadbir, fotograf, amal qidirish…",
+    "placeholder": "Tadbir, mehmon, galereya, amalga oʻtish…",
     "quickActions": "Tezkor amallar",
     "createEvent": "Yangi tadbir yaratish",
     "events": "Tadbirlar",
     "noMatch": "«{{query}}» boʻyicha tadbir topilmadi.",
     "goDashboard": "Boshqaruv paneliga",
-    "navigate": "O‘tish"
+    "navigate": "O‘tish",
+    "invitePhotographer": "Fotograf taklif qilish"
   },
   "notifications": {
     "title": "Bildirishnomalar",
     "markAllRead": "Hammasini oʻqilgan deb belgilash",
-    "unread": "{{count}} ta yangi"
+    "unread": "{{count}} ta yangi",
+    "empty": "Hozircha bildirishnomalar yoʻq"
   },
   "account": {
     "settings": "Sozlamalar",
@@ -71,7 +238,7 @@
     "password": "Parol",
     "forgot": "Unutdingizmi?",
     "signIn": "Kirish",
-    "demoHint": "Demo: istalgan toʻgʻri email + 6+ belgili parol.",
+    "demoHint": "Roʻyxatdan oʻtgan telefon raqamingiz va parolingizdan foydalaning.",
     "noAccount": "Hisobingiz yoʻqmi?",
     "createOne": "Yaratish",
     "signInFailed": "Kirish amalga oshmadi.",
@@ -87,7 +254,7 @@
     "signInLink": "Kirish",
     "signUpFailed": "Roʻyxatdan oʻtish amalga oshmadi.",
     "resetPassword": "Parolni tiklash",
-    "resetSubtitle": "Yangi parol oʻrnatish uchun havola yuboramiz.",
+    "resetSubtitle": "Yangi parol oʻrnatish uchun telefoningizga kod yuboramiz.",
     "sendResetLink": "Havola yuborish",
     "requestFailed": "Soʻrov bajarilmadi.",
     "checkInbox": "Pochtangizni tekshiring",
@@ -95,18 +262,79 @@
     "backToSignIn": "Kirishga qaytish",
     "quote": "«Memolink 3 kunlik kuratsiyani bir kunga aylantirdi. Fotograflar yuklaydi, biz koʻrib chiqamiz, galereya yetkaziladi.»",
     "quoteRole": "Tadbir prodyuseri · JetBrains",
-    "copyright": "© 2026 Memolink · Korporativ tadbir platformasi"
+    "copyright": "© 2026 Memolink · Korporativ tadbir platformasi",
+    "phone": "Telefon raqami",
+    "phonePlaceholder": "998 90 123 45 67",
+    "otp": "Tasdiqlash kodi",
+    "otpPlaceholder": "5 xonali kod",
+    "firstName": "Ism",
+    "lastName": "Familiya",
+    "newPassword": "Yangi parol",
+    "createAccount": "Hisob yarating",
+    "createAccountBtn": "Hisob yaratish",
+    "sendCode": "Kod yuborish",
+    "updatePassword": "Parolni yangilash",
+    "resetConfirmSubtitle": "{{phone}} raqamiga yuborilgan kodni kiriting va yangi parol tanlang.",
+    "continue": "Davom etish",
+    "verifyCode": "Kodni tasdiqlash",
+    "resendCode": "Kodni qayta yuborish",
+    "changeNumber": "Raqamni o‘zgartirish",
+    "verifyPhoneSubtitle": "{{phone}} raqamiga yuborilgan kodni kiriting.",
+    "detailsSubtitle": "Yakunlash uchun bir nechta ma’lumot qoldi.",
+    "enterPasswordFor": "{{phone}} uchun parolingizni kiriting.",
+    "accountExists": "Bu raqam uchun hisob allaqachon mavjud.",
+    "noAccountForPhone": "Bu raqam uchun hisob topilmadi."
   },
   "dashboard": {
     "greeting": "Xayrli tong, {{name}}",
     "subtitle": "Bugun tadbirlaringizda nimalar boʻlayotgani.",
     "newEvent": "Yangi tadbir",
+    "createWithAi": "AI bilan tadbir yaratish",
+    "upcoming": "Yaqin tadbirlar",
+    "happeningNow": "Hozir bormoqda",
+    "tomorrow": "Ertaga",
+    "inDays": "{{count}} kundan keyin",
+    "rsvpPct": "{{pct}} toʻldi",
+    "pipeline": {
+      "label": "Tadbirlar oqimi",
+      "UPCOMING": "Boʻlajak",
+      "ONGOING": "Davom etmoqda",
+      "COMPLETED": "Yakunlangan",
+      "CANCELLED": "Bekor qilingan"
+    },
+    "tasks": {
+      "title": "Sizning vazifalaringiz",
+      "emptyTitle": "Hammasi joyida",
+      "emptyDesc": "Hozircha eʼtiboringizni talab qiladigan vazifa yoʻq.",
+      "types": {
+        "review": "{{count}} ta yangi yuklamani koʻrib chiqing",
+        "publish": "Galereyani eʼlon qiling",
+        "branding": "Galereya brendingini yakunlang",
+        "invite": "Fotograflarni taklif qiling"
+      }
+    },
+    "gallery": {
+      "title": "Mehmonlar lahzalarni qayta yashamoqda",
+      "subtitle": "Galereyalaringiz mehmonlarni Memolink’ga qaytaradi.",
+      "views": "Galereya koʻrishlari",
+      "downloads": "Yuklab olishlar",
+      "open": "Galereyalarni ochish →"
+    },
+    "recent": {
+      "title": "Galereyalaringizdan",
+      "subtitle": "Mehmonlaringiz ayni damda nimani koʻrayotgani va yuklayotgani.",
+      "viewGalleries": "Galereyalarni koʻrish →"
+    },
     "kpi": {
       "activeEvents": "Faol tadbirlar",
       "shootingToday": "Bugungi yangi media",
       "storageUsed": "Ishlatilgan xotira",
       "delivered": "Yetkazildi",
-      "totalMedia": "Jami media"
+      "totalMedia": "Jami media",
+      "upcoming": "Boʻlajak",
+      "completed": "Yakunlangan",
+      "attendees": "Jami ishtirokchilar",
+      "cancelled": "Bekor qilingan"
     },
     "liveActivity": "Jonli yuklash faolligi",
     "activity": "<0>{{name}}</0> <2>{{event}}</2> ga <1>{{count}} ta fayl</1> yukladi",
@@ -128,28 +356,27 @@
     "colEvent": "Tadbir",
     "colStatus": "Status",
     "colDate": "Sana",
-    "colAssets": "Fayllar",
-    "assets": "{{count}} ta fayl",
     "filters": {
       "all": "Barchasi",
-      "shooting": "Suratga olinmoqda",
-      "inReview": "Koʻrib chiqilmoqda",
-      "scheduled": "Rejalashtirilgan",
-      "delivered": "Yetkazilgan",
-      "draft": "Qoralama",
-      "archived": "Arxivlangan"
+      "upcoming": "Boʻlajak",
+      "ongoing": "Davom etmoqda",
+      "completed": "Yakunlangan",
+      "cancelled": "Bekor qilingan"
     },
     "comfortable": "Keng",
-    "compact": "Ixcham"
+    "compact": "Ixcham",
+    "attendees": "{{count}} ishtirokchi",
+    "attendees_other": "{{count}} ishtirokchi",
+    "full": "{{pct}} toʻldi",
+    "noCap": "Limitsiz",
+    "colCapacity": "Sigʻim",
+    "colAttendees": "Ishtirokchilar"
   },
   "eventStatus": {
-    "draft": "Qoralama",
-    "scheduled": "Rejalashtirilgan",
-    "live": "Jonli",
-    "shooting": "Suratga olinmoqda",
-    "in-review": "Koʻrib chiqilmoqda",
-    "delivered": "Yetkazilgan",
-    "archived": "Arxivlangan"
+    "UPCOMING": "Boʻlajak",
+    "ONGOING": "Davom etmoqda",
+    "COMPLETED": "Yakunlangan",
+    "CANCELLED": "Bekor qilingan"
   },
   "eventDetail": {
     "notFound": "Tadbir topilmadi",
@@ -159,7 +386,9 @@
     "deliver": "Yetkazish",
     "tabs": {
       "overview": "Umumiy",
+      "hosts": "Tashkilotchilar",
       "media": "Media",
+      "photographers": "Fotograflar",
       "agenda": "Dastur",
       "registrations": "Roʻyxatlar",
       "branding": "Brending",
@@ -181,32 +410,131 @@
       "openLibrary": "Ochish →",
       "kpiImages": "Rasmlar",
       "kpiVideos": "Videolar",
-      "kpiAudio": "Audio"
+      "kpiAudio": "Audio",
+      "kpiCapacity": "Sigʻim",
+      "kpiHosts": "Tashkilotchilar"
     },
     "media": {
       "noMediaTitle": "Bu koʻrinishda media yoʻq",
       "noMediaDesc": "Joriy filtrga mos fayl yoʻq. Fotograflarni taklif qiling yoki yuklash havolasini ulashing.",
-      "filterAll": "Barchasi"
+      "filterAll": "Barchasi",
+      "filterFeatured": "Tanlangan",
+      "filterProcessing": "Qayta ishlanmoqda",
+      "autoPublish": "Jamoangiz yuklagan har bir surat shu zahoti galereyada jonli boʻladi. Mehmonlar koʻrmasligi kerak boʻlgan narsani oʻchiring — istalgan vaqtda tiklash mumkin.",
+      "processing": "Qayta ishlanmoqda",
+      "select": "Tanlash",
+      "deselect": "Tanlovni bekor qilish",
+      "feature": "Tanlangan",
+      "removed": "Galereyadan oʻchirildi: {{count}}.",
+      "featured": "Tanlanganga qoʻshildi: {{count}}.",
+      "unfeatured": "Tanlangandan olib tashlandi: {{count}}.",
+      "curationInfo": "Har bir suratni koʻrib chiqing: nashr qilish uchun tasdiqlang, tepaga mahkamlash uchun tanlang yoki sabab bilan rad eting. Tahririy qarorlar NSFW moderatsiyasidan mustaqil.",
+      "stateUpdated": "Surat yangilandi.",
+      "bulkDone": "{{count}} ta surat yangilandi.",
+      "rejected": "{{count}} ta surat rad etildi.",
+      "rejectTitle": "Suratlarni rad etish",
+      "rejectDesc": "Ushbu suratlar nega tanlanmaganini bildiring. Sabab majburiy.",
+      "rejectReasonPh": "Rad etish sababi…"
     },
     "bulk": {
       "selected": "{{count}} ta tanlandi",
+      "feature": "Tanlangan",
       "download": "Yuklab olish",
+      "remove": "Oʻchirish",
       "delete": "Oʻchirish",
       "cancel": "Bekor qilish",
-      "deleted": "{{count}} ta fayl oʻchirildi."
+      "clear": "Tozalash",
+      "deleted": "{{count}} ta fayl oʻchirildi.",
+      "approve": "Tasdiqlash",
+      "reject": "Rad etish"
+    },
+    "hosts": {
+      "title": "Tashkilotchilar va hammualliflar",
+      "subtitle": "Egalar va hammualliflar tadbir, uning mediasi va yetkazib berishni boshqarishi mumkin. Har kimga aynan kerakli ruxsatni bering.",
+      "invite": "Hammuallif taklif qilish",
+      "inviteToast": "Hammuallif taklif qilish.",
+      "owner": "Egasi",
+      "you": "SIZ",
+      "ownerRole": "Egasi · toʻliq nazorat",
+      "cohostsCount": "Hammualliflar · {{count}}",
+      "accessLevels": "Ruxsat darajalari",
+      "roles": {
+        "owner": "Egasi",
+        "manager": "Menejer",
+        "editor": "Muharrir",
+        "viewer": "Kuzatuvchi"
+      },
+      "blurbs": {
+        "manager": "Media, yetkazib berish va boshqa hammualliflarni boshqaradi.",
+        "editor": "Mediani saralaydi va tadbir maʼlumotlarini tahrirlaydi.",
+        "viewer": "Faqat tadbir va galereyalarni koʻradi."
+      },
+      "status": {
+        "active": "Faol",
+        "pending": "Taklif yuborilgan"
+      }
+    },
+    "photographers": {
+      "title": "Bu tadbirni suratga oluvchi fotograflar",
+      "invite": "Taklif / Tayinlash",
+      "inviteToast": "Fotografni taklif qilish yoki tayinlash.",
+      "colPhotographer": "Fotograf",
+      "colStatus": "Status",
+      "colQuota": "Kvota",
+      "colUploads": "Yuklamalar",
+      "status": {
+        "invited": "Taklif qilingan",
+        "active": "Faol",
+        "done": "Tugatildi"
+      },
+      "assigned": "Fotograf tayinlandi.",
+      "assignFailed": "Fotografni tayinlab boʻlmadi.",
+      "emptyTitle": "Fotograflar tayinlanmagan",
+      "emptyDesc": "Bu tadbirni suratga olish uchun tashkilotingizdan fotograflar tayinlang.",
+      "assignStatus": {
+        "ACTIVE": "Faol",
+        "REMOVED": "Olib tashlangan"
+      },
+      "quotaValue": "{{count}} ta foto",
+      "unassignFailed": "Fotografni olib tashlab boʻlmadi.",
+      "assignTitle": "Fotograf tayinlash",
+      "assignDesc": "Fotografni tanlang va ixtiyoriy suratga olish kvotasini belgilang.",
+      "assign": "Tayinlash",
+      "noCandidates": "Tashkilotingizda hozircha fotograflar yoʻq.",
+      "photographerLabel": "Fotograf",
+      "quotaLabel": "Suratga olish kvotasi",
+      "quotaPh": "masalan 200"
     },
     "lightbox": {
       "fileSize": "Fayl hajmi",
       "captured": "{{time}} da olingan",
-      "shortcuts": "← → varaqlash · A/R/F qaror · Esc yopish",
+      "shortcuts": "F — tanlash · ⌫ — oʻchirish · ← → varaqlash · Esc yopish",
       "device": "Qurilma",
       "codec": "Kodek",
       "quality": "Sifat",
-      "downloadStarted": "Yuklab olish boshlandi."
+      "downloadStarted": "Yuklab olish boshlandi.",
+      "feature": "Tanlash",
+      "featured": "Tanlangan",
+      "featureNote": "Mehmonlar buni galereyada koʻradi. Yuqoriga mahkamlang yoki oʻchiring."
     },
     "agenda": {
       "schedule": "Jadval",
-      "addSession": "Sessiya qoʻshish"
+      "addSession": "Sessiya qoʻshish",
+      "emptyTitle": "Hozircha sessiyalar yoʻq",
+      "emptyDesc": "Ushbu tadbir uchun sessiyalar qoʻshib jadval tuzing.",
+      "addTrack": "Trek qoʻshish",
+      "timeOrder": "Boshlanish vaqti tugash vaqtidan oldin boʻlishi kerak.",
+      "sessionFailed": "Sessiyani yaratib boʻlmadi.",
+      "trackFailed": "Trekni yaratib boʻlmadi.",
+      "deleteFailed": "Sessiyani oʻchirib boʻlmadi.",
+      "sessionTitle": "Sessiya nomi",
+      "titlePh": "masalan Ochilish nutqi",
+      "startTime": "Boshlanish vaqti",
+      "endTime": "Tugash vaqti",
+      "track": "Trek",
+      "noTrack": "Treksiz",
+      "trackName": "Trek nomi",
+      "trackNamePh": "masalan Asosiy sahna"
     },
     "registrations": {
       "registered": "Roʻyxatdan oʻtgan",
@@ -229,7 +557,11 @@
       "saveBranding": "Brendingni saqlash",
       "saved": "Brending saqlandi.",
       "livePreview": "Jonli koʻrinish",
-      "welcomeTo": "{{name}} ga xush kelibsiz"
+      "welcomeTo": "{{name}} ga xush kelibsiz",
+      "primaryColor": "Asosiy rang",
+      "fontFamily": "Shrift",
+      "watermarkType": "Suv belgisi",
+      "loadError": "Brendingni yuklab bo‘lmadi."
     },
     "delivery": {
       "accessLevel": "Kirish darajasi",
@@ -254,7 +586,24 @@
       "previewAttendee": "Mehmon sifatida ko‘rish",
       "readyToPublish": "Eʼlon qilishga tayyor",
       "readyNote": "{{count}} media · brending o‘rnatilgan · {{access}}",
-      "previewToast": "Mehmon ko‘rinishi ochilmoqda…"
+      "previewToast": "Mehmon ko‘rinishi ochilmoqda…",
+      "noGalleryTitle": "Hozircha galereya yoʻq",
+      "noGalleryDesc": "Bu tadbirning mos mediasidan galereya yarating.",
+      "createGallery": "Galereya yaratish",
+      "galleryCreated": "Galereya yaratildi.",
+      "createFailed": "Galereyani yaratib boʻlmadi.",
+      "settingsSaved": "Galereya sozlamalari saqlandi.",
+      "saveFailed": "Galereyani saqlab boʻlmadi.",
+      "passwordLabel": "Parol",
+      "passwordPh": "Galereya parolini belgilang",
+      "inviteList": "Taklif qilingan manzillar",
+      "invitePh": "name@company.com",
+      "noInvites": "Ruxsat roʻyxatida hozircha manzillar yoʻq.",
+      "inviteFailed": "Manzilni qoʻshib boʻlmadi.",
+      "downloadEnabled": "Yuklab olishga ruxsat",
+      "downloadQuality": "Yuklab olish sifati",
+      "qualityWeb": "Veb",
+      "qualityFull": "Toʻliq oʻlcham"
     },
     "analytics": {
       "performance": "Samaradorlik",
@@ -268,7 +617,15 @@
       "topContributors": "Eng faol fotograflar",
       "assets": "{{count}} ta fayl",
       "mediaMix": "Media tarkibi",
-      "vsAverage": "o‘rtachadan {{pct}} yuqori"
+      "vsAverage": "o‘rtachadan {{pct}} yuqori",
+      "checkedIn": "Ro‘yxatdan o‘tgan",
+      "rsvpBreakdown": "RSVP taqsimoti",
+      "rsvps": "RSVP",
+      "photographerContributions": "Fotograflar hissasi",
+      "deliveredCount": "{{count}} yetkazildi",
+      "noData": "Hozircha ma’lumot yo‘q.",
+      "noPhotographers": "Hozircha fotograf faoliyati yo‘q.",
+      "loadError": "Tahlilni yuklab bo‘lmadi."
     },
     "settings": {
       "eventDetails": "Tadbir maʼlumotlari",
@@ -292,6 +649,93 @@
     "Speaker": "Spiker",
     "Standard": "Standart",
     "Staff": "Xodim"
+  },
+  "create": {
+    "back": "Tadbirlarga qaytish",
+    "newEvent": "Yangi tadbir",
+    "title": "AI bilan tadbir yarating",
+    "subhead": "Tadbiringizni bir jumlada tasvirlang. Memolink tafsilotlar, dastur, muqova va roʻyxatni tayyorlaydi — siz faqat sayqal berasiz.",
+    "promptPlaceholder": "masalan, 18-iyulda Toshkentda 500 kishilik texkonferensiya, ikki sahna va vorkshop treki",
+    "attach": "Brif biriktiring yoki havola joylang",
+    "generate": "Tadbir yaratish",
+    "examples": [
+      "800 kishilik ikki kunlik dasturchilar konferensiyasi, vorkshoplar bilan",
+      "Jonli efirli kechki mahsulot taqdimoti",
+      "Amaliy dizayn vorkshopi, 40 oʻrin, pullik chiptalar"
+    ],
+    "checks": {
+      "agenda": "Dastur tayyor",
+      "cover": "Muqova va mavzu",
+      "registration": "Roʻyxat tayyor"
+    },
+    "startScratch": "yoki boʻsh tadbirdan boshlang →",
+    "backToAi": "AI bilan yaratish",
+    "sampleDesc": "Hamjamiyatimiz uchun unutilmas uchrashuv — maʼruzalar, vorkshoplar va muloqot uchun vaqt.",
+    "generating": {
+      "title": "Tadbiringiz tayyorlanmoqda…",
+      "steps": {
+        "understand": "Brifingiz tahlil qilinmoqda",
+        "agenda": "Dastur tuzilmoqda",
+        "cover": "Muqova va mavzu yaratilmoqda",
+        "registration": "Roʻyxat sozlanmoqda"
+      }
+    },
+    "aiDraft": "AI qoralamasi",
+    "reviewRefine": "Koʻrib chiqing va sayqal bering — hammasi tahrirlanadi",
+    "suggested": "Tavsiya etilgan",
+    "basics": {
+      "title": "Asosiy",
+      "name": "Tadbir nomi",
+      "namePh": "masalan, Kotlin Conf 2026",
+      "description": "Tavsif",
+      "startDate": "Boshlanish sanasi",
+      "days": "Kunlar",
+      "runs": "{{range}} davom etadi",
+      "startTime": "Boshlanish vaqti",
+      "timezone": "Vaqt mintaqasi",
+      "venue": "Joy / manzil",
+      "venuePh": "masalan, Tashkent Expo Center"
+    },
+    "cover": {
+      "title": "Muqova va mavzu",
+      "drop": "Muqova rasmini torting",
+      "dropHint": "1920×1080 · yoki AI yaratsin",
+      "accent": "Aksent rangi"
+    },
+    "agenda": {
+      "title": "Dastur",
+      "add": "Qoʻshish",
+      "titlePh": "Sessiya nomi",
+      "track": "Trek"
+    },
+    "access": {
+      "title": "Roʻyxat va kirish",
+      "capacity": "Sigʻim",
+      "registration": "Roʻyxat",
+      "openToPublic": "Hammaga ochiq",
+      "ticketTypes": "Chipta turlari",
+      "addTicket": "Qoʻshish",
+      "galleryVisibility": "Galereya koʻrinishi (tadbirdan keyin)",
+      "publicLink": "Ommaviy havola",
+      "publicLinkDesc": "Roʻyxatdan oʻtganlar koʻradi va yuklab oladi",
+      "inviteOnly": "Faqat taklif bilan",
+      "inviteOnlyDesc": "Faqat siz yuklagan email roʻyxati"
+    },
+    "preview": {
+      "live": "Jonli koʻrinish",
+      "caption": "Mehmonlar galereya havolasini ochganda shuni koʻradi."
+    },
+    "refine": {
+      "placeholder": "AI’dan oʻzgartirishni soʻrang — “ikki kun qil”, “vorkshop treki qoʻsh”",
+      "updated": "Yangilandi",
+      "send": "Yuborish"
+    },
+    "createEvent": "Tadbir yaratish",
+    "creating": "Tadbir yaratilmoqda…",
+    "aiRateLimited": "AI so‘rovlari ko‘p. {{seconds}} soniyadan so‘ng urinib ko‘ring.",
+    "aiDisabled": "AI qoralama hozircha mavjud emas — bo‘sh tadbirdan boshlaymiz.",
+    "generateFailed": "Qoralama yaratib bo‘lmadi. Qayta urinib ko‘ring.",
+    "createFailed": "Tadbir yaratib bo‘lmadi. Qayta urinib ko‘ring."
   },
   "builder": {
     "createEvent": "Tadbir yaratish",
@@ -360,6 +804,25 @@
       "networkingDesc": "Ishtirokchilarni bogʻlash va xabarlar",
       "livestream": "Jonli efir",
       "livestreamDesc": "Sessiyalarni onlayn translatsiya qilish"
+    },
+    "location": {
+      "venue": "Joy nomi",
+      "venuePh": "masalan, Tashkent Expo Center",
+      "address": "Manzil",
+      "addressPh": "Ko‘cha, shahar",
+      "searchPh": "Manzil yoki joyni qidiring",
+      "addressSearchHint": "Yozing — joy xaritada belgilanadi.",
+      "useMyLocation": "Mening joylashuvim",
+      "notFound": "Bu manzil topilmadi.",
+      "geoUnsupported": "Bu brauzer geolokatsiyani qo‘llab-quvvatlamaydi.",
+      "geoDenied": "Joylashuvingizni aniqlab bo‘lmadi.",
+      "mapUnavailable": "Xarita mavjud emas — manzilni qo‘lda kiriting."
+    },
+    "cover": {
+      "upload": "Muqova rasmini yuklash",
+      "hint": "JPG yoki PNG, 10 MB gacha",
+      "notImage": "Iltimos, rasm faylini tanlang.",
+      "tooLarge": "Rasm juda katta (maks. 10 MB)."
     },
     "brandingStep": {
       "coverImage": "Muqova rasmi",
@@ -487,14 +950,30 @@
     "roles": {
       "admin": "Admin",
       "coordinator": "Koordinator",
-      "photographer": "Fotograf"
+      "photographer": "Fotograf",
+      "ADMIN": "Administrator",
+      "COORDINATOR": "Koordinator",
+      "PHOTOGRAPHER": "Fotograf",
+      "STAFF": "Xodim"
     },
     "perms": {
       "createEvents": "Tadbir yaratish va tahrirlash",
       "curate": "Mediani kuratsiya va yetkazish",
       "manageTeam": "Jamoa va toʻlovlarni boshqarish",
       "upload": "Media yuklash"
-    }
+    },
+    "invited": "{{email}} manziliga taklif yuborildi.",
+    "inviteFailed": "Taklifni yuborib boʻlmadi.",
+    "roleFailed": "Rolni oʻzgartirib boʻlmadi.",
+    "removeFailed": "Aʼzoni oʻchirib boʻlmadi.",
+    "noMembers": "Hozircha aʼzolar yoʻq.",
+    "pendingInvites": "Kutilayotgan takliflar",
+    "pending": "Kutilmoqda",
+    "inviteTitle": "Aʼzo taklif qilish",
+    "inviteDesc": "Tashkilotga qoʻshilish uchun taklif yuboring.",
+    "emailLabel": "Elektron pochta manzili",
+    "emailPh": "name@company.com",
+    "roleLabel": "Rol"
   },
   "billing": {
     "title": "Toʻlovlar",
@@ -513,7 +992,29 @@
     "storageUsage": "Xotira foydalanishi",
     "storageNote": "Tarifingizning {{percent}}% barcha tadbirlar boʻyicha ishlatilgan.",
     "invoices": "Hisob-fakturalar",
-    "paid": "Toʻlangan"
+    "paid": "Toʻlangan",
+    "currentPlan": "Joriy tarif",
+    "managePlan": "Tarifni boshqarish",
+    "usage": "Foydalanish",
+    "changeTier": "Tarifni o‘zgartirish",
+    "applyTier": "Tarifni qo‘llash",
+    "tierChanged": "Obuna yangilandi.",
+    "changeFailed": "Tarifni o‘zgartirib bo‘lmadi.",
+    "loadError": "Billingni yuklab bo‘lmadi.",
+    "unlimited": "Cheksiz",
+    "remaining": "{{value}} qoldi",
+    "tiers": {
+      "DEFAULT": "Standart",
+      "FREE": "Bepul",
+      "PRO": "Pro",
+      "ENTERPRISE": "Korporativ"
+    },
+    "meters": {
+      "storage": "Xotira",
+      "events": "Tadbirlar",
+      "photographers": "Fotograflar",
+      "galleries": "Galereyalar"
+    }
   },
   "orgBranding": {
     "title": "Brending",
@@ -526,7 +1027,37 @@
     "brandPalette": "Brend palitrasi",
     "displayFont": "Sarlavha shrifti",
     "galleryThemes": "Galereya mavzulari",
-    "default": "Standart"
+    "default": "Standart",
+    "save": "Brend to‘plamini saqlash",
+    "saved": "Brending saqlandi.",
+    "saveFailed": "Brendingni saqlab bo‘lmadi.",
+    "loadError": "Brendingni yuklab bo‘lmadi.",
+    "logoUploaded": "Logotip yuklandi.",
+    "primaryColor": "Asosiy rang",
+    "accentColorLabel": "Urg‘u rangi",
+    "watermarkType": "Suv belgisi",
+    "watermarkText": "Suv belgisi matni",
+    "watermarkOpacity": "Belgi shaffofligi",
+    "watermarkPosition": "Belgi joylashuvi",
+    "invalidHex": "#RRGGBB hex rangidan foydalaning",
+    "templates": "Shablonlar",
+    "templateNamePh": "Shablon nomi",
+    "createTemplate": "Yaratish",
+    "templateCreated": "Shablon yaratildi.",
+    "templateApplied": "Shablon qo‘llandi.",
+    "noTemplates": "Hozircha shablon yo‘q. Joriy to‘plamdan yarating.",
+    "watermark": {
+      "NONE": "Yo‘q",
+      "TEXT": "Matn",
+      "IMAGE": "Rasm"
+    },
+    "position": {
+      "CENTER": "Markaz",
+      "TOP_LEFT": "Yuqori chap",
+      "TOP_RIGHT": "Yuqori o‘ng",
+      "BOTTOM_LEFT": "Past chap",
+      "BOTTOM_RIGHT": "Past o‘ng"
+    }
   },
   "orgDelivery": {
     "title": "Yetkazish",
@@ -537,7 +1068,12 @@
     "draft": "Qoralama",
     "copyLink": "Havolani nusxalash",
     "openGallery": "Galereyani ochish",
-    "linkCopied": "Havola nusxalandi."
+    "linkCopied": "Havola nusxalandi.",
+    "shareType": {
+      "PUBLIC": "Ommaviy",
+      "PASSWORD": "Parol bilan",
+      "INVITE_ONLY": "Taklif boʻyicha"
+    }
   },
   "orgAnalytics": {
     "title": "Analitika",
@@ -550,7 +1086,15 @@
     "mediaOverTime": "Vaqt boʻyicha yigʻilgan media",
     "last12weeks": "soʻnggi 12 hafta",
     "leaderboard": "Eng faol ishtirokchilar",
-    "topEventsByMedia": "Media boʻyicha top tadbirlar"
+    "topEventsByMedia": "Media boʻyicha top tadbirlar",
+    "totalViews": "Jami ko‘rishlar",
+    "totalDownloads": "Jami yuklab olishlar",
+    "uniqueVisitors": "Noyob tashrifchilar",
+    "totalEvents": "Jami tadbirlar",
+    "viewsPerEvent": "Tadbir bo‘yicha ko‘rishlar",
+    "topEventsByViews": "Ko‘rishlar bo‘yicha top tadbirlar",
+    "noData": "Hozircha ma’lumot yo‘q.",
+    "loadError": "Tahlilni yuklab bo‘lmadi."
   },
   "orgSettings": {
     "title": "Sozlamalar",
@@ -605,6 +1149,50 @@
   "onboarding": {
     "title": "Memolink’ga xush kelibsiz 👋",
     "subtitle": "Birinchi tadbiringizni yarating va media yig‘ishni boshlang.",
+    "welcome": "Xush kelibsiz, {{name}}",
+    "heroSubtitle": "Birinchi tadbiringizni yarating, odamlaringizni taklif qiling va hammaga qayta-qayta qaytadigan goʻzal galereyalar bering.",
+    "createWithAi": "AI bilan tadbir yaratish",
+    "orTemplate": "Yoki shablondan boshlang",
+    "templates": {
+      "conference": {
+        "label": "Konferensiya",
+        "desc": "Koʻp trekli, koʻp kunlik"
+      },
+      "meetup": {
+        "label": "Uchrashuv",
+        "desc": "Erkin hamjamiyat kechasi"
+      },
+      "workshop": {
+        "label": "Vorkshop",
+        "desc": "Amaliy, joylar cheklangan"
+      },
+      "party": {
+        "label": "Bayram",
+        "desc": "Lahzani nishonlang"
+      },
+      "launch": {
+        "label": "Mahsulot taqdimoti",
+        "desc": "Taqdimot va jonli efir"
+      },
+      "webinar": {
+        "label": "Vebinar",
+        "desc": "Onlayn, roʻyxatdan oʻtish bilan"
+      }
+    },
+    "features": {
+      "invite": {
+        "title": "Taklif va RSVP",
+        "desc": "Takliflar yuboring va kim kelishini kuzating."
+      },
+      "tickets": {
+        "title": "Bepul va pullik chiptalar",
+        "desc": "Chipta soting yoki bepul RSVP yigʻing."
+      },
+      "galleries": {
+        "title": "Goʻzal galereyalar",
+        "desc": "Mehmonlar kunni qayta yashaydi va qaytadi."
+      }
+    },
     "step1": "Tadbir yaratish",
     "step1desc": "Asoslar va imkoniyatlar",
     "step2": "Media yuklash",
@@ -612,5 +1200,39 @@
     "step3": "Galereyani yetkazish",
     "step3desc": "Brending va havola",
     "cta": "Birinchi tadbirni yaratish"
+  },
+  "inviteCohost": {
+    "title": "Hammualliflar taklif qilish",
+    "subtitle": "«{{name}}»ni oʻtkazishga yordam berish uchun odamlarga ruxsat bering.",
+    "emailLabel": "Email manzil",
+    "emailPh": "name@company.com",
+    "emailHint": "Bir nechta odam qoʻshish uchun Enter yoki vergul bosing.",
+    "suggested": "Tavsiya etiladi",
+    "permissionLevel": "Ruxsat darajasi",
+    "whatTheyCanDo": "Ular nima qila oladi",
+    "messageLabel": "Xabar qoʻshish (ixtiyoriy)",
+    "messagePh": "Salom! Ushbu tadbirni oʻtkazishda yordamingiz juda asqotardi…",
+    "copyLink": "Taklif havolasini nusxalash",
+    "linkCopied": "Taklif havolasi nusxalandi.",
+    "send": "Takliflarni yuborish",
+    "sentTitle": "Takliflar yuborildi",
+    "sentDesc": "Ular «{{name}}»ga qoʻshilish uchun xavfsiz havola bilan email oladi.",
+    "inviteMore": "Yana taklif qilish",
+    "done": "Tayyor",
+    "pending": "Kutilmoqda",
+    "perms": {
+      "curate": "Mediani saralash va tanlash",
+      "invite": "Hammualliflar taklif qilish",
+      "editDetails": "Tadbir maʼlumotlarini tahrirlash",
+      "delivery": "Galereyalarni eʼlon qilish va yetkazish",
+      "analytics": "Tahlilni koʻrish",
+      "delete": "Tadbirni oʻchirish"
+    }
+  },
+  "curationState": {
+    "PENDING": "Koʻrib chiqilmoqda",
+    "APPROVED": "Tasdiqlangan",
+    "REJECTED": "Rad etilgan",
+    "FEATURED": "Tanlangan"
   }
 }

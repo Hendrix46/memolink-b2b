@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-import type { AgendaDraftItem, CustomField, EventDraft, ModuleKey, TicketTier } from './types';
+import type { AgendaDraftItem, CustomField, EventDraft, ModuleKey } from './types';
 
 let uid = 0;
 const nextId = (prefix: string) => `${prefix}_${(uid += 1)}`;
@@ -15,7 +15,7 @@ function createInitialDraft(): EventDraft {
     endDate: '',
     startTime: '09:00',
     endTime: '18:00',
-    timezone: 'Europe/Berlin',
+    timezone: 'Asia/Tashkent',
     locationType: 'in-person',
     venue: '',
     address: '',
@@ -30,7 +30,6 @@ function createInitialDraft(): EventDraft {
     modules: {
       agenda: true,
       registrations: true,
-      tickets: false,
       mediaGallery: true,
       qrCheckIn: false,
       delivery: true,
@@ -42,7 +41,6 @@ function createInitialDraft(): EventDraft {
     capacity: 500,
     requireApproval: false,
 
-    ticketTiers: [],
     customFields: [],
     agenda: [],
   };
@@ -57,10 +55,6 @@ interface EventDraftState {
 
   addTag: (tag: string) => void;
   removeTag: (tag: string) => void;
-
-  addTier: () => void;
-  updateTier: (id: string, patch: Partial<TicketTier>) => void;
-  removeTier: (id: string) => void;
 
   addField: () => void;
   updateField: (id: string, patch: Partial<CustomField>) => void;
@@ -92,23 +86,6 @@ export const useEventDraftStore = create<EventDraftState>((set) => ({
       return { draft: { ...s.draft, tags: [...s.draft.tags, clean] } };
     }),
   removeTag: (tag) => set((s) => ({ draft: { ...s.draft, tags: s.draft.tags.filter((t) => t !== tag) } })),
-
-  addTier: () =>
-    set((s) => ({
-      draft: {
-        ...s.draft,
-        ticketTiers: [
-          ...s.draft.ticketTiers,
-          { id: nextId('tier'), name: '', price: 0, quantity: 100, perks: '' },
-        ],
-      },
-    })),
-  updateTier: (id, patch) =>
-    set((s) => ({
-      draft: { ...s.draft, ticketTiers: s.draft.ticketTiers.map((t) => (t.id === id ? { ...t, ...patch } : t)) },
-    })),
-  removeTier: (id) =>
-    set((s) => ({ draft: { ...s.draft, ticketTiers: s.draft.ticketTiers.filter((t) => t.id !== id) } })),
 
   addField: () =>
     set((s) => ({

@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 
 import { AccountMenu } from '@/features/auth';
 import { SearchTrigger } from '@/features/command-palette';
+import { LensSwitcher } from '@/features/lens-switch';
 import { LanguageSwitcher } from '@/features/locale-switch';
 import { NotificationBell } from '@/features/notifications';
 import { paths } from '@/shared/config/paths';
@@ -21,6 +22,7 @@ export function Topbar() {
 
       <div className="flex-1" />
 
+      <LensSwitcher />
       <LanguageSwitcher />
       <NotificationBell />
       <AccountMenu />

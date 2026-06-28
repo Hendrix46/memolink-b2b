@@ -1,68 +1,114 @@
-import type { Viewer } from '@/entities/session';
-import { ApiError, resolve } from '@/shared/api/mock-client';
+import type { AuthTokens } from '@/entities/session';
+import { http, type RequestOptions } from '@/shared/api';
 
-export interface Credentials {
-  email: string;
+/** Public auth endpoints carry no bearer token. */
+const PUBLIC: RequestOptions = { skipAuth: true };
+
+export interface LoginInput {
+  phoneNumber: string;
   password: string;
 }
 
-export interface RegisterInput extends Credentials {
-  name: string;
-  workspace: string;
+export interface RegisterInput {
+  phoneNumber: string;
+  firstName: string;
+  lastName: string;
+  password: string;
+  /** Phone-verification code (sent out-of-band, entered by the user). */
+  verificationToken: string;
 }
 
-/** Derive a display name from an email local-part when none is provided. */
-function nameFromEmail(email: string): string {
-  const local = email.split('@')[0] ?? 'there';
-  return local
-    .split(/[._-]+/)
-    .filter(Boolean)
-    .map((p) => p[0]?.toUpperCase() + p.slice(1))
-    .join(' ');
+export interface VerifyPhoneInput {
+  phoneNumber: string;
+  otp: string;
 }
 
-function buildViewer(email: string, name: string, workspace: string): Viewer {
-  return {
-    id: `u_${email}`,
-    name,
-    email,
-    orgRole: 'admin',
-    workspace: {
-      id: 'ws',
-      name: workspace,
-      mark: workspace.slice(0, 2).toUpperCase(),
-    },
-  };
+export interface ResetPasswordInput {
+  phoneNumber: string;
+  otp: string;
+  newPassword: string;
+}
+
+/** Whether the phone already has an account — drives login vs. register branching. */
+export type UserType = 'NEW_USER' | 'EXISTS_USER';
+
+export type AccountStatus =
+  | 'CREATED'
+  | 'PENDING'
+  | 'ACTIVE'
+  | 'BLOCKED'
+  | 'DELETED'
+  | 'PENDING_DELETION';
+
+/** Result of `/api/auth/user-type-check`. The call also sends an OTP for NEW_USER. */
+export interface UserTypeCheckResult {
+  userType: UserType;
+  /** OTP time-to-live, in seconds. */
+  ttl?: number;
+  /** Present only when the account is in PENDING_DELETION (restore prompt). */
+  accountStatus?: AccountStatus | null;
+  /** Scheduled hard-purge timestamp; set only for PENDING_DELETION. */
+  purgeAt?: string | null;
+}
+
+/** Result of `/api/auth/verify-phone-number` — the token consumed by register. */
+export interface VerifyPhoneResult {
+  verificationToken: string;
+}
+
+/** Shape returned by `/api/auth/register`. */
+export interface RegisterResult {
+  userId: string;
+  phoneNumber: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  status: string;
+}
+
+/** Shape returned by `/api/user/me`. */
+export interface MeResponse {
+  userId: string;
+  phoneNumber: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  avatarUrl: string | null;
+  status: string;
+  dateCreated: string;
+  dateUpdated: string;
 }
 
 /**
- * Mock auth. No real backend (design spec §11) — this validates shape and
- * simulates the wire so the login/register flows, their loading and error
- * states behave exactly as they will against the real Memolink auth service.
+ * Live Memolink auth client. The `/api/auth/*` calls are public (no bearer);
+ * `/api/user/me` requires the access token, which the HTTP client attaches
+ * automatically from `authToken`.
  */
 export const authApi = {
-  login({ email, password }: Credentials): Promise<Viewer> {
-    return resolve(() => {
-      if (!email.includes('@') || password.length < 6) {
-        throw new ApiError('Invalid email or password.', 401);
-      }
-      return buildViewer(email, nameFromEmail(email), 'JetBrains');
-    }, { delay: [500, 900] });
-  },
+  /**
+   * Step 1 of both login and register: checks whether the phone is known and,
+   * for a NEW_USER, triggers an OTP. Re-calling this is also how an OTP resend
+   * works.
+   */
+  userTypeCheck: (phoneNumber: string) =>
+    http.post<UserTypeCheckResult>('/api/auth/user-type-check', { phoneNumber }, PUBLIC),
 
-  register({ email, password, name, workspace }: RegisterInput): Promise<Viewer> {
-    return resolve(() => {
-      if (!email.includes('@') || password.length < 6) {
-        throw new ApiError('Please provide a valid email and a password of 6+ characters.', 400);
-      }
-      return buildViewer(email, name || nameFromEmail(email), workspace || 'My Workspace');
-    }, { delay: [600, 1000] });
-  },
+  login: (body: LoginInput) => http.post<AuthTokens>('/api/auth/login', body, PUBLIC),
 
-  requestPasswordReset(email: string): Promise<{ ok: true }> {
-    return resolve(() => {
-      if (!email.includes('@')) throw new ApiError('Enter a valid email address.', 400);
-      return { ok: true } as const;
-    }, { delay: [400, 800] });
-  },
+  register: (body: RegisterInput) => http.post<RegisterResult>('/api/auth/register', body, PUBLIC),
+
+  refresh: (refreshToken: string) =>
+    http.post<AuthTokens>('/api/auth/refresh', { refreshToken }, PUBLIC),
+
+  /** Exchanges the SMS OTP for a single-use `verificationToken` for register. */
+  verifyPhone: (body: VerifyPhoneInput) =>
+    http.post<VerifyPhoneResult>('/api/auth/verify-phone-number', body, PUBLIC),
+
+  prepareResetPassword: (phoneNumber: string) =>
+    http.post<void>('/api/auth/prepare-reset-password', { phoneNumber }, PUBLIC),
+
+  resetPassword: (body: ResetPasswordInput) =>
+    http.post<void>('/api/auth/reset-password', body, PUBLIC),
+
+  me: () => http.get<MeResponse>('/api/user/me'),
 };

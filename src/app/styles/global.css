@@ -232,6 +232,48 @@
   border-radius: 8px;
 }
 
+/* Google Places Autocomplete — themed to the Memolink dark palette */
+.pac-container {
+  margin-top: 6px;
+  padding: 4px;
+  background: var(--color-surface-raised);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-control);
+  box-shadow: var(--shadow-pop);
+  font-family: var(--font-sans);
+  overflow: hidden;
+}
+.pac-container .pac-item {
+  padding: 8px 10px;
+  border: 0;
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.35;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+}
+.pac-container .pac-item:hover,
+.pac-container .pac-item-selected {
+  background: var(--color-surface-hover);
+}
+.pac-container .pac-item-query {
+  font-size: 13.5px;
+  color: var(--color-text);
+}
+.pac-container .pac-matched {
+  font-weight: 600;
+  color: var(--color-text);
+}
+.pac-container .pac-icon {
+  margin-right: 9px;
+  filter: invert(0.65);
+}
+/* Keep the required "powered by Google" attribution, blended onto the surface */
+.pac-container::after {
+  background-color: var(--color-surface-raised);
+  margin: 4px 6px 2px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

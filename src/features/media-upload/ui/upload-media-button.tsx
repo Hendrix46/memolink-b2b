@@ -1,22 +1,19 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Image, Music2, UploadCloud, Video, X } from 'lucide-react';
 
-import { useViewer } from '@/entities/session';
 import { useUploadMedia, type MediaType } from '@/entities/media';
 import { Button, Modal, toast } from '@/shared/ui';
 import { cn } from '@/shared/lib/cn';
 
 const TYPE_ICON: Record<MediaType, typeof Image> = { image: Image, video: Video, audio: Music2 };
-const TYPES: MediaType[] = ['image', 'video', 'audio'];
 
-interface Pending {
-  id: number;
-  type: MediaType;
-  name: string;
+/** Derive the gallery media type from a picked file's MIME type. */
+function typeOf(file: File): MediaType {
+  if (file.type.startsWith('video/')) return 'video';
+  if (file.type.startsWith('audio/')) return 'audio';
+  return 'image';
 }
-
-let seq = 0;
 
 /**
  * Organizer self-upload (image / video / audio). The enterprise team uploads
@@ -24,42 +21,33 @@ let seq = 0;
  */
 export function UploadMediaButton({ eventId }: { eventId: string }) {
   const { t } = useTranslation();
-  const viewer = useViewer();
   const upload = useUploadMedia(eventId);
   const [open, setOpen] = useState(false);
-  const [pending, setPending] = useState<Pending[]>([]);
+  const [files, setFiles] = useState<File[]>([]);
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  const addOne = (type: MediaType) => {
-    seq += 1;
-    const ext = type === 'image' ? 'jpg' : type === 'video' ? 'mp4' : 'wav';
-    setPending((p) => [...p, { id: seq, type, name: `${type}_${4000 + seq}.${ext}` }]);
+  const addFiles = (picked: FileList | null) => {
+    if (!picked) return;
+    setFiles((prev) => [...prev, ...Array.from(picked)]);
   };
 
-  const addMix = () => {
-    addOne('image');
-    addOne('image');
-    addOne('video');
-    addOne('audio');
-  };
-
-  const remove = (id: number) => setPending((p) => p.filter((x) => x.id !== id));
+  const removeAt = (index: number) => setFiles((prev) => prev.filter((_, i) => i !== index));
 
   const reset = () => {
-    setPending([]);
+    setFiles([]);
     setOpen(false);
+    if (inputRef.current) inputRef.current.value = '';
   };
 
   const submit = () => {
-    upload.mutate(
-      pending.map((p) => ({ type: p.type, uploadedBy: viewer.name })),
-      {
-        onSuccess: (created) => {
-          toast.success(t('mediaUpload.uploaded', { count: created.length }));
-          reset();
-        },
-        onError: () => toast.error(t('mediaUpload.failed')),
+    const count = files.length;
+    upload.mutate(files, {
+      onSuccess: () => {
+        toast.success(t('mediaUpload.uploaded', { count }));
+        reset();
       },
-    );
+      onError: () => toast.error(t('mediaUpload.failed')),
+    });
   };
 
   return (
@@ -79,15 +67,24 @@ export function UploadMediaButton({ eventId }: { eventId: string }) {
             <Button variant="secondary" onClick={reset}>
               {t('common.cancel')}
             </Button>
-            <Button variant="primary" loading={upload.isPending} disabled={pending.length === 0} onClick={submit}>
-              {t('mediaUpload.uploadCount', { count: pending.length })}
+            <Button variant="primary" loading={upload.isPending} disabled={files.length === 0} onClick={submit}>
+              {t('mediaUpload.uploadCount', { count: files.length })}
             </Button>
           </>
         }
       >
+        <input
+          ref={inputRef}
+          type="file"
+          multiple
+          accept="image/*,video/*,audio/*"
+          className="hidden"
+          onChange={(e) => addFiles(e.target.files)}
+        />
+
         <button
           type="button"
-          onClick={addMix}
+          onClick={() => inputRef.current?.click()}
           className={cn(
             'flex w-full flex-col items-center gap-2.5 rounded-[14px] border-[1.5px] border-dashed border-border-strong px-5 py-8 text-center transition-colors',
             'bg-[linear-gradient(180deg,rgba(109,94,246,0.05),transparent)] hover:border-accent',
@@ -100,37 +97,22 @@ export function UploadMediaButton({ eventId }: { eventId: string }) {
           <span className="text-xs text-text-muted">{t('mediaUpload.formats')}</span>
         </button>
 
-        {/* Add a single asset of a specific type */}
-        <div className="mt-3 flex gap-2">
-          {TYPES.map((type) => {
-            const Icon = TYPE_ICON[type];
-            return (
-              <button
-                key={type}
-                type="button"
-                onClick={() => addOne(type)}
-                className="flex flex-1 items-center justify-center gap-2 rounded-[10px] border border-border bg-surface py-2.5 text-[12.5px] font-medium text-text-secondary transition-colors hover:border-border-strong hover:text-text"
-              >
-                <Icon size={15} />
-                {t(`media.type.${type}`)}
-              </button>
-            );
-          })}
-        </div>
-
-        {pending.length > 0 && (
+        {files.length > 0 && (
           <div className="mt-4 max-h-[200px] space-y-2 overflow-y-auto">
-            {pending.map((p) => {
-              const Icon = TYPE_ICON[p.type];
+            {files.map((file, i) => {
+              const Icon = TYPE_ICON[typeOf(file)];
               return (
-                <div key={p.id} className="flex items-center gap-3 rounded-[10px] border border-border bg-surface px-3 py-2">
+                <div
+                  key={`${file.name}-${i}`}
+                  className="flex items-center gap-3 rounded-[10px] border border-border bg-surface px-3 py-2"
+                >
                   <span className="flex size-8 flex-none items-center justify-center rounded-lg bg-surface-raised text-text-secondary">
                     <Icon size={15} />
                   </span>
-                  <span className="flex-1 truncate text-[13px] font-medium">{p.name}</span>
+                  <span className="flex-1 truncate text-[13px] font-medium">{file.name}</span>
                   <button
                     aria-label={t('common.remove')}
-                    onClick={() => remove(p.id)}
+                    onClick={() => removeAt(i)}
                     className="flex size-7 flex-none items-center justify-center rounded-md text-text-muted hover:bg-surface-hover hover:text-text"
                   >
                     <X size={14} />

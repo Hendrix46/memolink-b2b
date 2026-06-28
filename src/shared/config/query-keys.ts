@@ -11,17 +11,42 @@ export const queryKeys = {
     detail: (eventId: string) => ['events', 'detail', eventId] as const,
     media: (eventId: string, filters?: object) =>
       ['events', 'media', eventId, filters ?? {}] as const,
-    photographers: (eventId: string) => ['events', 'photographers', eventId] as const,
+    photographers: (eventId: string, includeRemoved = false) =>
+      ['events', 'photographers', eventId, includeRemoved] as const,
+    analytics: (eventId: string) => ['events', 'analytics', eventId] as const,
+    branding: (eventId: string) => ['events', 'branding', eventId] as const,
+    galleries: (eventId: string) => ['events', 'galleries', eventId] as const,
+    agenda: (eventId: string) => ['events', 'agenda', eventId] as const,
   },
 
   photographer: {
     assignments: ['photographer', 'assignments'] as const,
     uploads: (eventId?: string) => ['photographer', 'uploads', eventId ?? 'all'] as const,
+    profile: ['photographer', 'profile'] as const,
+    availability: ['photographer', 'availability'] as const,
+  },
+
+  notifications: {
+    list: (unreadOnly = false) => ['notifications', 'list', unreadOnly] as const,
+    stats: ['notifications', 'stats'] as const,
+  },
+
+  gallery: {
+    detail: (galleryId: string) => ['gallery', 'detail', galleryId] as const,
+    invites: (galleryId: string) => ['gallery', 'invites', galleryId] as const,
   },
 
   org: {
-    photographers: ['org', 'photographers'] as const,
+    photographers: (orgId: string) => ['org', 'photographers', orgId] as const,
     team: ['org', 'team'] as const,
-    billing: ['org', 'billing'] as const,
+    members: (orgId: string) => ['org', 'members', orgId] as const,
+    invites: (orgId: string) => ['org', 'invites', orgId] as const,
+    events: ['org', 'events'] as const,
+    billing: (orgId: string) => ['org', 'billing', orgId] as const,
+    branding: (orgId: string) => ['org', 'branding', orgId] as const,
+    brandingTemplates: (orgId: string) => ['org', 'branding', 'templates', orgId] as const,
+    analytics: (orgId: string) => ['org', 'analytics', orgId] as const,
+    leaderboard: (orgId: string, params?: object) =>
+      ['org', 'analytics', 'leaderboard', orgId, params ?? {}] as const,
   },
 } as const;

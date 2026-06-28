@@ -2,10 +2,10 @@ import { useEffect, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { BarChart3, CalendarDays, CalendarPlus, LayoutDashboard, Search, Settings } from 'lucide-react';
+import { BarChart3, CalendarDays, CalendarPlus, LayoutDashboard, Search, Settings, UserPlus } from 'lucide-react';
 
 import { useEvents } from '@/entities/event';
-import { coverBackground } from '@/shared/lib/visual';
+import { coverFrom } from '@/shared/lib/visual';
 import { paths } from '@/shared/config/paths';
 import { useCommandPalette } from '../model/store';
 
@@ -37,7 +37,7 @@ export function CommandPalette() {
   const matches = useMemo(() => {
     const q = query.toLowerCase().trim();
     if (!q) return events.slice(0, 5);
-    return events.filter((e) => e.name.toLowerCase().includes(q)).slice(0, 6);
+    return events.filter((e) => e.title.toLowerCase().includes(q)).slice(0, 6);
   }, [events, query]);
 
   const go = (to: string) => {
@@ -73,6 +73,7 @@ export function CommandPalette() {
         <div className="max-h-[340px] overflow-y-auto p-1.5">
           <Group label={t('command.quickActions')}>
             <Row icon={<CalendarPlus size={16} />} title={t('command.createEvent')} onClick={() => go(paths.eventNew)} />
+            <Row icon={<UserPlus size={16} />} title={t('command.invitePhotographer')} onClick={() => go(paths.photographers)} />
             <Row icon={<LayoutDashboard size={16} />} title={t('command.goDashboard')} onClick={() => go(paths.dashboard)} />
           </Group>
 
@@ -85,11 +86,11 @@ export function CommandPalette() {
           <Group label={t('command.events')}>
             {matches.map((e) => (
               <Row
-                key={e.id}
-                icon={<span className="size-6 rounded-md" style={{ background: coverBackground(e.coverSeed) }} />}
-                title={e.name}
-                meta={e.location}
-                onClick={() => go(paths.event(e.id))}
+                key={e.eventId}
+                icon={<span className="size-6 rounded-md" style={{ background: coverFrom(e.coverPhotoUrl, e.eventId) }} />}
+                title={e.title}
+                meta={e.locationName ?? undefined}
+                onClick={() => go(paths.event(e.eventId))}
               />
             ))}
             {matches.length === 0 && (

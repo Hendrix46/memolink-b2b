@@ -28,12 +28,10 @@ type StatusFilter = EventStatus | 'all';
 
 const FILTER_KEYS: { key: StatusFilter; i18n: string }[] = [
   { key: 'all', i18n: 'all' },
-  { key: 'shooting', i18n: 'shooting' },
-  { key: 'in-review', i18n: 'inReview' },
-  { key: 'scheduled', i18n: 'scheduled' },
-  { key: 'delivered', i18n: 'delivered' },
-  { key: 'draft', i18n: 'draft' },
-  { key: 'archived', i18n: 'archived' },
+  { key: 'UPCOMING', i18n: 'upcoming' },
+  { key: 'ONGOING', i18n: 'ongoing' },
+  { key: 'COMPLETED', i18n: 'completed' },
+  { key: 'CANCELLED', i18n: 'cancelled' },
 ];
 
 export function EventsPage() {
@@ -105,14 +103,14 @@ export function EventsPage() {
       ) : view === 'cards' ? (
         <div className="grid grid-cols-[repeat(auto-fill,minmax(312px,1fr))] gap-[18px]">
           {events.map((e) => (
-            <EventCard key={e.id} event={e} onOpen={open} />
+            <EventCard key={e.eventId} event={e} onOpen={open} />
           ))}
         </div>
       ) : (
         <Card className="overflow-hidden p-0">
           <EventTableHeader />
           {events.map((e) => (
-            <EventRow key={e.id} event={e} onOpen={open} dense={density === 'compact'} />
+            <EventRow key={e.eventId} event={e} onOpen={open} dense={density === 'compact'} />
           ))}
         </Card>
       )}

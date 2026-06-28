@@ -64,22 +64,6 @@ export function ReviewStep() {
         <Row label={t('builder.review.watermark')} value={d.watermark ? t('builder.review.on') : t('builder.review.off')} />
       </Group>
 
-      {d.modules.tickets && (
-        <Group title={t('builder.review.tickets')}>
-          {d.ticketTiers.length === 0 ? (
-            <p className="pt-1 text-[13px] text-text-muted">{t('builder.review.noTiers')}</p>
-          ) : (
-            d.ticketTiers.map((tier) => (
-              <Row
-                key={tier.id}
-                label={tier.name || t('builder.review.unnamedTier')}
-                value={t('builder.review.tierValue', { price: tier.price, qty: tier.quantity })}
-              />
-            ))
-          )}
-        </Group>
-      )}
-
       {d.modules.registrations && (
         <Group title={t('builder.review.registration')}>
           <Row label={t('builder.review.capacity')} value={String(d.capacity)} />

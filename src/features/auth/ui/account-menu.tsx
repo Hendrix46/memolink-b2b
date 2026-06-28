@@ -51,7 +51,7 @@ export function AccountMenu() {
               </span>
               <div className="min-w-0">
                 <div className="truncate text-[13.5px] font-medium">{viewer.name}</div>
-                <div className="truncate font-mono text-[11.5px] text-text-muted">{viewer.email}</div>
+                <div className="truncate font-mono text-[11.5px] text-text-muted">{viewer.email || viewer.phoneNumber}</div>
               </div>
             </div>
 

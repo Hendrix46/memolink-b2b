@@ -1,25 +1,48 @@
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Check, Music2, Play } from 'lucide-react';
+import { Check, Loader2, Music2, Play, Star, Trash2 } from 'lucide-react';
 
 import { cn } from '@/shared/lib/cn';
 import { formatDuration } from '@/shared/lib/format';
 import { coverBackground } from '@/shared/lib/visual';
+import { curationStateMeta } from '@/shared/config/status';
 import type { MediaAsset } from '../model/types';
 
 export interface MediaTileProps {
   asset: MediaAsset;
-  /** Multi-select state (driven by the media-library feature). */
+  /** Multi-select state (driven by the media-curation feature). */
   selectable?: boolean;
   selected?: boolean;
   /** `range` is true when the user shift-clicked (range selection). */
   onToggleSelect?: (id: string, range: boolean) => void;
   onOpen?: (id: string) => void;
+  /** Curation quick-actions, shown on hover when provided. */
+  onFeature?: (id: string, next: boolean) => void;
+  onRemove?: (id: string) => void;
 }
 
-/** Single grid asset with hover overlay: type affordance and optional select. */
-export function MediaTile({ asset, selectable, selected, onToggleSelect, onOpen }: MediaTileProps) {
+/** Single grid asset with hover overlay: type affordance, curation state + actions. */
+export function MediaTile({
+  asset,
+  selectable,
+  selected,
+  onToggleSelect,
+  onOpen,
+  onFeature,
+  onRemove,
+}: MediaTileProps) {
   const { t } = useTranslation();
+  const [imgFailed, setImgFailed] = useState(false);
   const isAudio = asset.type === 'audio';
+  // Show the real thumbnail when one is present and it hasn't failed to load;
+  // otherwise the deterministic gradient underneath shows through.
+  const showImage = !isAudio && Boolean(asset.thumbnailUrl) && !imgFailed;
+  const hasActions = Boolean(onFeature || onRemove);
+  // Surface the editorial decision (curation), except the neutral default states.
+  const editorial =
+    asset.editorialState && asset.editorialState !== 'APPROVED' && asset.editorialState !== 'FEATURED'
+      ? curationStateMeta(asset.editorialState)
+      : null;
 
   return (
     <div
@@ -29,6 +52,15 @@ export function MediaTile({ asset, selectable, selected, onToggleSelect, onOpen 
       )}
       style={{ background: coverBackground(asset.coverSeed) }}
     >
+      {showImage && (
+        <img
+          src={asset.thumbnailUrl ?? undefined}
+          alt=""
+          loading="lazy"
+          onError={() => setImgFailed(true)}
+          className="absolute inset-0 size-full object-cover"
+        />
+      )}
       <button
         type="button"
         aria-label={t(`media.type.${asset.type}`)}
@@ -49,10 +81,18 @@ export function MediaTile({ asset, selectable, selected, onToggleSelect, onOpen 
         </div>
       )}
 
+      {/* Processing overlay — asset is still transcoding */}
+      {asset.processing && (
+        <span className="pointer-events-none absolute left-2.5 top-2.5 flex items-center gap-1 rounded-md bg-black/60 px-1.5 py-0.5 text-[10.5px] font-semibold text-processing">
+          <Loader2 size={10} className="animate-[ml-spin_0.8s_linear_infinite]" />
+          {t('eventDetail.media.processing')}
+        </span>
+      )}
+
       {selectable && (
         <button
           type="button"
-          aria-label={selected ? 'Deselect asset' : 'Select asset'}
+          aria-label={selected ? t('eventDetail.media.deselect') : t('eventDetail.media.select')}
           aria-pressed={selected}
           onClick={(e) => onToggleSelect?.(asset.id, e.shiftKey)}
           className={cn(
@@ -64,6 +104,54 @@ export function MediaTile({ asset, selectable, selected, onToggleSelect, onOpen 
         >
           {selected && <Check size={13} strokeWidth={3} />}
         </button>
+      )}
+
+      {/* Featured star (top-right). Stays visible; click toggles when curatable. */}
+      {(asset.featured || hasActions) && (
+        <div className="absolute right-2.5 top-2.5 flex items-center gap-1.5">
+          {onRemove && (
+            <button
+              type="button"
+              aria-label={t('common.remove')}
+              onClick={() => onRemove(asset.id)}
+              className="flex size-[26px] items-center justify-center rounded-md bg-black/55 text-white opacity-0 backdrop-blur-sm transition hover:bg-[rgba(240,85,110,0.85)] group-hover:opacity-100"
+            >
+              <Trash2 size={13} />
+            </button>
+          )}
+          {onFeature ? (
+            <button
+              type="button"
+              aria-label={t('eventDetail.media.feature')}
+              aria-pressed={asset.featured}
+              onClick={() => onFeature(asset.id, !asset.featured)}
+              className={cn(
+                'flex size-[26px] items-center justify-center rounded-md backdrop-blur-sm transition',
+                asset.featured
+                  ? 'bg-[rgba(109,94,246,0.85)] text-white'
+                  : 'bg-black/55 text-white opacity-0 group-hover:opacity-100',
+              )}
+            >
+              <Star size={13} fill={asset.featured ? 'currentColor' : 'none'} />
+            </button>
+          ) : (
+            asset.featured && (
+              <span className="flex size-[26px] items-center justify-center rounded-md bg-[rgba(109,94,246,0.85)] text-white backdrop-blur-sm">
+                <Star size={13} fill="currentColor" />
+              </span>
+            )
+          )}
+        </div>
+      )}
+
+      {editorial && (
+        <span
+          className="pointer-events-none absolute bottom-2.5 left-2.5 flex items-center gap-1 rounded-md bg-black/60 px-1.5 py-0.5 text-[10.5px] font-semibold backdrop-blur-sm"
+          style={{ color: editorial.color }}
+        >
+          <span className="size-1.5 rounded-full" style={{ background: editorial.color }} />
+          {t(`curationState.${asset.editorialState}`)}
+        </span>
       )}
 
       {asset.type !== 'image' && asset.durationSec !== undefined && (

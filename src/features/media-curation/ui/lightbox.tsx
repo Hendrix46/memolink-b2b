@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
-import { ChevronLeft, ChevronRight, Download, Music2, Play, Trash2, X } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Download, Eye, Music2, Play, Star, Trash2, X } from 'lucide-react';
 
 import { Avatar, IconButton, toast } from '@/shared/ui';
 import { formatDuration } from '@/shared/lib/format';
@@ -10,13 +10,36 @@ import { useLightboxStore } from '../model/lightbox-store';
 
 /**
  * Full-screen media viewer with a side meta panel and keyboard navigation
- * (design spec §5.5): ← → navigate, Esc close. Optional delete when a handler
- * was supplied at open time.
+ * (design spec §04.2): ← → navigate, Esc close, F feature, ⌫/Delete remove.
+ * Feature / delete controls appear when their handlers are supplied at open time.
  */
 export function Lightbox() {
   const { t } = useTranslation();
-  const { open, assets, index, close, next, prev, onDelete } = useLightboxStore();
+  const { open, assets, index, close, next, prev, onDelete, onFeature } = useLightboxStore();
   const asset = assets[index];
+
+  // Optimistic feature overrides — the assets array is a snapshot taken at open
+  // time, so we track per-asset toggles locally for instant visual feedback.
+  const [featuredOverrides, setFeaturedOverrides] = useState<Record<string, boolean>>({});
+  useEffect(() => {
+    if (open) setFeaturedOverrides({});
+  }, [open]);
+
+  const isFeatured = asset ? featuredOverrides[asset.id] ?? Boolean(asset.featured) : false;
+
+  const handleDelete = () => {
+    if (!asset) return;
+    onDelete?.(asset.id);
+    if (index >= assets.length - 1) close();
+    else next();
+  };
+
+  const handleFeature = () => {
+    if (!asset) return;
+    const nextOn = !isFeatured;
+    setFeaturedOverrides((prev) => ({ ...prev, [asset.id]: nextOn }));
+    onFeature?.(asset.id, nextOn);
+  };
 
   useEffect(() => {
     if (!open) return;
@@ -24,18 +47,20 @@ export function Lightbox() {
       if (e.key === 'Escape') close();
       else if (e.key === 'ArrowRight') next();
       else if (e.key === 'ArrowLeft') prev();
+      else if (onFeature && e.key.toLowerCase() === 'f') {
+        e.preventDefault();
+        handleFeature();
+      } else if (onDelete && (e.key === 'Backspace' || e.key === 'Delete')) {
+        e.preventDefault();
+        handleDelete();
+      }
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [open, close, next, prev]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open, close, next, prev, onFeature, onDelete, index, isFeatured, asset]);
 
   if (!open || !asset) return null;
-
-  const handleDelete = () => {
-    onDelete?.(asset.id);
-    if (index >= assets.length - 1) close();
-    else next();
-  };
 
   return createPortal(
     <div className="animate-pop fixed inset-0 z-[140] flex bg-black/88 backdrop-blur-md">
@@ -59,6 +84,17 @@ export function Lightbox() {
           className="relative flex aspect-[3/2] w-full max-w-[820px] items-center justify-center overflow-hidden rounded-[14px]"
           style={{ background: coverBackground(asset.coverSeed) }}
         >
+          {asset.type !== 'audio' && asset.previewUrl && (
+            <img
+              key={asset.id}
+              src={asset.previewUrl}
+              alt=""
+              onError={(e) => {
+                e.currentTarget.style.display = 'none';
+              }}
+              className="absolute inset-0 size-full object-contain"
+            />
+          )}
           {asset.type === 'video' && (
             <span className="flex size-16 items-center justify-center rounded-full bg-black/55 text-white backdrop-blur">
               <Play size={26} fill="currentColor" />
@@ -114,29 +150,48 @@ export function Lightbox() {
           </div>
         </div>
 
-        <dl className="flex-1 space-y-3 overflow-y-auto p-5 text-[13px]">
+        <dl className="space-y-3 overflow-y-auto p-5 text-[13px]">
           <Meta label={t('eventDetail.lightbox.device')} value={asset.meta.device} />
           <Meta label={t('eventDetail.lightbox.codec')} value={asset.meta.codec} />
           <Meta label={t('eventDetail.lightbox.quality')} value={asset.meta.quality} />
           <Meta label={t('eventDetail.lightbox.fileSize')} value={asset.meta.size} />
         </dl>
 
-        <div className="flex gap-2 border-t border-border p-4">
-          <button
-            onClick={() => toast.success(t('eventDetail.lightbox.downloadStarted'))}
-            className="flex flex-1 items-center justify-center gap-2 rounded-[10px] border border-border bg-surface-raised py-2.5 text-[13px] font-medium transition-colors hover:border-border-strong"
-          >
-            <Download size={15} /> {t('eventDetail.bulk.download')}
-          </button>
-          {onDelete && (
+        {(onFeature || onDelete) && (
+          <div className="mx-5 mb-1 flex items-start gap-2.5 rounded-[10px] border border-border bg-surface px-3.5 py-2.5 text-[12px] text-text-secondary">
+            <Eye size={15} className="mt-0.5 flex-none text-approved" />
+            <span>{t('eventDetail.lightbox.featureNote')}</span>
+          </div>
+        )}
+
+        <div className="mt-auto space-y-2 border-t border-border p-4">
+          {onFeature && (
             <button
-              onClick={handleDelete}
-              aria-label={t('eventDetail.bulk.delete')}
-              className="flex size-[42px] flex-none items-center justify-center rounded-[10px] bg-[rgba(240,85,110,0.12)] text-rejected transition-colors hover:bg-[rgba(240,85,110,0.2)]"
+              onClick={handleFeature}
+              className="flex w-full items-center justify-center gap-2 rounded-[10px] bg-[rgba(109,94,246,0.14)] py-2.5 text-[13px] font-medium text-accent-soft transition-colors hover:bg-[rgba(109,94,246,0.22)]"
             >
-              <Trash2 size={16} />
+              <Star size={15} fill={isFeatured ? 'currentColor' : 'none'} />
+              {isFeatured ? t('eventDetail.lightbox.featured') : t('eventDetail.lightbox.feature')}
+              <kbd className="ml-1 font-mono text-[11px] opacity-60">F</kbd>
             </button>
           )}
+          <div className="flex gap-2">
+            <button
+              onClick={() => toast.success(t('eventDetail.lightbox.downloadStarted'))}
+              className="flex flex-1 items-center justify-center gap-2 rounded-[10px] border border-border bg-surface-raised py-2.5 text-[13px] font-medium transition-colors hover:border-border-strong"
+            >
+              <Download size={15} /> {t('eventDetail.bulk.download')}
+            </button>
+            {onDelete && (
+              <button
+                onClick={handleDelete}
+                className="flex flex-1 items-center justify-center gap-2 rounded-[10px] bg-[rgba(240,85,110,0.12)] py-2.5 text-[13px] font-medium text-rejected transition-colors hover:bg-[rgba(240,85,110,0.2)]"
+              >
+                <Trash2 size={15} /> {t('eventDetail.bulk.remove')}
+                <kbd className="ml-1 font-mono text-[11px] opacity-60">⌫</kbd>
+              </button>
+            )}
+          </div>
         </div>
         <p className="px-4 pb-4 text-center font-mono text-[11px] text-text-muted">
           {t('eventDetail.lightbox.shortcuts')}

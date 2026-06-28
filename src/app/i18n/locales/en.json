@@ -21,7 +21,8 @@
     "comingSoon": "Coming soon",
     "today": "today",
     "lastHour": "last hour",
-    "undo": "Undo"
+    "undo": "Undo",
+    "send": "Send"
   },
   "language": {
     "label": "Language",
@@ -32,32 +33,198 @@
   "nav": {
     "dashboard": "Dashboard",
     "events": "Events",
+    "photographers": "Photographers",
     "branding": "Branding",
     "delivery": "Delivery",
     "analytics": "Analytics",
     "teamRoles": "Team & Roles",
     "billing": "Billing",
     "settings": "Settings",
+    "assignments": "My Assignments",
+    "myUploads": "My Uploads",
+    "profile": "Profile",
     "collapse": "Collapse",
     "switchWorkspace": "Switch workspace",
     "eventOrganizer": "Event organizer"
+  },
+  "lens": {
+    "switch": "Switch lens",
+    "organizer": "Organizer",
+    "organizerDesc": "Manage events & galleries",
+    "photographer": "Photographer",
+    "photographerDesc": "Upload & track your shoots"
+  },
+  "workspace": {
+    "workspaces": "Workspaces",
+    "create": "Create organization"
+  },
+  "orgCreate": {
+    "title": "Create organization",
+    "subtitle": "Set up a new organization workspace.",
+    "onboardingTitle": "Create your organization",
+    "onboardingSubtitle": "An organization holds your events, team, and media. Create one to get started — you’ll be its admin.",
+    "nameLabel": "Organization name",
+    "nameHint": "You can change this later.",
+    "namePlaceholder": "Acme Events",
+    "submit": "Create organization",
+    "failed": "Could not create the organization.",
+    "adminKind": "Admin"
+  },
+  "photographers": {
+    "title": "Photographers",
+    "subtitle": "Everyone shooting across your organization.",
+    "invite": "Invite photographer",
+    "inviteTitle": "Invite a photographer",
+    "inviteDesc": "Send an invite to join your organization and start uploading.",
+    "emailLabel": "Email address",
+    "emailPh": "name@studio.com",
+    "send": "Send invite",
+    "invited": "Invitation sent to {{email}}.",
+    "colName": "Name",
+    "colStatus": "Status",
+    "colEvents": "Events",
+    "colUploads": "Uploads",
+    "colLastActive": "Last active",
+    "status": {
+      "active": "Active",
+      "invited": "Invited",
+      "inactive": "Inactive"
+    },
+    "inviteFailed": "Couldn’t send the invite.",
+    "emptyTitle": "No photographers yet",
+    "emptyDesc": "Invite photographers to join your organization.",
+    "colGear": "Gear",
+    "colVisibility": "Visibility",
+    "colAvailability": "Availability",
+    "portfolio": "Portfolio",
+    "public": "Public",
+    "private": "Private",
+    "windows_one": "{{count}} window",
+    "windows_other": "{{count}} windows"
+  },
+  "assignments": {
+    "title": "My Assignments",
+    "subtitle": "Events you're assigned to shoot.",
+    "emptyTitle": "No assignments yet",
+    "emptyDesc": "When an organizer assigns you to an event, it shows up here.",
+    "hostedBy": "Hosted by",
+    "quota": "Upload quota",
+    "upload": "Upload",
+    "myUploads": "My uploads",
+    "status": {
+      "upcoming": "Upcoming",
+      "shooting": "Shooting",
+      "closed": "Closed"
+    },
+    "attendees_one": "{{count}} attendee",
+    "attendees_other": "{{count}} attendees"
+  },
+  "upload": {
+    "title": "Upload",
+    "subtitle": "Add your shoot — drag in photos and video.",
+    "titleTo": "Upload to {{name}}",
+    "storageQuota": "Storage quota",
+    "dropTitle": "Drop photos & video here",
+    "dropSubtitle": "or click to browse · batch upload · resumable · RAW + MP4 supported",
+    "selectFiles": "Select files",
+    "uploading": "Uploading",
+    "doneCount": "{{done}} / {{total}} done",
+    "retryFailed": "Retry {{count}} failed",
+    "clearCompleted": "Clear completed",
+    "transcoding": "Transcoding video…",
+    "uploaded": "Uploaded",
+    "resumeNote": "Uploads resume automatically if your connection drops — files are never lost.",
+    "viewMyUploads": "View my uploads →",
+    "added": "{{count}} files added to the queue.",
+    "accessLevel": "Access level",
+    "access": {
+      "PRIVATE_TO_ME": "Private to me",
+      "EVENT_ATTENDEES_ONLY": "Event attendees only",
+      "PUBLIC": "Public"
+    },
+    "failedGeneric": "Upload failed.",
+    "delivered": "Photos delivered.",
+    "deliverFailed": "Couldn’t deliver photos.",
+    "deliver": "Deliver",
+    "uploadingState": "Uploading… {{pct}}%"
+  },
+  "myUploads": {
+    "title": "My Uploads",
+    "subtitle": "Track the status of everything you've uploaded.",
+    "emptyTitle": "Nothing here yet",
+    "emptyDesc": "Uploads you contribute to an event will appear here with their review status.",
+    "liveInGallery": "Live in gallery",
+    "filters": {
+      "all": "All",
+      "pending": "Pending",
+      "approved": "Approved",
+      "rejected": "Rejected",
+      "featured": "Featured"
+    },
+    "review": {
+      "pending": "Pending review",
+      "approved": "Live in gallery",
+      "rejected": "Not selected",
+      "featured": "Featured in gallery"
+    }
+  },
+  "profile": {
+    "title": "Profile & Availability",
+    "subtitle": "Your details and when you're free to shoot.",
+    "changePhoto": "Change photo",
+    "changePhotoToast": "Photo upload — visual only.",
+    "identitySub": "Photographer",
+    "fullName": "Full name",
+    "specialty": "Specialty",
+    "bio": "Bio",
+    "defaultSpecialty": "Events · Portrait",
+    "defaultBio": "Event & editorial photographer based in SF. Available weekends.",
+    "availabilityTitle": "Availability this week",
+    "days": [
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri",
+      "Sat",
+      "Sun"
+    ],
+    "saved": "Profile saved.",
+    "saveFailed": "Couldn’t save your profile.",
+    "photoUploaded": "Photo updated.",
+    "photoFailed": "Couldn’t upload the photo.",
+    "gear": "Gear",
+    "portfolioUrl": "Portfolio URL",
+    "portfolioPh": "https://your.portfolio",
+    "public": "Public profile",
+    "from": "From",
+    "to": "To",
+    "note": "Note",
+    "notePh": "Optional note",
+    "addWindow": "Add",
+    "noWindows": "No availability windows",
+    "noWindowsDesc": "Add the times you’re free to shoot.",
+    "availabilityOrder": "The start time must be before the end time.",
+    "availabilityFailed": "Couldn’t add the window."
   },
   "topbar": {
     "searchPlaceholder": "Search events, photographers…"
   },
   "command": {
-    "placeholder": "Search events, photographers, actions…",
+    "placeholder": "Jump to events, guests, galleries, actions…",
     "quickActions": "Quick actions",
     "createEvent": "Create new event",
     "events": "Events",
     "noMatch": "No events match “{{query}}”.",
     "goDashboard": "Go to dashboard",
-    "navigate": "Navigate"
+    "navigate": "Navigate",
+    "invitePhotographer": "Invite photographer"
   },
   "notifications": {
     "title": "Notifications",
     "markAllRead": "Mark all read",
-    "unread": "{{count}} unread"
+    "unread": "{{count}} unread",
+    "empty": "No notifications yet"
   },
   "account": {
     "settings": "Settings",
@@ -71,7 +238,7 @@
     "password": "Password",
     "forgot": "Forgot?",
     "signIn": "Sign in",
-    "demoHint": "Demo: any valid email + a 6+ character password.",
+    "demoHint": "Use your registered phone number and password.",
     "noAccount": "Don’t have an account?",
     "createOne": "Create one",
     "signInFailed": "Sign in failed.",
@@ -87,7 +254,7 @@
     "signInLink": "Sign in",
     "signUpFailed": "Sign up failed.",
     "resetPassword": "Reset password",
-    "resetSubtitle": "We’ll email you a link to set a new password.",
+    "resetSubtitle": "We’ll text a code to your phone to set a new password.",
     "sendResetLink": "Send reset link",
     "requestFailed": "Request failed.",
     "checkInbox": "Check your inbox",
@@ -95,18 +262,79 @@
     "backToSignIn": "Back to sign in",
     "quote": "“Memolink turned a 3-day curation slog into an afternoon. Photographers upload, we review, the gallery ships.”",
     "quoteRole": "Event Producer · JetBrains",
-    "copyright": "© 2026 Memolink · Enterprise event platform"
+    "copyright": "© 2026 Memolink · Enterprise event platform",
+    "phone": "Phone number",
+    "phonePlaceholder": "998 90 123 45 67",
+    "otp": "Verification code",
+    "otpPlaceholder": "5-digit code",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "newPassword": "New password",
+    "createAccount": "Create your account",
+    "createAccountBtn": "Create account",
+    "sendCode": "Send code",
+    "updatePassword": "Update password",
+    "resetConfirmSubtitle": "Enter the code we sent to {{phone}} and choose a new password.",
+    "continue": "Continue",
+    "verifyCode": "Verify code",
+    "resendCode": "Resend code",
+    "changeNumber": "Change number",
+    "verifyPhoneSubtitle": "Enter the code we sent to {{phone}}.",
+    "detailsSubtitle": "Just a few details to finish setting up.",
+    "enterPasswordFor": "Enter your password for {{phone}}.",
+    "accountExists": "An account already exists for this number.",
+    "noAccountForPhone": "We couldn’t find an account for that number."
   },
   "dashboard": {
     "greeting": "Good morning, {{name}}",
     "subtitle": "Here’s what’s happening across your events today.",
     "newEvent": "New Event",
+    "createWithAi": "Create event with AI",
+    "upcoming": "Upcoming events",
+    "happeningNow": "Happening now",
+    "tomorrow": "Tomorrow",
+    "inDays": "in {{count}} days",
+    "rsvpPct": "{{pct}} full",
+    "pipeline": {
+      "label": "Event pipeline",
+      "UPCOMING": "Upcoming",
+      "ONGOING": "Ongoing",
+      "COMPLETED": "Completed",
+      "CANCELLED": "Cancelled"
+    },
+    "tasks": {
+      "title": "Your tasks",
+      "emptyTitle": "You’re all caught up",
+      "emptyDesc": "No tasks need your attention right now.",
+      "types": {
+        "review": "Review {{count}} new uploads",
+        "publish": "Publish the gallery",
+        "branding": "Finish gallery branding",
+        "invite": "Invite photographers"
+      }
+    },
+    "gallery": {
+      "title": "Guests are reliving the moments",
+      "subtitle": "Your galleries keep attendees coming back to Memolink.",
+      "views": "Gallery views",
+      "downloads": "Downloads",
+      "open": "Open galleries →"
+    },
+    "recent": {
+      "title": "From your galleries",
+      "subtitle": "What your guests are viewing and downloading right now.",
+      "viewGalleries": "View galleries →"
+    },
     "kpi": {
       "activeEvents": "Active events",
       "shootingToday": "New media today",
       "storageUsed": "Storage used",
       "delivered": "Delivered",
-      "totalMedia": "Total media"
+      "totalMedia": "Total media",
+      "upcoming": "Upcoming",
+      "completed": "Completed",
+      "attendees": "Total attendees",
+      "cancelled": "Cancelled"
     },
     "liveActivity": "Live upload activity",
     "activity": "<0>{{name}}</0> uploaded <1>{{count}} files</1> to <2>{{event}}</2>",
@@ -128,28 +356,27 @@
     "colEvent": "Event",
     "colStatus": "Status",
     "colDate": "Date",
-    "colAssets": "Assets",
-    "assets": "{{count}} assets",
     "filters": {
       "all": "All",
-      "shooting": "Shooting",
-      "inReview": "In review",
-      "scheduled": "Scheduled",
-      "delivered": "Delivered",
-      "draft": "Draft",
-      "archived": "Archived"
+      "upcoming": "Upcoming",
+      "ongoing": "Ongoing",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
     },
     "comfortable": "Comfortable",
-    "compact": "Compact"
+    "compact": "Compact",
+    "attendees": "{{count}} attendee",
+    "attendees_other": "{{count}} attendees",
+    "full": "{{pct}} full",
+    "noCap": "No limit",
+    "colCapacity": "Capacity",
+    "colAttendees": "Attendees"
   },
   "eventStatus": {
-    "draft": "Draft",
-    "scheduled": "Scheduled",
-    "live": "Live",
-    "shooting": "Shooting",
-    "in-review": "In review",
-    "delivered": "Delivered",
-    "archived": "Archived"
+    "UPCOMING": "Upcoming",
+    "ONGOING": "Ongoing",
+    "COMPLETED": "Completed",
+    "CANCELLED": "Cancelled"
   },
   "eventDetail": {
     "notFound": "Event not found",
@@ -159,7 +386,9 @@
     "deliver": "Deliver",
     "tabs": {
       "overview": "Overview",
+      "hosts": "Hosts & co-hosts",
       "media": "Media",
+      "photographers": "Photographers",
       "agenda": "Agenda",
       "registrations": "Registrations",
       "branding": "Branding",
@@ -181,32 +410,131 @@
       "openLibrary": "Open library →",
       "kpiImages": "Images",
       "kpiVideos": "Videos",
-      "kpiAudio": "Audio"
+      "kpiAudio": "Audio",
+      "kpiCapacity": "Capacity",
+      "kpiHosts": "Hosts"
     },
     "media": {
       "noMediaTitle": "No media in this view",
       "noMediaDesc": "No assets match the current filter. Invite photographers or share an upload link to start collecting media.",
-      "filterAll": "All"
+      "filterAll": "All",
+      "filterFeatured": "Featured",
+      "filterProcessing": "Processing",
+      "autoPublish": "Every photo your team uploads is live in the gallery the moment it lands. Remove anything you don't want guests to see — you can always restore it.",
+      "processing": "Processing",
+      "select": "Select",
+      "deselect": "Deselect",
+      "feature": "Feature",
+      "removed": "{{count}} removed from gallery.",
+      "featured": "{{count}} featured.",
+      "unfeatured": "{{count}} unfeatured.",
+      "curationInfo": "Review every photo: approve to publish, feature to pin it to the top, or reject with a reason. Editorial decisions are independent of NSFW moderation.",
+      "stateUpdated": "Photo updated.",
+      "bulkDone": "{{count}} photos updated.",
+      "rejected": "{{count}} photos rejected.",
+      "rejectTitle": "Reject photos",
+      "rejectDesc": "Tell contributors why these photos were not selected. A reason is required.",
+      "rejectReasonPh": "Reason for rejection…"
     },
     "bulk": {
       "selected": "{{count}} selected",
+      "feature": "Feature",
       "download": "Download",
+      "remove": "Remove",
       "delete": "Delete",
       "cancel": "Cancel",
-      "deleted": "{{count}} assets deleted."
+      "clear": "Clear",
+      "deleted": "{{count}} assets deleted.",
+      "approve": "Approve",
+      "reject": "Reject"
+    },
+    "hosts": {
+      "title": "Hosts & co-hosts",
+      "subtitle": "Owners and co-hosts can manage this event, its media and delivery. Give each person exactly the access they need.",
+      "invite": "Invite co-host",
+      "inviteToast": "Invite a co-host.",
+      "owner": "Owner",
+      "you": "YOU",
+      "ownerRole": "Owner · full control",
+      "cohostsCount": "Co-hosts · {{count}}",
+      "accessLevels": "Access levels",
+      "roles": {
+        "owner": "Owner",
+        "manager": "Manager",
+        "editor": "Editor",
+        "viewer": "Viewer"
+      },
+      "blurbs": {
+        "manager": "Manage media, delivery and other co-hosts.",
+        "editor": "Curate media and edit event details.",
+        "viewer": "View the event and its galleries only."
+      },
+      "status": {
+        "active": "Active",
+        "pending": "Pending invite"
+      }
+    },
+    "photographers": {
+      "title": "Photographers covering this event",
+      "invite": "Invite / Assign",
+      "inviteToast": "Invite or assign a photographer.",
+      "colPhotographer": "Photographer",
+      "colStatus": "Status",
+      "colQuota": "Quota used",
+      "colUploads": "Uploads",
+      "status": {
+        "invited": "Invited",
+        "active": "Active",
+        "done": "Done"
+      },
+      "assigned": "Photographer assigned.",
+      "assignFailed": "Couldn’t assign the photographer.",
+      "emptyTitle": "No photographers assigned",
+      "emptyDesc": "Assign photographers from your organization to cover this event.",
+      "assignStatus": {
+        "ACTIVE": "Active",
+        "REMOVED": "Removed"
+      },
+      "quotaValue": "{{count}} photos",
+      "unassignFailed": "Couldn’t remove the photographer.",
+      "assignTitle": "Assign a photographer",
+      "assignDesc": "Pick a photographer and set an optional shoot quota.",
+      "assign": "Assign",
+      "noCandidates": "No photographers in your organization yet.",
+      "photographerLabel": "Photographer",
+      "quotaLabel": "Shoot quota",
+      "quotaPh": "e.g. 200"
     },
     "lightbox": {
       "fileSize": "File size",
       "captured": "Captured {{time}}",
-      "shortcuts": "← → navigate · A/R/F decide · Esc close",
+      "shortcuts": "F feature · ⌫ remove · ← → navigate · Esc close",
       "device": "Device",
       "codec": "Codec",
       "quality": "Quality",
-      "downloadStarted": "Download started."
+      "downloadStarted": "Download started.",
+      "feature": "Feature",
+      "featured": "Featured",
+      "featureNote": "Guests can see this in the gallery. Feature it to pin it to the top, or remove it."
     },
     "agenda": {
       "schedule": "Schedule",
-      "addSession": "Add session"
+      "addSession": "Add session",
+      "emptyTitle": "No sessions yet",
+      "emptyDesc": "Build the schedule by adding sessions for this event.",
+      "addTrack": "Add track",
+      "timeOrder": "The start time must be before the end time.",
+      "sessionFailed": "Couldn’t create the session.",
+      "trackFailed": "Couldn’t create the track.",
+      "deleteFailed": "Couldn’t delete the session.",
+      "sessionTitle": "Session title",
+      "titlePh": "e.g. Opening keynote",
+      "startTime": "Start time",
+      "endTime": "End time",
+      "track": "Track",
+      "noTrack": "No track",
+      "trackName": "Track name",
+      "trackNamePh": "e.g. Main stage"
     },
     "registrations": {
       "registered": "Registered",
@@ -229,7 +557,11 @@
       "saveBranding": "Save branding",
       "saved": "Branding saved.",
       "livePreview": "Live preview",
-      "welcomeTo": "Welcome to {{name}}"
+      "welcomeTo": "Welcome to {{name}}",
+      "primaryColor": "Primary color",
+      "fontFamily": "Font family",
+      "watermarkType": "Watermark",
+      "loadError": "Couldn’t load branding."
     },
     "delivery": {
       "accessLevel": "Access level",
@@ -254,7 +586,24 @@
       "previewAttendee": "Preview as attendee",
       "readyToPublish": "Ready to publish",
       "readyNote": "{{count}} media · branding set · {{access}}",
-      "previewToast": "Opening attendee preview…"
+      "previewToast": "Opening attendee preview…",
+      "noGalleryTitle": "No gallery yet",
+      "noGalleryDesc": "Create a delivery gallery from this event’s eligible media.",
+      "createGallery": "Create gallery",
+      "galleryCreated": "Gallery created.",
+      "createFailed": "Couldn’t create the gallery.",
+      "settingsSaved": "Gallery settings saved.",
+      "saveFailed": "Couldn’t save the gallery.",
+      "passwordLabel": "Password",
+      "passwordPh": "Set a gallery password",
+      "inviteList": "Invited emails",
+      "invitePh": "name@company.com",
+      "noInvites": "No emails on the allow-list yet.",
+      "inviteFailed": "Couldn’t add the email.",
+      "downloadEnabled": "Allow downloads",
+      "downloadQuality": "Download quality",
+      "qualityWeb": "Web",
+      "qualityFull": "Full resolution"
     },
     "analytics": {
       "performance": "Performance",
@@ -268,7 +617,15 @@
       "topContributors": "Top contributors",
       "assets": "{{count}} assets",
       "mediaMix": "Media mix",
-      "vsAverage": "{{pct}} above your average"
+      "vsAverage": "{{pct}} above your average",
+      "checkedIn": "Checked in",
+      "rsvpBreakdown": "RSVP breakdown",
+      "rsvps": "RSVPs",
+      "photographerContributions": "Photographer contributions",
+      "deliveredCount": "{{count}} delivered",
+      "noData": "No data yet.",
+      "noPhotographers": "No photographer activity yet.",
+      "loadError": "Couldn’t load analytics."
     },
     "settings": {
       "eventDetails": "Event details",
@@ -292,6 +649,93 @@
     "Speaker": "Speaker",
     "Standard": "Standard",
     "Staff": "Staff"
+  },
+  "create": {
+    "back": "Back to events",
+    "newEvent": "New event",
+    "title": "Create an event with AI",
+    "subhead": "Describe your event in a sentence. Memolink drafts the details, agenda, cover and registration — you just refine the rest.",
+    "promptPlaceholder": "e.g. 500-person tech conference in Tashkent on July 18, two stages and a workshop track",
+    "attach": "Attach a brief or paste a link",
+    "generate": "Generate event",
+    "examples": [
+      "Two-day developer conference for 800 people with workshops",
+      "Evening product launch party with a livestream",
+      "Hands-on design workshop, 40 seats, paid tickets"
+    ],
+    "checks": {
+      "agenda": "Agenda drafted",
+      "cover": "Cover & theme",
+      "registration": "Registration ready"
+    },
+    "startScratch": "or start from a blank event →",
+    "backToAi": "Create with AI",
+    "sampleDesc": "An unforgettable gathering for our community — talks, workshops and plenty of time to connect.",
+    "generating": {
+      "title": "Building your event…",
+      "steps": {
+        "understand": "Understanding your brief",
+        "agenda": "Drafting the agenda",
+        "cover": "Designing cover & theme",
+        "registration": "Setting up registration"
+      }
+    },
+    "aiDraft": "AI draft",
+    "reviewRefine": "Review & refine — everything is editable",
+    "suggested": "Suggested",
+    "basics": {
+      "title": "Basics",
+      "name": "Event name",
+      "namePh": "e.g. Kotlin Conf 2026",
+      "description": "Description",
+      "startDate": "Start date",
+      "days": "Days",
+      "runs": "Runs {{range}}",
+      "startTime": "Start time",
+      "timezone": "Timezone",
+      "venue": "Venue / location",
+      "venuePh": "e.g. Tashkent Expo Center"
+    },
+    "cover": {
+      "title": "Cover & theme",
+      "drop": "Drop a cover image",
+      "dropHint": "1920×1080 · or let AI generate one",
+      "accent": "Accent color"
+    },
+    "agenda": {
+      "title": "Agenda",
+      "add": "Add",
+      "titlePh": "Session title",
+      "track": "Track"
+    },
+    "access": {
+      "title": "Registration & access",
+      "capacity": "Capacity",
+      "registration": "Registration",
+      "openToPublic": "Open to public",
+      "ticketTypes": "Ticket types",
+      "addTicket": "Add",
+      "galleryVisibility": "Gallery visibility (after the event)",
+      "publicLink": "Public link",
+      "publicLinkDesc": "Registered attendees can view & download",
+      "inviteOnly": "Invite-only",
+      "inviteOnlyDesc": "Only the email list you upload"
+    },
+    "preview": {
+      "live": "Live preview",
+      "caption": "This is what attendees see when they open the gallery link."
+    },
+    "refine": {
+      "placeholder": "Ask AI to adjust — “make it two days”, “add a workshop track”",
+      "updated": "Updated",
+      "send": "Send"
+    },
+    "createEvent": "Create event",
+    "creating": "Creating event…",
+    "aiRateLimited": "Too many AI requests. Try again in {{seconds}} seconds.",
+    "aiDisabled": "AI drafting is unavailable right now — starting from a blank event.",
+    "generateFailed": "Couldn’t generate a draft. Please try again.",
+    "createFailed": "Couldn’t create the event. Please try again."
   },
   "builder": {
     "createEvent": "Create event",
@@ -360,6 +804,25 @@
       "networkingDesc": "Attendee matchmaking & messaging",
       "livestream": "Livestream",
       "livestreamDesc": "Broadcast sessions online"
+    },
+    "location": {
+      "venue": "Venue name",
+      "venuePh": "e.g. Tashkent Expo Center",
+      "address": "Address",
+      "addressPh": "Street, city",
+      "searchPh": "Search for an address or place",
+      "addressSearchHint": "Type to search — the place is marked on the map.",
+      "useMyLocation": "My location",
+      "notFound": "Couldn’t find that address.",
+      "geoUnsupported": "Geolocation isn’t supported by this browser.",
+      "geoDenied": "Couldn’t get your location.",
+      "mapUnavailable": "Map unavailable — enter the address manually."
+    },
+    "cover": {
+      "upload": "Upload cover image",
+      "hint": "JPG or PNG, up to 10 MB",
+      "notImage": "Please choose an image file.",
+      "tooLarge": "Image is too large (max 10 MB)."
     },
     "brandingStep": {
       "coverImage": "Cover image",
@@ -487,14 +950,30 @@
     "roles": {
       "admin": "Admin",
       "coordinator": "Coordinator",
-      "photographer": "Photographer"
+      "photographer": "Photographer",
+      "ADMIN": "Admin",
+      "COORDINATOR": "Coordinator",
+      "PHOTOGRAPHER": "Photographer",
+      "STAFF": "Staff"
     },
     "perms": {
       "createEvents": "Create & edit events",
       "curate": "Curate & deliver media",
       "manageTeam": "Manage team & billing",
       "upload": "Upload media"
-    }
+    },
+    "invited": "Invitation sent to {{email}}.",
+    "inviteFailed": "Couldn’t send the invite.",
+    "roleFailed": "Couldn’t change the role.",
+    "removeFailed": "Couldn’t remove the member.",
+    "noMembers": "No members yet.",
+    "pendingInvites": "Pending invites",
+    "pending": "Pending",
+    "inviteTitle": "Invite a member",
+    "inviteDesc": "Send an invite to join your organization.",
+    "emailLabel": "Email address",
+    "emailPh": "name@company.com",
+    "roleLabel": "Role"
   },
   "billing": {
     "title": "Billing",
@@ -513,7 +992,29 @@
     "storageUsage": "Storage usage",
     "storageNote": "{{percent}}% of your plan used across all events.",
     "invoices": "Invoices",
-    "paid": "Paid"
+    "paid": "Paid",
+    "currentPlan": "Current plan",
+    "managePlan": "Manage plan",
+    "usage": "Usage",
+    "changeTier": "Change plan",
+    "applyTier": "Apply plan",
+    "tierChanged": "Subscription updated.",
+    "changeFailed": "Couldn’t change your plan.",
+    "loadError": "Couldn’t load billing.",
+    "unlimited": "Unlimited",
+    "remaining": "{{value}} remaining",
+    "tiers": {
+      "DEFAULT": "Default",
+      "FREE": "Free",
+      "PRO": "Pro",
+      "ENTERPRISE": "Enterprise"
+    },
+    "meters": {
+      "storage": "Storage",
+      "events": "Events",
+      "photographers": "Photographers",
+      "galleries": "Galleries"
+    }
   },
   "orgBranding": {
     "title": "Branding",
@@ -526,7 +1027,37 @@
     "brandPalette": "Brand palette",
     "displayFont": "Display font",
     "galleryThemes": "Gallery themes",
-    "default": "Default"
+    "default": "Default",
+    "save": "Save brand kit",
+    "saved": "Branding saved.",
+    "saveFailed": "Couldn’t save branding.",
+    "loadError": "Couldn’t load branding.",
+    "logoUploaded": "Logo uploaded.",
+    "primaryColor": "Primary color",
+    "accentColorLabel": "Accent color",
+    "watermarkType": "Watermark",
+    "watermarkText": "Watermark text",
+    "watermarkOpacity": "Watermark opacity",
+    "watermarkPosition": "Watermark position",
+    "invalidHex": "Use a #RRGGBB hex color",
+    "templates": "Templates",
+    "templateNamePh": "Template name",
+    "createTemplate": "Create",
+    "templateCreated": "Template created.",
+    "templateApplied": "Template applied.",
+    "noTemplates": "No templates yet. Create one from the current brand kit.",
+    "watermark": {
+      "NONE": "None",
+      "TEXT": "Text",
+      "IMAGE": "Image"
+    },
+    "position": {
+      "CENTER": "Center",
+      "TOP_LEFT": "Top left",
+      "TOP_RIGHT": "Top right",
+      "BOTTOM_LEFT": "Bottom left",
+      "BOTTOM_RIGHT": "Bottom right"
+    }
   },
   "orgDelivery": {
     "title": "Delivery",
@@ -537,7 +1068,12 @@
     "draft": "Draft",
     "copyLink": "Copy link",
     "openGallery": "Open gallery",
-    "linkCopied": "Link copied."
+    "linkCopied": "Link copied.",
+    "shareType": {
+      "PUBLIC": "Public",
+      "PASSWORD": "Password",
+      "INVITE_ONLY": "Invite-only"
+    }
   },
   "orgAnalytics": {
     "title": "Analytics",
@@ -550,7 +1086,15 @@
     "mediaOverTime": "Media collected over time",
     "last12weeks": "last 12 weeks",
     "leaderboard": "Top contributors",
-    "topEventsByMedia": "Top events by media"
+    "topEventsByMedia": "Top events by media",
+    "totalViews": "Total views",
+    "totalDownloads": "Total downloads",
+    "uniqueVisitors": "Unique visitors",
+    "totalEvents": "Total events",
+    "viewsPerEvent": "Views per event",
+    "topEventsByViews": "Top events by views",
+    "noData": "No data yet.",
+    "loadError": "Couldn’t load analytics."
   },
   "orgSettings": {
     "title": "Settings",
@@ -605,6 +1149,50 @@
   "onboarding": {
     "title": "Welcome to Memolink 👋",
     "subtitle": "Create your first event and start collecting media.",
+    "welcome": "Welcome, {{name}}",
+    "heroSubtitle": "Create your first event, invite your people, and give everyone beautiful galleries they’ll keep coming back to.",
+    "createWithAi": "Create event with AI",
+    "orTemplate": "Or start from a template",
+    "templates": {
+      "conference": {
+        "label": "Conference",
+        "desc": "Multi-track, multi-day"
+      },
+      "meetup": {
+        "label": "Meetup",
+        "desc": "Casual community night"
+      },
+      "workshop": {
+        "label": "Workshop",
+        "desc": "Hands-on, limited seats"
+      },
+      "party": {
+        "label": "Party",
+        "desc": "Celebrate the moment"
+      },
+      "launch": {
+        "label": "Product launch",
+        "desc": "Reveal & livestream"
+      },
+      "webinar": {
+        "label": "Webinar",
+        "desc": "Online, registration-first"
+      }
+    },
+    "features": {
+      "invite": {
+        "title": "Invite & RSVP",
+        "desc": "Send invites and track who’s coming."
+      },
+      "tickets": {
+        "title": "Free & paid tickets",
+        "desc": "Sell tickets or collect free RSVPs."
+      },
+      "galleries": {
+        "title": "Beautiful galleries",
+        "desc": "Guests relive the day and return."
+      }
+    },
     "step1": "Create an event",
     "step1desc": "Set the basics & capabilities",
     "step2": "Upload media",
@@ -612,5 +1200,39 @@
     "step3": "Deliver the gallery",
     "step3desc": "Brand it & share a link",
     "cta": "Create your first event"
+  },
+  "inviteCohost": {
+    "title": "Invite co-hosts",
+    "subtitle": "Give people access to help run {{name}}.",
+    "emailLabel": "Email address",
+    "emailPh": "name@company.com",
+    "emailHint": "Press Enter or comma to add multiple people.",
+    "suggested": "Suggested",
+    "permissionLevel": "Permission level",
+    "whatTheyCanDo": "What they'll be able to do",
+    "messageLabel": "Add a message (optional)",
+    "messagePh": "Hey! I'd love your help running this event…",
+    "copyLink": "Copy invite link",
+    "linkCopied": "Invite link copied.",
+    "send": "Send invites",
+    "sentTitle": "Invitations sent",
+    "sentDesc": "They'll get an email with a secure link to join {{name}}.",
+    "inviteMore": "Invite more",
+    "done": "Done",
+    "pending": "Pending",
+    "perms": {
+      "curate": "Curate & feature media",
+      "invite": "Invite more co-hosts",
+      "editDetails": "Edit event details",
+      "delivery": "Publish & deliver galleries",
+      "analytics": "View analytics",
+      "delete": "Delete the event"
+    }
+  },
+  "curationState": {
+    "PENDING": "Pending",
+    "APPROVED": "Approved",
+    "REJECTED": "Rejected",
+    "FEATURED": "Featured"
   }
 }

@@ -1,9 +1,8 @@
 import { useTranslation } from 'react-i18next';
-import { ImagePlus, Shuffle } from 'lucide-react';
 
-import { AccentPicker, useEventDraftStore, type GalleryLayout } from '@/features/event-builder';
+import { AccentPicker, CoverPicker, useEventDraftStore, type GalleryLayout } from '@/features/event-builder';
 import { cn } from '@/shared/lib/cn';
-import { Button, Field, Switch, Textarea } from '@/shared/ui';
+import { Field, Switch, Textarea } from '@/shared/ui';
 
 const LAYOUTS: GalleryLayout[] = ['grid', 'masonry', 'film'];
 
@@ -15,19 +14,7 @@ export function BrandingStep() {
   return (
     <div className="space-y-5">
       <Field label={t('builder.brandingStep.coverImage')}>
-        <div className="flex items-center gap-3">
-          <button className="flex flex-1 items-center gap-3 rounded-[10px] border border-dashed border-border-strong px-4 py-3 text-left text-[13px] text-text-secondary hover:border-accent">
-            <ImagePlus size={18} className="text-accent-soft" />
-            {t('builder.brandingStep.uploadCover')}
-          </button>
-          <Button
-            variant="secondary"
-            leadingIcon={<Shuffle size={15} />}
-            onClick={() => patch({ coverSeed: `cover-${Math.floor(Math.random() * 9999)}` })}
-          >
-            {t('builder.brandingStep.shuffle')}
-          </Button>
-        </div>
+        <CoverPicker />
       </Field>
 
       <Field label={t('builder.brandingStep.accentColor')} hint={t('builder.brandingStep.accentHint')}>

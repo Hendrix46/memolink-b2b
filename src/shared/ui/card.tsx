@@ -31,17 +31,28 @@ interface SectionHeaderProps {
   action?: ReactNode;
   /** Optional leading indicator (e.g. a live dot). */
   indicator?: ReactNode;
+  /** Optional supporting line under the title. */
+  description?: ReactNode;
   className?: string;
 }
 
-/** Standard "title + trailing action" header used inside cards. */
-export function SectionHeader({ title, action, indicator, className }: SectionHeaderProps) {
+/** Standard "title (+ description) + trailing action" header used inside cards. */
+export function SectionHeader({ title, action, indicator, description, className }: SectionHeaderProps) {
   return (
-    <div className={cn('mb-4 flex items-center justify-between', className)}>
-      <h2 className="flex items-center gap-2.5 text-[15px] font-semibold">
-        {indicator}
-        {title}
-      </h2>
+    <div
+      className={cn(
+        'mb-4 flex justify-between gap-3',
+        description ? 'items-start' : 'items-center',
+        className,
+      )}
+    >
+      <div className="min-w-0">
+        <h2 className="flex items-center gap-2.5 text-[15px] font-semibold">
+          {indicator}
+          {title}
+        </h2>
+        {description && <p className="mt-1 text-[12.5px] text-text-muted">{description}</p>}
+      </div>
       {action}
     </div>
   );

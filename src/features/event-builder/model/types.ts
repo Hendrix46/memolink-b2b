@@ -2,7 +2,6 @@
 export type ModuleKey =
   | 'agenda'
   | 'registrations'
-  | 'tickets'
   | 'mediaGallery'
   | 'qrCheckIn'
   | 'delivery'
@@ -22,14 +21,6 @@ export interface CustomField {
   required: boolean;
   /** For `select` fields. */
   options: string[];
-}
-
-export interface TicketTier {
-  id: string;
-  name: string;
-  price: number;
-  quantity: number;
-  perks: string;
 }
 
 export interface AgendaDraftItem {
@@ -55,10 +46,17 @@ export interface EventDraft {
   locationType: LocationType;
   venue: string;
   address: string;
+  /** Precise coordinates from the map picker / AI draft (optional). */
+  latitude?: number;
+  longitude?: number;
   virtualUrl: string;
 
   // Branding
   coverSeed: string;
+  /** Selected cover image (uploaded as the event poster after create). */
+  coverFile?: File | null;
+  /** Object URL for previewing the selected cover before upload. */
+  coverPreview?: string | null;
   accent: string;
   layout: GalleryLayout;
   welcomeMessage: string;
@@ -73,7 +71,6 @@ export interface EventDraft {
   requireApproval: boolean;
 
   // Dynamic collections
-  ticketTiers: TicketTier[];
   customFields: CustomField[];
   agenda: AgendaDraftItem[];
 }
@@ -81,7 +78,6 @@ export interface EventDraft {
 export const MODULE_META: Record<ModuleKey, { label: string; description: string; icon: string }> = {
   agenda: { label: 'Agenda & Sessions', description: 'Schedule talks, speakers and tracks', icon: 'calendar' },
   registrations: { label: 'Registrations', description: 'Collect attendee sign-ups', icon: 'users' },
-  tickets: { label: 'Ticketing', description: 'Sell tiered tickets (VIP, Standard…)', icon: 'ticket' },
   mediaGallery: { label: 'Media Gallery', description: 'Upload & curate image, video and audio', icon: 'image' },
   qrCheckIn: { label: 'QR Check-in', description: 'Scan attendees in at the door', icon: 'qr' },
   delivery: { label: 'Gallery Delivery', description: 'Share the finished gallery', icon: 'send' },
@@ -92,6 +88,7 @@ export const MODULE_META: Record<ModuleKey, { label: string; description: string
 export const CATEGORIES = ['Conference', 'Summit', 'Workshop', 'Launch', 'Meetup', 'Party', 'Webinar', 'Other'];
 
 export const TIMEZONES = [
+  'Asia/Tashkent',
   'Europe/Berlin',
   'Europe/London',
   'America/New_York',

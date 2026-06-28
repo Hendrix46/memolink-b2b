@@ -1,6 +1,13 @@
 import { useTranslation } from 'react-i18next';
 
-import { CATEGORIES, TagInput, TIMEZONES, useEventDraftStore, type LocationType } from '@/features/event-builder';
+import {
+  CATEGORIES,
+  LocationPicker,
+  TagInput,
+  TIMEZONES,
+  useEventDraftStore,
+  type LocationType,
+} from '@/features/event-builder';
 import { DatePicker, Field, Input, SegmentedControl, Select, Textarea, TimePicker } from '@/shared/ui';
 
 export function BasicsStep() {
@@ -73,16 +80,7 @@ export function BasicsStep() {
         <SegmentedControl value={d.locationType} onChange={(v) => patch({ locationType: v })} options={locationOptions} />
       </Field>
 
-      {d.locationType !== 'virtual' && (
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          <Field label={t('builder.basics.venue')}>
-            <Input placeholder={t('builder.basics.venuePh')} value={d.venue} onChange={(e) => patch({ venue: e.target.value })} />
-          </Field>
-          <Field label={t('builder.basics.addressCity')}>
-            <Input placeholder={t('builder.basics.addressPh')} value={d.address} onChange={(e) => patch({ address: e.target.value })} />
-          </Field>
-        </div>
-      )}
+      {d.locationType !== 'virtual' && <LocationPicker />}
 
       {d.locationType !== 'in-person' && (
         <Field label={t('builder.basics.streamUrl')}>

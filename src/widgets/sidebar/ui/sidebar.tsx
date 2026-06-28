@@ -1,20 +1,21 @@
 import { NavLink, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { ChevronsUpDown, PanelLeftClose, PanelLeftOpen } from 'lucide-react';
+import { PanelLeftClose, PanelLeftOpen } from 'lucide-react';
 
-import { useViewer } from '@/entities/session';
+import { useLens } from '@/entities/session';
+import { WorkspaceSwitcher } from '@/features/workspace-switch';
 import { cn } from '@/shared/lib/cn';
 import { useShellStore } from '@/widgets/app-shell/model/shell-store';
-import { NAV_ITEMS } from '../model/nav-config';
+import { navForLens } from '../model/nav-config';
 
-/** Collapsible sidebar (design spec §4.3). */
+/** Collapsible, lens-gated sidebar (design spec §2, §4.3). */
 export function Sidebar() {
   const { t } = useTranslation();
-  const viewer = useViewer();
+  const lens = useLens();
   const { pathname } = useLocation();
   const { sidebarCollapsed, toggleSidebar } = useShellStore();
 
-  const items = NAV_ITEMS;
+  const items = navForLens(lens);
   const width = sidebarCollapsed ? 68 : 232;
 
   return (
@@ -22,28 +23,7 @@ export function Sidebar() {
       className="flex flex-none flex-col gap-[3px] overflow-hidden border-r border-border bg-sidebar p-3 transition-[width] duration-200"
       style={{ width }}
     >
-      {/* Workspace switcher */}
-      <button
-        title={t('nav.switchWorkspace')}
-        className="mb-2.5 flex w-full items-center gap-2.5 rounded-[11px] border border-border bg-surface p-2 text-left transition-colors hover:border-border-strong"
-      >
-        <span className="flex size-[34px] flex-none items-center justify-center rounded-[9px] bg-[linear-gradient(140deg,#6D5EF6,#4AA8FF)] text-[13px] font-bold text-white">
-          {viewer.workspace.mark}
-        </span>
-        {!sidebarCollapsed && (
-          <>
-            <span className="min-w-0 flex-1">
-              <span className="block truncate text-[13.5px] font-semibold tracking-[-0.01em]">
-                {viewer.workspace.name}
-              </span>
-              <span className="block whitespace-nowrap text-[11px] text-text-muted">
-                {t('nav.eventOrganizer')}
-              </span>
-            </span>
-            <ChevronsUpDown size={14} className="flex-none text-text-muted" />
-          </>
-        )}
-      </button>
+      <WorkspaceSwitcher collapsed={sidebarCollapsed} />
 
       {items.map((item) => {
         const active = item.match ? item.match(pathname) : pathname === item.to;

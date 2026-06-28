@@ -1,61 +1,91 @@
 import { useState, type FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { ArrowLeft, MailCheck } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 
 import { usePasswordReset } from '@/features/auth';
-import { ApiError } from '@/shared/api/mock-client';
+import { ApiError } from '@/shared/api';
 import { Button } from '@/shared/ui';
 import { paths } from '@/shared/config/paths';
 import { AuthLayout } from './auth-layout';
-import { AuthInput, FieldLabel, FormError } from './parts';
+import { AuthInput, FieldLabel, FormError, PasswordInput } from './parts';
 
 export function ForgotPasswordPage() {
   const { t } = useTranslation();
-  const [email, setEmail] = useState('');
-  const reset = usePasswordReset();
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [otp, setOtp] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const { prepare, reset } = usePasswordReset();
 
-  const submit = (e: FormEvent) => {
+  const sentCode = prepare.isSuccess;
+
+  const requestCode = (e: FormEvent) => {
     e.preventDefault();
-    reset.mutate(email);
+    prepare.mutate(phoneNumber);
   };
 
-  const error = reset.error instanceof ApiError ? reset.error.message : reset.error ? t('auth.requestFailed') : undefined;
+  const submitReset = (e: FormEvent) => {
+    e.preventDefault();
+    reset.mutate({ phoneNumber, otp, newPassword });
+  };
+
+  const active = sentCode ? reset : prepare;
+  const error = active.error instanceof ApiError ? active.error.message : active.error ? t('auth.requestFailed') : undefined;
 
   return (
     <AuthLayout
       title={t('auth.resetPassword')}
-      subtitle={t('auth.resetSubtitle')}
+      subtitle={sentCode ? t('auth.resetConfirmSubtitle', { phone: phoneNumber }) : t('auth.resetSubtitle')}
       footer={
         <Link to={paths.login} className="inline-flex items-center gap-1.5 font-medium text-accent hover:text-accent-soft">
           <ArrowLeft size={14} /> {t('auth.backToSignIn')}
         </Link>
       }
     >
-      {reset.isSuccess ? (
-        <div className="flex flex-col items-center rounded-[14px] border border-border bg-surface px-6 py-10 text-center">
-          <span className="mb-4 flex size-14 items-center justify-center rounded-2xl bg-[rgba(61,214,140,0.14)] text-approved">
-            <MailCheck size={26} />
-          </span>
-          <h3 className="text-base font-semibold">{t('auth.checkInbox')}</h3>
-          <p className="mt-1.5 text-[13.5px] text-text-secondary">{t('auth.resetSent', { email })}</p>
-        </div>
-      ) : (
-        <form onSubmit={submit} className="space-y-4">
+      {sentCode ? (
+        <form onSubmit={submitReset} className="space-y-4">
           <FormError message={error} />
           <label className="block">
-            <FieldLabel>{t('auth.email')}</FieldLabel>
+            <FieldLabel>{t('auth.otp')}</FieldLabel>
             <AuthInput
-              type="email"
-              autoComplete="email"
-              placeholder={t('auth.emailPlaceholder')}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              inputMode="numeric"
+              autoComplete="one-time-code"
+              placeholder={t('auth.otpPlaceholder')}
+              value={otp}
+              onChange={(e) => setOtp(e.target.value)}
+              required
+            />
+          </label>
+          <label className="block">
+            <FieldLabel>{t('auth.newPassword')}</FieldLabel>
+            <PasswordInput
+              autoComplete="new-password"
+              placeholder={t('auth.passwordHint')}
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
               required
             />
           </label>
           <Button type="submit" variant="primary" size="lg" fullWidth loading={reset.isPending} className="h-[44px]">
-            {t('auth.sendResetLink')}
+            {t('auth.updatePassword')}
+          </Button>
+        </form>
+      ) : (
+        <form onSubmit={requestCode} className="space-y-4">
+          <FormError message={error} />
+          <label className="block">
+            <FieldLabel>{t('auth.phone')}</FieldLabel>
+            <AuthInput
+              type="tel"
+              autoComplete="tel"
+              placeholder={t('auth.phonePlaceholder')}
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
+              required
+            />
+          </label>
+          <Button type="submit" variant="primary" size="lg" fullWidth loading={prepare.isPending} className="h-[44px]">
+            {t('auth.sendCode')}
           </Button>
         </form>
       )}

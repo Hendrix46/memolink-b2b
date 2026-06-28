@@ -7,8 +7,8 @@ import { Button, Card, Field, Input, Modal, SectionHeader, toast } from '@/share
 
 export function SettingsTab({ event }: { event: EventDetail }) {
   const { t } = useTranslation();
-  const [name, setName] = useState(event.name);
-  const [location, setLocation] = useState(event.location);
+  const [name, setName] = useState(event.title);
+  const [location, setLocation] = useState(event.locationName ?? '');
   const [confirmDelete, setConfirmDelete] = useState(false);
 
   return (
@@ -61,7 +61,7 @@ export function SettingsTab({ event }: { event: EventDetail }) {
         open={confirmDelete}
         onClose={() => setConfirmDelete(false)}
         title={t('eventDetail.settings.deleteConfirmTitle')}
-        description={t('eventDetail.settings.deleteConfirmDesc', { name: event.name, total: event.assetCount.toLocaleString() })}
+        description={t('eventDetail.settings.deleteConfirmDesc', { name: event.title, total: event.mediaCount.toLocaleString() })}
         footer={
           <>
             <Button variant="secondary" onClick={() => setConfirmDelete(false)}>

@@ -20,7 +20,7 @@ export function ProgressBar({
   className,
   'aria-label': ariaLabel,
 }: ProgressBarProps) {
-  const pct = Math.max(0, Math.min(1, value)) * 100;
+  const pct = Math.max(0, Math.min(1, Number.isFinite(value) ? value : 0)) * 100;
   return (
     <div
       role="progressbar"

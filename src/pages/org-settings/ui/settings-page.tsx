@@ -26,7 +26,7 @@ export function OrgSettingsPage() {
         <Card className="space-y-5">
           <SectionHeader title={t('orgSettings.organization')} />
           <Field label={t('orgSettings.orgName')}>
-            <Input defaultValue={viewer.workspace.name} />
+            <Input defaultValue={viewer.workspace?.name ?? ''} />
           </Field>
           <Field label={t('orgSettings.contactEmail')}>
             <Input defaultValue={viewer.email} />

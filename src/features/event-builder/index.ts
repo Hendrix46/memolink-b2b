@@ -13,14 +13,14 @@ export type {
   GalleryLayout,
   CustomField,
   CustomFieldType,
-  TicketTier,
   AgendaDraftItem,
 } from './model/types';
 
 export { TagInput } from './ui/tag-input';
 export { ModuleGrid } from './ui/module-grid';
-export { TicketEditor } from './ui/ticket-editor';
 export { CustomFieldEditor } from './ui/custom-field-editor';
 export { AgendaBuilder } from './ui/agenda-builder';
 export { AccentPicker } from './ui/accent-picker';
+export { CoverPicker } from './ui/cover-picker';
+export { LocationPicker } from './ui/location-picker';
 export { EventPreview } from './ui/event-preview';

@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { Calendar, MapPin, Ticket, Users } from 'lucide-react';
+import { Calendar, MapPin, Users } from 'lucide-react';
 
 import { coverGradient } from '@/shared/lib/visual';
 import { formatLocalDate } from '@/shared/lib/datetime';
@@ -85,12 +85,6 @@ export function EventPreview() {
             <span className="flex items-center gap-1.5">
               <Users size={13} style={{ color: d.accent }} />
               {t('builder.preview.cap', { count: d.capacity })}
-            </span>
-          )}
-          {d.modules.tickets && (
-            <span className="flex items-center gap-1.5">
-              <Ticket size={13} style={{ color: d.accent }} />
-              {t('builder.preview.tier', { count: d.ticketTiers.length })}
             </span>
           )}
           <span className="ml-auto font-mono text-[11px] capitalize text-text-muted">{d.visibility}</span>

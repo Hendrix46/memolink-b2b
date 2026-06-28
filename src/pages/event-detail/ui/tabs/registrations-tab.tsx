@@ -15,7 +15,7 @@ const TICKET_COLOR: Record<Attendee['ticket'], string> = {
 export function RegistrationsTab({ event }: { event: EventDetail }) {
   const { t } = useTranslation();
   const { registration: reg, attendees } = event;
-  const fill = reg.total / reg.capacity;
+  const fill = reg.capacity > 0 ? reg.total / reg.capacity : 0;
 
   const kpis = [
     { label: t('eventDetail.registrations.registered'), value: reg.total.toLocaleString() },

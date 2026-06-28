@@ -39,3 +39,10 @@ export const coverGradient = (seed: string): string =>
 /** CSS background shorthand for a cover surface, with a subtle texture overlay. */
 export const coverBackground = (seed: string): string =>
   `${coverGradient(seed)}, var(--color-surface-raised)`;
+
+/**
+ * Cover background for an event/media item: a real cover image when the backend
+ * provides one, otherwise a deterministic gradient keyed by a stable seed.
+ */
+export const coverFrom = (url: string | null | undefined, seed: string): string =>
+  url ? `center / cover no-repeat url("${url}")` : coverBackground(seed);
