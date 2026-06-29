@@ -4,6 +4,7 @@ import { ExternalLink, UserPlus } from 'lucide-react';
 
 import { useActiveOrgId } from '@/entities/session';
 import { useInviteMember, useOrgPhotographers, type OrgPhotographer } from '@/entities/org';
+import { useUserName, useUserDirectorySeed } from '@/entities/user';
 import { ApiError } from '@/shared/api';
 import { avatarGradient } from '@/shared/lib/visual';
 import {
@@ -25,6 +26,7 @@ import {
 export function PhotographersPage() {
   const { t } = useTranslation();
   const orgId = useActiveOrgId() ?? '';
+  useUserDirectorySeed();
   const { data, isLoading, isError, refetch } = useOrgPhotographers(orgId);
   const inviteMember = useInviteMember(orgId);
 
@@ -133,13 +135,14 @@ function PhotographerRow({ photographer: p }: { photographer: OrgPhotographer })
   const { t } = useTranslation();
   const isPublic = p.profile?.public ?? false;
   const portfolioUrl = p.profile?.portfolioUrl;
+  const name = useUserName(p.userId) ?? t('common.unknownUser');
 
   return (
     <div className="grid grid-cols-[2fr_1.5fr_1fr_1fr] items-center gap-3 border-b border-hairline px-[18px] py-3.5 transition-colors last:border-0 hover:bg-surface-hover">
       <div className="flex min-w-0 items-center gap-3">
-        <Avatar name={p.userId} size={38} background={avatarGradient(p.userId)} />
+        <Avatar name={name} size={38} background={avatarGradient(p.userId)} />
         <div className="min-w-0">
-          <div className="truncate font-mono text-[12.5px] font-medium">{p.userId}</div>
+          <div className="truncate text-[13px] font-medium">{name}</div>
           {portfolioUrl && (
             <a
               href={portfolioUrl}

@@ -1,8 +1,9 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Clock } from 'lucide-react';
 
 import { cn } from '@/shared/lib/cn';
+import { Popover } from './popover';
 
 export interface TimePickerProps {
   /** 'HH:mm'. */
@@ -17,6 +18,7 @@ export interface TimePickerProps {
 export function TimePicker({ value, onChange, step = 15, className }: TimePickerProps) {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
+  const anchorRef = useRef<HTMLButtonElement>(null);
 
   const options = useMemo(() => {
     const out: string[] = [];
@@ -31,6 +33,7 @@ export function TimePicker({ value, onChange, step = 15, className }: TimePicker
   return (
     <div className={cn('relative', className)}>
       <button
+        ref={anchorRef}
         type="button"
         onClick={() => setOpen((v) => !v)}
         className={cn(
@@ -43,29 +46,30 @@ export function TimePicker({ value, onChange, step = 15, className }: TimePicker
         <span className="flex-1 font-mono">{value || t('datePicker.selectTime')}</span>
       </button>
 
-      {open && (
-        <>
-          <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
-          <div className="animate-in absolute left-0 top-[44px] z-50 max-h-[240px] w-full min-w-[120px] overflow-y-auto rounded-[12px] border border-border bg-surface-raised p-1.5 shadow-[var(--shadow-pop)]">
-            {options.map((opt) => (
-              <button
-                key={opt}
-                type="button"
-                onClick={() => {
-                  onChange(opt);
-                  setOpen(false);
-                }}
-                className={cn(
-                  'block w-full rounded-md px-3 py-1.5 text-left font-mono text-[13px] transition-colors hover:bg-border',
-                  opt === value ? 'bg-[rgba(109,94,246,0.16)] text-accent-soft' : 'text-text-secondary',
-                )}
-              >
-                {opt}
-              </button>
-            ))}
-          </div>
-        </>
-      )}
+      <Popover
+        anchorRef={anchorRef}
+        open={open}
+        onClose={() => setOpen(false)}
+        matchWidth
+        className="animate-in max-h-[240px] min-w-[120px] overflow-y-auto rounded-[12px] border border-border bg-surface-raised p-1.5 shadow-[var(--shadow-pop)]"
+      >
+        {options.map((opt) => (
+          <button
+            key={opt}
+            type="button"
+            onClick={() => {
+              onChange(opt);
+              setOpen(false);
+            }}
+            className={cn(
+              'block w-full rounded-md px-3 py-1.5 text-left font-mono text-[13px] transition-colors hover:bg-border',
+              opt === value ? 'bg-[rgba(109,94,246,0.16)] text-accent-soft' : 'text-text-secondary',
+            )}
+          >
+            {opt}
+          </button>
+        ))}
+      </Popover>
     </div>
   );
 }

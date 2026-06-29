@@ -12,7 +12,7 @@ export type {
   GetEventResponseContract,
   MediaTypeBreakdown,
 } from './model/types';
-export { useEvents, useEvent } from './model/use-events';
+export { useEvents, useEvent, useUpdateEvent, useAddHost, useRemoveHost } from './model/use-events';
 export {
   eventApi,
   type EventListFilters,

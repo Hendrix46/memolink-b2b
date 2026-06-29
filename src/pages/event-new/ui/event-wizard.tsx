@@ -14,7 +14,6 @@ import { BasicsStep } from './steps/basics-step';
 import { ModulesStep } from './steps/modules-step';
 import { BrandingStep } from './steps/branding-step';
 import { RegistrationStep } from './steps/registration-step';
-import { AgendaStep } from './steps/agenda-step';
 import { AccessStep } from './steps/access-step';
 import { ReviewStep } from './steps/review-step';
 
@@ -31,7 +30,6 @@ const STEPS: StepDef[] = [
   { id: 'modules', labelKey: 'builder.steps.capabilities', render: <ModulesStep /> },
   { id: 'branding', labelKey: 'builder.steps.branding', render: <BrandingStep /> },
   { id: 'registration', labelKey: 'builder.steps.registration', render: <RegistrationStep />, when: (d) => d.modules.registrations },
-  { id: 'agenda', labelKey: 'builder.steps.agenda', render: <AgendaStep />, when: (d) => d.modules.agenda },
   { id: 'access', labelKey: 'builder.steps.access', render: <AccessStep /> },
   { id: 'review', labelKey: 'builder.steps.review', render: <ReviewStep /> },
 ];

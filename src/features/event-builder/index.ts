@@ -19,7 +19,6 @@ export type {
 export { TagInput } from './ui/tag-input';
 export { ModuleGrid } from './ui/module-grid';
 export { CustomFieldEditor } from './ui/custom-field-editor';
-export { AgendaBuilder } from './ui/agenda-builder';
 export { AccentPicker } from './ui/accent-picker';
 export { CoverPicker } from './ui/cover-picker';
 export { LocationPicker } from './ui/location-picker';

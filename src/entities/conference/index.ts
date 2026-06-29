@@ -10,8 +10,11 @@ export type {
 export {
   useAgenda,
   useCreateTrack,
+  useUpdateTrack,
   useDeleteTrack,
   useCreateSession,
   useUpdateSession,
   useDeleteSession,
+  useAssignSpeaker,
+  useUnassignSpeaker,
 } from './model/use-conference';

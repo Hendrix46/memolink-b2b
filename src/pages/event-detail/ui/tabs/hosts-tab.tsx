@@ -1,9 +1,27 @@
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { UserPlus } from 'lucide-react';
+import { Trash2, UserPlus } from 'lucide-react';
 
-import type { EventDetail, EventHostMember, HostRole } from '@/entities/event';
+import {
+  useAddHost,
+  useRemoveHost,
+  type EventDetail,
+  type EventHostMember,
+  type HostRole,
+} from '@/entities/event';
+import { UserPicker } from '@/entities/user';
 import { InviteCohostModal, useInviteCohost } from '@/features/invite-cohost';
-import { Avatar, Button, Card, SectionHeader, StatusBadge } from '@/shared/ui';
+import { ApiError } from '@/shared/api';
+import {
+  Avatar,
+  Button,
+  Card,
+  ConfirmDialog,
+  IconButton,
+  SectionHeader,
+  StatusBadge,
+  toast,
+} from '@/shared/ui';
 
 const ROLE_COLOR: Record<HostRole, string> = {
   owner: 'var(--color-accent)',
@@ -20,7 +38,26 @@ export function HostsTab({ event }: { event: EventDetail }) {
   const cohosts = event.hosts.filter((h) => h.role !== 'owner');
   const openInvite = useInviteCohost((s) => s.openModal);
 
-  const invite = () => openInvite(event.title);
+  const addHost = useAddHost(event.eventId);
+  const removeHost = useRemoveHost(event.eventId);
+  const [toRemove, setToRemove] = useState<EventHostMember | null>(null);
+
+  const hostUserIds = event.hosts.map((h) => h.userId);
+
+  const onPick = (userId: string) => {
+    addHost.mutate(userId, {
+      onSuccess: () => toast.success(t('eventDetail.hosts.added')),
+      onError: (e) => toast.error(e instanceof ApiError ? e.message : t('eventDetail.hosts.addFailed')),
+    });
+  };
+
+  const confirmRemove = () => {
+    if (!toRemove) return;
+    removeHost.mutate(toRemove.userId, {
+      onSuccess: () => setToRemove(null),
+      onError: () => toast.error(t('eventDetail.hosts.removeFailed')),
+    });
+  };
 
   return (
     <div className="space-y-[22px]">
@@ -29,7 +66,7 @@ export function HostsTab({ event }: { event: EventDetail }) {
         title={<span className="text-[17px]">{t('eventDetail.hosts.title')}</span>}
         description={<span className="block max-w-[540px]">{t('eventDetail.hosts.subtitle')}</span>}
         action={
-          <Button variant="primary" size="lg" leadingIcon={<UserPlus size={16} />} onClick={invite}>
+          <Button variant="primary" size="lg" leadingIcon={<UserPlus size={16} />} onClick={() => openInvite(event.title)}>
             {t('eventDetail.hosts.invite')}
           </Button>
         }
@@ -59,16 +96,40 @@ export function HostsTab({ event }: { event: EventDetail }) {
         </div>
       )}
 
+      {/* Add an existing Memolink user as co-host (real, immediate). */}
+      <div className="space-y-2.5">
+        <div className="text-[11.5px] font-medium uppercase tracking-[0.06em] text-text-muted">
+          {t('eventDetail.hosts.addExisting')}
+        </div>
+        <Card>
+          <p className="mb-2.5 text-[12.5px] text-text-secondary">{t('eventDetail.hosts.addExistingHint')}</p>
+          <UserPicker
+            placeholder={t('eventDetail.hosts.pickerPh')}
+            searchingLabel={t('eventDetail.hosts.searching')}
+            emptyLabel={t('eventDetail.hosts.noPeople')}
+            excludeIds={hostUserIds}
+            disabled={addHost.isPending}
+            onSelect={(u) => onPick(u.userId)}
+          />
+        </Card>
+      </div>
+
       {/* Co-hosts */}
       <div className="space-y-2.5">
         <div className="text-[11.5px] font-medium uppercase tracking-[0.06em] text-text-muted">
           {t('eventDetail.hosts.cohostsCount', { count: cohosts.length })}
         </div>
-        <Card className="p-0">
-          {cohosts.map((c) => (
-            <CohostRow key={c.id} member={c} />
-          ))}
-        </Card>
+        {cohosts.length === 0 ? (
+          <Card>
+            <p className="text-[13px] text-text-muted">{t('eventDetail.hosts.noCohosts')}</p>
+          </Card>
+        ) : (
+          <Card className="p-0">
+            {cohosts.map((c) => (
+              <CohostRow key={c.id} member={c} onRemove={() => setToRemove(c)} />
+            ))}
+          </Card>
+        )}
       </div>
 
       {/* Access levels legend */}
@@ -88,11 +149,23 @@ export function HostsTab({ event }: { event: EventDetail }) {
           ))}
         </div>
       </div>
+
+      <ConfirmDialog
+        open={Boolean(toRemove)}
+        onClose={() => setToRemove(null)}
+        onConfirm={confirmRemove}
+        title={t('eventDetail.hosts.removeCohost')}
+        description={t('eventDetail.hosts.removeConfirm', { name: toRemove?.name ?? '' })}
+        confirmLabel={t('common.remove')}
+        cancelLabel={t('common.cancel')}
+        destructive
+        loading={removeHost.isPending}
+      />
     </div>
   );
 }
 
-function CohostRow({ member }: { member: EventHostMember }) {
+function CohostRow({ member, onRemove }: { member: EventHostMember; onRemove: () => void }) {
   const { t } = useTranslation();
   const statusColor = member.status === 'active' ? 'var(--color-approved)' : 'var(--color-pending)';
   return (
@@ -112,6 +185,9 @@ function CohostRow({ member }: { member: EventHostMember }) {
         <span className="size-1.5 rounded-full" style={{ background: ROLE_COLOR[member.role] }} />
         {t(`eventDetail.hosts.roles.${member.role}`)}
       </span>
+      <IconButton aria-label={t('eventDetail.hosts.removeCohost')} size="sm" onClick={onRemove}>
+        <Trash2 size={15} />
+      </IconButton>
     </div>
   );
 }

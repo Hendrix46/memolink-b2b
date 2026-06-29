@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 
 import { useEventAnalytics } from '@/entities/analytics';
+import { useUserDirectoryMap, useUserDirectorySeed } from '@/entities/user';
 import { avatarGradient } from '@/shared/lib/visual';
 import { formatCompact, formatNumber } from '@/shared/lib/format';
 import {
@@ -25,6 +26,8 @@ const RSVP_COLORS = [
 export function AnalyticsTab({ eventId }: { eventId: string }) {
   const { t } = useTranslation();
   const { data, isLoading, isError, refetch } = useEventAnalytics(eventId);
+  useUserDirectorySeed();
+  const directory = useUserDirectoryMap();
 
   if (isError) {
     return <ErrorState title={t('eventDetail.analytics.loadError')} onRetry={() => refetch()} />;
@@ -103,8 +106,10 @@ export function AnalyticsTab({ eventId }: { eventId: string }) {
               {photographers.map((p, i) => (
                 <div key={p.userId} className="flex items-center gap-3 border-t border-hairline py-3 first:border-0">
                   <span className="w-4 font-mono text-[13px] text-text-muted">{i + 1}</span>
-                  <Avatar name={p.userId} size={32} background={avatarGradient(p.userId)} />
-                  <span className="flex-1 truncate font-mono text-[12.5px] text-text-secondary">{p.userId}</span>
+                  <Avatar name={directory[p.userId]?.name ?? p.userId} size={32} background={avatarGradient(p.userId)} />
+                  <span className="flex-1 truncate text-[12.5px] text-text-secondary">
+                    {directory[p.userId]?.name ?? t('common.unknownUser')}
+                  </span>
                   <span className="font-mono text-[12.5px] text-text-secondary">
                     {t('eventDetail.analytics.deliveredCount', { count: p.delivered })}
                   </span>

@@ -74,7 +74,7 @@ export function ReviewStep() {
 
       {d.modules.agenda && (
         <Group title={t('builder.review.agenda')}>
-          <Row label={t('builder.review.sessions')} value={t('builder.review.sessionsAdded', { count: d.agenda.length })} />
+          <p className="px-1 py-1 text-[12.5px] text-text-muted">{t('builder.review.agendaAfter')}</p>
         </Group>
       )}
     </div>

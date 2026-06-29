@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Check, ImagePlus, Plus } from 'lucide-react';
 
 import {
+  FONT_FAMILIES,
   useApplyBrandingTemplate,
   useCreateBrandingTemplate,
   useOrgBranding,
@@ -167,10 +168,13 @@ export function OrgBrandingPage() {
               />
 
               <Field label={t('orgBranding.displayFont')}>
-                <Input
+                <Select
                   value={form.fontFamily ?? ''}
-                  onChange={(e) => patch({ fontFamily: e.target.value })}
-                  placeholder="Geist, Inter, …"
+                  onChange={(e) => patch({ fontFamily: e.target.value || undefined })}
+                  options={[
+                    { value: '', label: t('orgBranding.fontDefault') },
+                    ...FONT_FAMILIES.map((f) => ({ value: f, label: f })),
+                  ]}
                 />
               </Field>
 

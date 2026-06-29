@@ -196,6 +196,41 @@ muammolari. Har bir yozuv: **Endpoint → Observed → Expected → Impact → F
 - **Observed:** Endpoint yo'q; frontend har eventni alohida so'rab (`useQueries`) yig'yapti.
 - **Fix:** `GET /api/org/{orgId}/photos` (aggregatsiya + pagination) qo'shish.
 
+### E4. 🟠 Speaker faqat `userId` bilan tayinlanadi — tashqi spiker yo'q
+- **Endpoint:** `POST /api/event/{eventId}/agenda/sessions/{sessionId}/speakers/{userId}`
+- **Observed:** Sessiyaga spiker tayinlash faqat ro'yxatdan o'tgan Memolink `userId` orqali.
+  `SessionResponseContract.speakers` esa faqat `{userId, headline}` qaytaradi — ism/avatar **yo'q**.
+- **Impact:** (1) Memolink'da yo'q tashqi spikerni ( extern) qo'shib bo'lmaydi.
+  (2) Agenda UI spiker ismini ko'rsata olmaydi — faqat `headline` yoki raw UUID
+  (`speaker.headline ?? userId`) qoladi. Frontend `GET /api/user/list` autocomplete bilan
+  userId topib tayinlayapti, lekin refetch'dan keyin ism yo'qoladi.
+- **Fix:** (a) `SpeakerSummaryContract`ga `firstName/lastName/avatarUrl` qo'shish;
+  (b) ixtiyoriy: ro'yxatdan o'tmagan spiker uchun "guest speaker" (ism+headline) qo'llab-quvvatlash.
+
+### E5. 🟡 Session/Venue `LocalDateTime` timezone semantikasi noaniq (A4 bilan bog'liq)
+- **Endpoint:** `POST/PUT /api/event/{id}/agenda/sessions`, `PUT /api/event/{id}` (start/end).
+- **Observed:** `startTime/endTime` `date-time` formatida, lekin offset/`Z` siz `LocalDateTime`
+  kutilyapti (A4). Frontend `datetime-local` (`YYYY-MM-DDTHH:mm:00`) yuboryapti.
+- **Impact:** Agar backend bir joyda zoned, boshqa joyda naive ishlasa — soatlar siljiydi.
+- **Fix:** Barcha event/agenda vaqtlari uchun yagona, hujjatlangan timezone siyosati
+  (afzal: tashkilot/event timezone'ida naive `LocalDateTime`).
+
+### E6. 🟠 `userId`-only referenslar — ism/avatar yo'q, by-id/batch resolve endpointi yo'q
+- **Endpoint(lar):** `GET /api/org/{orgId}/members` (`OrgMemberResponseContract` = `{userId, role, dateCreated}`),
+  `OrgPhotographerSummaryResponseContract` (`{userId, profile, availability}` — profile'da ham ism yo'q),
+  agenda speakers (E4), analytics photographer contributions.
+- **Observed:** Bu javoblar faqat `userId` qaytaradi; ism/avatar **yo'q**. Foydalanuvchini id orqali
+  yechadigan endpoint ham yo'q: `GET /api/user/{userId}` (profil) **yo'q** (faqat `/event-history`),
+  `GET /api/user/list` esa faqat ism/telefon bo'yicha qidiradi (id bo'yicha emas).
+- **Impact:** Team & Roles, Photographers, Agenda speakers, Analytics — hammasi raw UUID ko'rsatardi.
+- **Vaqtinchalik yechim (frontend) — ✅ BAJARILDI:** klient tomonda **user-directory cache**
+  (`entities/user` — localStorage'da persist) — `GET /api/user/list` qidiruv/seed natijalaridan
+  `userId → {name, avatar}` to'planadi va id-only ro'yxatlar shu cache'dan ism bilan render qilinadi.
+  ⚠️ **Cheklov:** faqat `user/list` qaytaradigan ("eligible") userlar yechiladi; katta platformada
+  yoki ro'yxatdan tushib qolgan userlar uchun `common.unknownUser` fallback ko'rsatiladi.
+- **Fix (backend):** (a) id-only kontraktlarga `firstName/lastName/avatarUrl` qo'shish; yoki
+  (b) `GET /api/user/{userId}` (public profil) yoki `POST /api/user/batch` (id ro'yxati → ismlar) qo'shish.
+
 ---
 
 ## F. Frontend buglar (kecha topilgan — ma'lumot uchun, allaqachon tuzatilgan)

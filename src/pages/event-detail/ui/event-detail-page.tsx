@@ -1,8 +1,10 @@
+import { useState } from 'react';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Calendar, ChevronLeft, MapPin, Pencil, Send, Share2 } from 'lucide-react';
 
 import { EventStatusChip, useEvent } from '@/entities/event';
+import { EditEventModal } from './edit-event-modal';
 import { coverFrom } from '@/shared/lib/visual';
 import { formatEventDate } from '@/shared/lib/format';
 import { Button, ErrorState, Skeleton, Tabs, type TabItem } from '@/shared/ui';
@@ -11,6 +13,7 @@ import { OverviewTab } from './tabs/overview-tab';
 import { HostsTab } from './tabs/hosts-tab';
 import { MediaTab } from './tabs/media-tab';
 import { PhotographersTab } from './tabs/photographers-tab';
+import { VenueTab } from './tabs/venue-tab';
 import { AgendaTab } from './tabs/agenda-tab';
 import { RegistrationsTab } from './tabs/registrations-tab';
 import { BrandingTab } from './tabs/branding-tab';
@@ -25,6 +28,7 @@ export function EventDetailPage() {
   const navigate = useNavigate();
   const [search, setSearch] = useSearchParams();
   const tab = search.get('tab') ?? 'overview';
+  const [editOpen, setEditOpen] = useState(false);
 
   const { data: event, isLoading, isError, refetch } = useEvent(eventId);
 
@@ -57,6 +61,7 @@ export function EventDetailPage() {
   const tabs: TabItem[] = [
     { value: 'overview', label: t('eventDetail.tabs.overview') },
     { value: 'hosts', label: t('eventDetail.tabs.hosts') },
+    { value: 'venue', label: t('eventDetail.tabs.venue') },
     { value: 'agenda', label: t('eventDetail.tabs.agenda') },
     { value: 'registrations', label: t('eventDetail.tabs.registrations') },
     { value: 'media', label: t('eventDetail.tabs.media') },
@@ -102,7 +107,7 @@ export function EventDetailPage() {
               </div>
             </div>
             <div className="flex gap-2.5">
-              <Button variant="secondary" leadingIcon={<Pencil size={15} />}>
+              <Button variant="secondary" leadingIcon={<Pencil size={15} />} onClick={() => setEditOpen(true)}>
                 {t('eventDetail.edit')}
               </Button>
               <Button variant="secondary" leadingIcon={<Share2 size={15} />}>
@@ -127,6 +132,7 @@ export function EventDetailPage() {
       <div className="mx-auto max-w-[1500px] px-[34px] pb-16 pt-6">
         {tab === 'overview' && <OverviewTab event={event} onGoTab={setTab} />}
         {tab === 'hosts' && <HostsTab event={event} />}
+        {tab === 'venue' && <VenueTab event={event} />}
         {tab === 'agenda' && <AgendaTab event={event} />}
         {tab === 'registrations' && <RegistrationsTab event={event} />}
         {tab === 'media' && <MediaTab eventId={event.eventId} />}
@@ -136,6 +142,8 @@ export function EventDetailPage() {
         {tab === 'analytics' && <AnalyticsTab eventId={event.eventId} />}
         {tab === 'settings' && <SettingsTab event={event} />}
       </div>
+
+      {editOpen && <EditEventModal open event={event} onClose={() => setEditOpen(false)} />}
     </div>
   );
 }

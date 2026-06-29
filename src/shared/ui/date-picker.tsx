@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { DayPicker } from 'react-day-picker';
 import { useTranslation } from 'react-i18next';
 import { Calendar } from 'lucide-react';
 
 import { cn } from '@/shared/lib/cn';
 import { dateFnsLocale, formatLocalDate, parseISODate, toISODate } from '@/shared/lib/datetime';
+import { Popover } from './popover';
 
 export interface DatePickerProps {
   /** ISO date string 'yyyy-MM-dd'. */
@@ -18,12 +19,14 @@ export interface DatePickerProps {
 export function DatePicker({ value, onChange, placeholder, className }: DatePickerProps) {
   const { t, i18n } = useTranslation();
   const [open, setOpen] = useState(false);
+  const anchorRef = useRef<HTMLButtonElement>(null);
   const selected = parseISODate(value);
   const label = formatLocalDate(value, i18n.language);
 
   return (
     <div className={cn('relative', className)}>
       <button
+        ref={anchorRef}
         type="button"
         onClick={() => setOpen((v) => !v)}
         className={cn(
@@ -36,23 +39,23 @@ export function DatePicker({ value, onChange, placeholder, className }: DatePick
         <span className="flex-1">{label ?? placeholder ?? t('datePicker.selectDate')}</span>
       </button>
 
-      {open && (
-        <>
-          <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
-          <div className="ml-rdp animate-in absolute left-0 top-[44px] z-50 rounded-[14px] border border-border bg-surface-raised p-2 shadow-[var(--shadow-pop)]">
-            <DayPicker
-              mode="single"
-              selected={selected}
-              defaultMonth={selected}
-              locale={dateFnsLocale(i18n.language)}
-              onSelect={(d) => {
-                if (d) onChange(toISODate(d));
-                setOpen(false);
-              }}
-            />
-          </div>
-        </>
-      )}
+      <Popover
+        anchorRef={anchorRef}
+        open={open}
+        onClose={() => setOpen(false)}
+        className="ml-rdp animate-in rounded-[14px] border border-border bg-surface-raised p-2 shadow-[var(--shadow-pop)]"
+      >
+        <DayPicker
+          mode="single"
+          selected={selected}
+          defaultMonth={selected}
+          locale={dateFnsLocale(i18n.language)}
+          onSelect={(d) => {
+            if (d) onChange(toISODate(d));
+            setOpen(false);
+          }}
+        />
+      </Popover>
     </div>
   );
 }

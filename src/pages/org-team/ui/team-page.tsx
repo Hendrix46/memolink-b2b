@@ -11,6 +11,7 @@ import {
   useRemoveMember,
   type OrgMemberRole,
 } from '@/entities/org';
+import { useUserDirectoryMap, useUserDirectorySeed } from '@/entities/user';
 import { ApiError } from '@/shared/api';
 import {
   Avatar,
@@ -41,6 +42,10 @@ const PERMISSIONS = [
 export function TeamPage() {
   const { t } = useTranslation();
   const orgId = useActiveOrgId() ?? '';
+
+  // Member rows come back id-only; seed + read the directory to show real names.
+  useUserDirectorySeed();
+  const directory = useUserDirectoryMap();
 
   const membersQuery = useOrgMembers(orgId);
   const invitesQuery = useOrgInvites(orgId);
@@ -109,14 +114,16 @@ export function TeamPage() {
                 {t('team.noMembers')}
               </div>
             ) : (
-              (membersQuery.data ?? []).map((m) => (
+              (membersQuery.data ?? []).map((m) => {
+                const name = directory[m.userId]?.name ?? t('common.unknownUser');
+                return (
                 <div
                   key={m.userId}
                   className="flex items-center gap-3 border-b border-hairline px-5 py-3.5 last:border-0"
                 >
-                  <Avatar name={m.userId} size={36} />
+                  <Avatar name={name} size={36} />
                   <div className="min-w-0 flex-1">
-                    <div className="truncate font-mono text-[12.5px] font-medium">{m.userId}</div>
+                    <div className="truncate text-[13px] font-medium">{name}</div>
                   </div>
                   <Select
                     className="h-[34px] w-[150px]"
@@ -142,7 +149,8 @@ export function TeamPage() {
                     <Trash2 size={15} />
                   </IconButton>
                 </div>
-              ))
+                );
+              })
             )}
           </Card>
 

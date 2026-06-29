@@ -17,6 +17,12 @@ export const queryKeys = {
     branding: (eventId: string) => ['events', 'branding', eventId] as const,
     galleries: (eventId: string) => ['events', 'galleries', eventId] as const,
     agenda: (eventId: string) => ['events', 'agenda', eventId] as const,
+    venues: (eventId: string) => ['events', 'venues', eventId] as const,
+  },
+
+  users: {
+    search: (query: string) => ['users', 'search', query] as const,
+    directorySeed: ['users', 'directory', 'seed'] as const,
   },
 
   photographer: {

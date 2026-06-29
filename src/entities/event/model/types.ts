@@ -114,6 +114,8 @@ export type HostRole = 'owner' | 'manager' | 'editor' | 'viewer';
 
 export interface EventHostMember {
   id: string;
+  /** Backend user id — needed to remove the host (`DELETE …/host/{userId}`). */
+  userId: string;
   name: string;
   email: string;
   role: HostRole;
@@ -170,6 +172,9 @@ export interface EventDetail {
   title: string;
   description: string | null;
   locationName: string | null;
+  locationAddress: string | null;
+  latitude: number | null;
+  longitude: number | null;
   accessLevel: AccessLevel;
   eventStartDate: string;
   eventEndDate: string;

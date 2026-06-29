@@ -30,3 +30,7 @@ export { Textarea } from './textarea';
 export { DatePicker } from './date-picker';
 export { TimePicker } from './time-picker';
 export { Toaster, toast } from './toast';
+export { ConfirmDialog } from './confirm-dialog';
+export type { ConfirmDialogProps } from './confirm-dialog';
+export { Popover } from './popover';
+export type { PopoverProps } from './popover';

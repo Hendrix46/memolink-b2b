@@ -15,7 +15,7 @@ export function PageHeader({ title, description, actions, className }: PageHeade
   return (
     <div className={cn('mb-6 flex flex-wrap items-end justify-between gap-4', className)}>
       <div>
-        <h1 className="text-[26px] font-semibold tracking-[-0.02em]">{title}</h1>
+        <h1 className="text-[26px] font-semibold tracking-[-0.02em] text-text">{title}</h1>
         {description && <p className="mt-1.5 text-sm text-text-secondary">{description}</p>}
       </div>
       {actions && <div className="flex items-center gap-2.5">{actions}</div>}

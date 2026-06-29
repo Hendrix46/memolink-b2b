@@ -22,7 +22,8 @@
     "today": "bugun",
     "lastHour": "soʻnggi soat",
     "undo": "Bekor qilish",
-    "send": "Yuborish"
+    "send": "Yuborish",
+    "unknownUser": "Noma‘lum foydalanuvchi"
   },
   "language": {
     "label": "Til",
@@ -394,7 +395,8 @@
       "branding": "Brending",
       "delivery": "Yetkazish",
       "analytics": "Analitika",
-      "settings": "Sozlamalar"
+      "settings": "Sozlamalar",
+      "venue": "Manzilgoh"
     },
     "overview": {
       "hostedBy": "Tashkilotchi",
@@ -472,7 +474,18 @@
       "status": {
         "active": "Faol",
         "pending": "Taklif yuborilgan"
-      }
+      },
+      "addExisting": "Mavjud foydalanuvchini qo‘shish",
+      "addExistingHint": "Memolink foydalanuvchilarini qidirib, ularni darhol co-host qiling.",
+      "pickerPh": "Ism yoki telefon bo‘yicha qidirish",
+      "searching": "Qidirilmoqda…",
+      "noPeople": "Mos odam topilmadi",
+      "added": "Co-host qo‘shildi.",
+      "addFailed": "Co-host qo‘shib bo‘lmadi.",
+      "noCohosts": "Hozircha co-host yo‘q.",
+      "removeCohost": "Co-hostni olib tashlash",
+      "removeConfirm": "{{name}} ushbu tadbir co-hostlaridan olib tashlansinmi?",
+      "removeFailed": "Co-hostni olib tashlab bo‘lmadi."
     },
     "photographers": {
       "title": "Bu tadbirni suratga oluvchi fotograflar",
@@ -534,7 +547,30 @@
       "track": "Trek",
       "noTrack": "Treksiz",
       "trackName": "Trek nomi",
-      "trackNamePh": "masalan Asosiy sahna"
+      "trackNamePh": "masalan Asosiy sahna",
+      "tracks": "Treklar",
+      "editSession": "Sessiyani tahrirlash",
+      "editTrack": "Trekni tahrirlash",
+      "deleteSession": "Sessiyani o‘chirish",
+      "deleteSessionConfirm": "Bu sessiya o‘chirilsinmi? Buni qaytarib bo‘lmaydi.",
+      "deleteTrack": "Trekni o‘chirish",
+      "deleteTrackConfirm": "Bu trek o‘chirilsinmi? Sessiyalar vaqti qoladi, lekin trek belgisi olib tashlanadi.",
+      "trackColor": "Rang",
+      "description": "Tavsif",
+      "descriptionPh": "Sessiya nima haqida…",
+      "room": "Xona",
+      "noRoom": "Xonasiz",
+      "noRoomsHint": "Sessiyalarni biriktirish uchun Manzilgoh tabida xona qo‘shing.",
+      "manageSpeakers": "Spikerlar",
+      "assignSpeakerPh": "Spiker qo‘shish uchun odam qidiring",
+      "searchingPeople": "Qidirilmoqda…",
+      "noPeople": "Mos odam topilmadi",
+      "noSpeakers": "Hali spiker tayinlanmagan.",
+      "speaker": "Spiker",
+      "assignFailed": "Spikerni qo‘shib bo‘lmadi.",
+      "unassignFailed": "Spikerni olib tashlab bo‘lmadi.",
+      "startDate": "Boshlanish sanasi",
+      "endDate": "Tugash sanasi"
     },
     "registrations": {
       "registered": "Roʻyxatdan oʻtgan",
@@ -561,7 +597,8 @@
       "primaryColor": "Asosiy rang",
       "fontFamily": "Shrift",
       "watermarkType": "Suv belgisi",
-      "loadError": "Brendingni yuklab bo‘lmadi."
+      "loadError": "Brendingni yuklab bo‘lmadi.",
+      "fontDefault": "Mavzu shrifti"
     },
     "delivery": {
       "accessLevel": "Kirish darajasi",
@@ -642,6 +679,61 @@
       "deleteConfirmDesc": "«{{name}}» va barcha {{total}} ta fayl butunlay oʻchiriladi. Buni qaytarib boʻlmaydi.",
       "deleted": "Tadbir oʻchirildi.",
       "saved": "Tadbir sozlamalari saqlandi."
+    },
+    "venue": {
+      "title": "Manzilgohlar",
+      "subtitle": "Sessiyalar o‘tadigan maydon va xonalar.",
+      "addVenue": "Manzilgoh qo‘shish",
+      "editVenue": "Manzilgohni tahrirlash",
+      "deleteVenue": "Manzilgohni o‘chirish",
+      "deleteVenueConfirm": "Manzilgoh va uning barcha xonalari o‘chiriladi. Buni qaytarib bo‘lmaydi.",
+      "emptyTitle": "Hozircha manzilgoh yo‘q",
+      "emptyDesc": "Manzilgoh qo‘shing, so‘ng sessiyalar o‘tadigan xonalarni yarating.",
+      "name": "Manzilgoh nomi",
+      "namePh": "mas. Asosiy konferensiya markazi",
+      "address": "Manzil",
+      "addressPh": "Ko‘cha, shahar",
+      "notes": "Eslatmalar",
+      "notesPh": "Parking, kirish, qulayliklar…",
+      "rooms": "Xonalar",
+      "addRoom": "Xona qo‘shish",
+      "editRoom": "Xonani tahrirlash",
+      "deleteRoom": "Xonani o‘chirish",
+      "deleteRoomConfirm": "Bu xona o‘chirilsinmi? Unga biriktirilgan sessiyalar vaqti qoladi, lekin xona olib tashlanadi.",
+      "noRooms": "Bu manzilgohda hali xona yo‘q.",
+      "roomName": "Xona nomi",
+      "roomNamePh": "mas. A zal",
+      "capacity": "Sig‘im",
+      "capacityPh": "mas. 200",
+      "parentRoom": "Ichida",
+      "noParent": "Yuqori darajadagi xona",
+      "seats": "{{count}} o‘rin",
+      "venueFailed": "Manzilgohni saqlab bo‘lmadi.",
+      "roomFailed": "Xonani saqlab bo‘lmadi.",
+      "deleteFailed": "O‘chirib bo‘lmadi. Qayta urinib ko‘ring."
+    },
+    "editEvent": {
+      "title": "Tadbirni tahrirlash",
+      "name": "Tadbir nomi",
+      "namePh": "mas. Yillik Tech Summit",
+      "description": "Tavsif",
+      "descriptionPh": "Ishtirokchilarga nimani kutishni ayting…",
+      "locationName": "Joy nomi",
+      "locationNamePh": "mas. Innovation Hub",
+      "address": "Manzil",
+      "addressPh": "Ko‘cha, shahar",
+      "accessLevel": "Ko‘rinish",
+      "public": "Ommaviy",
+      "private": "Yopiq",
+      "capacity": "Sig‘im",
+      "capacityPh": "Cheksiz",
+      "timeOrder": "Boshlanish tugashdan oldin bo‘lishi kerak.",
+      "saved": "Tadbir yangilandi.",
+      "failed": "Tadbirni yangilab bo‘lmadi.",
+      "startDate": "Boshlanish sanasi",
+      "startTime": "Boshlanish vaqti",
+      "endDate": "Tugash sanasi",
+      "endTime": "Tugash vaqti"
     }
   },
   "ticket": {
@@ -748,7 +840,6 @@
       "branding": "Brending",
       "tickets": "Chiptalar",
       "registration": "Roʻyxatdan oʻtish",
-      "agenda": "Dastur",
       "access": "Kirish",
       "review": "Tekshirish"
     },
@@ -870,7 +961,6 @@
       }
     },
     "agendaStep": {
-      "intro": "Jadvalingizni tuzing. Vaqt, spiker, xona va treklar bilan sessiyalar qoʻshing — yaratilgandan keyin tartibni oʻzgartirsa boʻladi.",
       "noSessions": "Hozircha sessiya yoʻq — jadval tuzing.",
       "titlePh": "Sessiya nomi",
       "speakerPh": "Spiker",
@@ -923,9 +1013,8 @@
       "customFields": "Maxsus maydonlar",
       "fieldsAdded": "{{count}} ta qoʻshildi",
       "agenda": "Dastur",
-      "sessions": "Sessiyalar",
-      "sessionsAdded": "{{count}} ta qoʻshildi",
-      "createEvent": "Tadbir yaratish"
+      "createEvent": "Tadbir yaratish",
+      "agendaAfter": "Dasturni — treklar, sessiyalar va spikerlarni — tadbir yaratilgach, uning «Agenda» tabida tuzasiz."
     },
     "preview": {
       "livePreview": "Jonli koʻrinish",
@@ -1057,7 +1146,8 @@
       "TOP_RIGHT": "Yuqori o‘ng",
       "BOTTOM_LEFT": "Past chap",
       "BOTTOM_RIGHT": "Past o‘ng"
-    }
+    },
+    "fontDefault": "Mavzu shrifti"
   },
   "orgDelivery": {
     "title": "Yetkazish",

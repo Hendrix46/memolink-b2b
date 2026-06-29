@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import type { EventDetail } from '@/entities/event';
 import {
+  FONT_FAMILIES,
   useEventBranding,
   useUpdateEventBranding,
   type BrandingAttributes,
@@ -74,7 +75,14 @@ export function BrandingTab({ event }: { event: EventDetail }) {
             />
 
             <Field label={t('eventDetail.branding.fontFamily')}>
-              <Input value={form.fontFamily ?? ''} onChange={(e) => patch({ fontFamily: e.target.value })} placeholder="Geist, Inter, …" />
+              <Select
+                value={form.fontFamily ?? ''}
+                onChange={(e) => patch({ fontFamily: e.target.value || undefined })}
+                options={[
+                  { value: '', label: t('eventDetail.branding.fontDefault') },
+                  ...FONT_FAMILIES.map((f) => ({ value: f, label: f })),
+                ]}
+              />
             </Field>
 
             <Field label={t('eventDetail.branding.watermarkType')}>

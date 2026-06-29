@@ -47,7 +47,7 @@ export function SectionHeader({ title, action, indicator, description, className
       )}
     >
       <div className="min-w-0">
-        <h2 className="flex items-center gap-2.5 text-[15px] font-semibold">
+        <h2 className="flex items-center gap-2.5 text-[15px] font-semibold text-text">
           {indicator}
           {title}
         </h2>

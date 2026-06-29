@@ -54,6 +54,7 @@ function personName(p: { firstName?: string | null; lastName?: string | null; ph
 function mapHost(h: EventHostContract, creatorUserId: string | undefined): EventHostMember {
   return {
     id: h.eventHostId,
+    userId: h.userId,
     name: personName(h),
     email: h.phoneNumber ?? h.userId,
     role: h.userId === creatorUserId ? 'owner' : 'manager',
@@ -96,6 +97,9 @@ function toDetail(c: GetEventResponseContract): EventDetail {
     title: c.title,
     description: c.description ?? null,
     locationName: c.location?.name ?? null,
+    locationAddress: c.location?.address ?? null,
+    latitude: c.location?.latitude ?? null,
+    longitude: c.location?.longitude ?? null,
     accessLevel: c.accessLevel,
     eventStartDate: c.eventStartDate,
     eventEndDate: c.eventEndDate,

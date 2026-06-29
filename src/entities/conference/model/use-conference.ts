@@ -20,6 +20,15 @@ export function useCreateTrack(eventId: string) {
   });
 }
 
+export function useUpdateTrack(eventId: string) {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: ({ trackId, body }: { trackId: string; body: TrackInput }) =>
+      conferenceApi.updateTrack(eventId, trackId, body),
+    onSuccess: () => qc.invalidateQueries({ queryKey: queryKeys.events.agenda(eventId) }),
+  });
+}
+
 export function useDeleteTrack(eventId: string) {
   const qc = useQueryClient();
   return useMutation({
@@ -49,6 +58,24 @@ export function useDeleteSession(eventId: string) {
   const qc = useQueryClient();
   return useMutation({
     mutationFn: (sessionId: string) => conferenceApi.deleteSession(eventId, sessionId),
+    onSuccess: () => qc.invalidateQueries({ queryKey: queryKeys.events.agenda(eventId) }),
+  });
+}
+
+export function useAssignSpeaker(eventId: string) {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: ({ sessionId, userId }: { sessionId: string; userId: string }) =>
+      conferenceApi.assignSpeaker(eventId, sessionId, userId),
+    onSuccess: () => qc.invalidateQueries({ queryKey: queryKeys.events.agenda(eventId) }),
+  });
+}
+
+export function useUnassignSpeaker(eventId: string) {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: ({ sessionId, userId }: { sessionId: string; userId: string }) =>
+      conferenceApi.unassignSpeaker(eventId, sessionId, userId),
     onSuccess: () => qc.invalidateQueries({ queryKey: queryKeys.events.agenda(eventId) }),
   });
 }

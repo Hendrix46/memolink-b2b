@@ -22,7 +22,8 @@
     "today": "today",
     "lastHour": "last hour",
     "undo": "Undo",
-    "send": "Send"
+    "send": "Send",
+    "unknownUser": "Unknown user"
   },
   "language": {
     "label": "Language",
@@ -394,7 +395,8 @@
       "branding": "Branding",
       "delivery": "Delivery",
       "analytics": "Analytics",
-      "settings": "Settings"
+      "settings": "Settings",
+      "venue": "Venue"
     },
     "overview": {
       "hostedBy": "Hosted by",
@@ -472,7 +474,18 @@
       "status": {
         "active": "Active",
         "pending": "Pending invite"
-      }
+      },
+      "addExisting": "Add an existing user",
+      "addExistingHint": "Search Memolink users to add them as a co-host right away.",
+      "pickerPh": "Search by name or phone",
+      "searching": "Searching…",
+      "noPeople": "No matching people",
+      "added": "Co-host added.",
+      "addFailed": "Couldn’t add the co-host.",
+      "noCohosts": "No co-hosts yet.",
+      "removeCohost": "Remove co-host",
+      "removeConfirm": "Remove {{name}} as a co-host of this event?",
+      "removeFailed": "Couldn’t remove the co-host."
     },
     "photographers": {
       "title": "Photographers covering this event",
@@ -534,7 +547,30 @@
       "track": "Track",
       "noTrack": "No track",
       "trackName": "Track name",
-      "trackNamePh": "e.g. Main stage"
+      "trackNamePh": "e.g. Main stage",
+      "tracks": "Tracks",
+      "editSession": "Edit session",
+      "editTrack": "Edit track",
+      "deleteSession": "Delete session",
+      "deleteSessionConfirm": "Delete this session? This can’t be undone.",
+      "deleteTrack": "Delete track",
+      "deleteTrackConfirm": "Delete this track? Sessions keep their time but lose the track label.",
+      "trackColor": "Color",
+      "description": "Description",
+      "descriptionPh": "What this session covers…",
+      "room": "Room",
+      "noRoom": "No room",
+      "noRoomsHint": "Add rooms in the Venue tab to assign sessions to them.",
+      "manageSpeakers": "Manage speakers",
+      "assignSpeakerPh": "Search people to add as speaker",
+      "searchingPeople": "Searching…",
+      "noPeople": "No matching people",
+      "noSpeakers": "No speakers assigned yet.",
+      "speaker": "Speaker",
+      "assignFailed": "Couldn’t add the speaker.",
+      "unassignFailed": "Couldn’t remove the speaker.",
+      "startDate": "Start date",
+      "endDate": "End date"
     },
     "registrations": {
       "registered": "Registered",
@@ -561,7 +597,8 @@
       "primaryColor": "Primary color",
       "fontFamily": "Font family",
       "watermarkType": "Watermark",
-      "loadError": "Couldn’t load branding."
+      "loadError": "Couldn’t load branding.",
+      "fontDefault": "Theme default"
     },
     "delivery": {
       "accessLevel": "Access level",
@@ -642,6 +679,61 @@
       "deleteConfirmDesc": "“{{name}}” and all {{total}} assets will be permanently deleted. This cannot be undone.",
       "deleted": "Event deleted.",
       "saved": "Event settings saved."
+    },
+    "venue": {
+      "title": "Venues",
+      "subtitle": "Spaces and rooms where your sessions take place.",
+      "addVenue": "Add venue",
+      "editVenue": "Edit venue",
+      "deleteVenue": "Delete venue",
+      "deleteVenueConfirm": "This removes the venue and all of its rooms. This can’t be undone.",
+      "emptyTitle": "No venues yet",
+      "emptyDesc": "Add a venue, then create the rooms where sessions will be held.",
+      "name": "Venue name",
+      "namePh": "e.g. Main Conference Center",
+      "address": "Address",
+      "addressPh": "Street, city",
+      "notes": "Notes",
+      "notesPh": "Parking, entrance, accessibility…",
+      "rooms": "Rooms",
+      "addRoom": "Add room",
+      "editRoom": "Edit room",
+      "deleteRoom": "Delete room",
+      "deleteRoomConfirm": "Delete this room? Sessions assigned to it keep their time but lose the room.",
+      "noRooms": "No rooms in this venue yet.",
+      "roomName": "Room name",
+      "roomNamePh": "e.g. Hall A",
+      "capacity": "Capacity",
+      "capacityPh": "e.g. 200",
+      "parentRoom": "Inside",
+      "noParent": "Top-level room",
+      "seats": "{{count}} seats",
+      "venueFailed": "Couldn’t save the venue.",
+      "roomFailed": "Couldn’t save the room.",
+      "deleteFailed": "Couldn’t delete. Please try again."
+    },
+    "editEvent": {
+      "title": "Edit event",
+      "name": "Event name",
+      "namePh": "e.g. Annual Tech Summit",
+      "description": "Description",
+      "descriptionPh": "Tell attendees what to expect…",
+      "locationName": "Location name",
+      "locationNamePh": "e.g. Innovation Hub",
+      "address": "Address",
+      "addressPh": "Street, city",
+      "accessLevel": "Visibility",
+      "public": "Public",
+      "private": "Private",
+      "capacity": "Capacity",
+      "capacityPh": "Unlimited",
+      "timeOrder": "The start must be before the end.",
+      "saved": "Event updated.",
+      "failed": "Couldn’t update the event.",
+      "startDate": "Start date",
+      "startTime": "Start time",
+      "endDate": "End date",
+      "endTime": "End time"
     }
   },
   "ticket": {
@@ -748,7 +840,6 @@
       "branding": "Branding",
       "tickets": "Tickets",
       "registration": "Registration",
-      "agenda": "Agenda",
       "access": "Access",
       "review": "Review"
     },
@@ -870,7 +961,6 @@
       }
     },
     "agendaStep": {
-      "intro": "Build your schedule. Add sessions with times, speakers, rooms and tracks — reorder anytime after the event is created.",
       "noSessions": "No sessions yet — build your schedule.",
       "titlePh": "Session title",
       "speakerPh": "Speaker",
@@ -923,9 +1013,8 @@
       "customFields": "Custom fields",
       "fieldsAdded": "{{count}} added",
       "agenda": "Agenda",
-      "sessions": "Sessions",
-      "sessionsAdded": "{{count}} added",
-      "createEvent": "Create event"
+      "createEvent": "Create event",
+      "agendaAfter": "You’ll build the agenda — tracks, sessions and speakers — right after creating, in the event’s Agenda tab."
     },
     "preview": {
       "livePreview": "Live preview",
@@ -1057,7 +1146,8 @@
       "TOP_RIGHT": "Top right",
       "BOTTOM_LEFT": "Bottom left",
       "BOTTOM_RIGHT": "Bottom right"
-    }
+    },
+    "fontDefault": "Theme default"
   },
   "orgDelivery": {
     "title": "Delivery",
