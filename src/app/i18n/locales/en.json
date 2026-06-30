@@ -147,7 +147,10 @@
     "delivered": "Photos delivered.",
     "deliverFailed": "Couldn’t deliver photos.",
     "deliver": "Deliver",
-    "uploadingState": "Uploading… {{pct}}%"
+    "uploadingState": "Uploading… {{pct}}%",
+    "tooLarge": "File exceeds the {{max}} limit.",
+    "limitHint": "Up to {{max}} per file",
+    "resumable": "Resumable"
   },
   "myUploads": {
     "title": "My Uploads",
@@ -284,7 +287,20 @@
     "detailsSubtitle": "Just a few details to finish setting up.",
     "enterPasswordFor": "Enter your password for {{phone}}.",
     "accountExists": "An account already exists for this number.",
-    "noAccountForPhone": "We couldn’t find an account for that number."
+    "noAccountForPhone": "We couldn’t find an account for that number.",
+    "panel": {
+      "kicker": "Memolink for organizers",
+      "headlineTop": "Every moment —",
+      "headlineAccent": "beautifully delivered.",
+      "pillCurate": "Curate",
+      "pillDeliver": "Deliver",
+      "pillMeasure": "Measure",
+      "status": {
+        "delivered": "Delivered",
+        "live": "Live",
+        "curating": "Curating"
+      }
+    }
   },
   "dashboard": {
     "greeting": "Good morning, {{name}}",
@@ -1049,7 +1065,8 @@
       "createEvents": "Create & edit events",
       "curate": "Curate & deliver media",
       "manageTeam": "Manage team & billing",
-      "upload": "Upload media"
+      "upload": "Upload media",
+      "assignPhotographers": "Assign photographers"
     },
     "invited": "Invitation sent to {{email}}.",
     "inviteFailed": "Couldn’t send the invite.",
@@ -1062,7 +1079,8 @@
     "inviteDesc": "Send an invite to join your organization.",
     "emailLabel": "Email address",
     "emailPh": "name@company.com",
-    "roleLabel": "Role"
+    "roleLabel": "Role",
+    "permsNote": "Photographer and Staff are labels — they grant no org-level powers. A photographer’s real abilities (large/resumable uploads, delivering photos) come from being assigned to a specific event by an admin or coordinator."
   },
   "billing": {
     "title": "Billing",

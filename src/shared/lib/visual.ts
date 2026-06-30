@@ -5,22 +5,22 @@
  */
 
 const AVATAR_GRADIENTS = [
-  'linear-gradient(140deg,#6D5EF6,#9d7bff)',
+  'linear-gradient(140deg,#6670FF,#8387ff)',
   'linear-gradient(140deg,#E0A33E,#F0556E)',
   'linear-gradient(140deg,#3DD68C,#4AA8FF)',
-  'linear-gradient(140deg,#4AA8FF,#6D5EF6)',
-  'linear-gradient(140deg,#F0556E,#9d7bff)',
-  'linear-gradient(140deg,#3DD68C,#6D5EF6)',
+  'linear-gradient(140deg,#4AA8FF,#6670FF)',
+  'linear-gradient(140deg,#F0556E,#8387ff)',
+  'linear-gradient(140deg,#3DD68C,#6670FF)',
 ];
 
 const COVER_GRADIENTS = [
-  'linear-gradient(135deg,#2a2350,#6D5EF6 120%)',
+  'linear-gradient(135deg,#2a2350,#6670FF 120%)',
   'linear-gradient(135deg,#3a2030,#F0556E 130%)',
   'linear-gradient(135deg,#13314a,#4AA8FF 130%)',
   'linear-gradient(135deg,#143a2c,#3DD68C 140%)',
   'linear-gradient(135deg,#3a2e12,#E0A33E 140%)',
-  'linear-gradient(135deg,#241c3a,#9d7bff 130%)',
-  'linear-gradient(135deg,#1a2540,#6D5EF6 120%)',
+  'linear-gradient(135deg,#241c3a,#8387ff 130%)',
+  'linear-gradient(135deg,#1a2540,#6670FF 120%)',
 ];
 
 /** Stable hash for a string seed. */

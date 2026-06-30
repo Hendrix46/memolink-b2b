@@ -168,7 +168,7 @@ export function Lightbox() {
           {onFeature && (
             <button
               onClick={handleFeature}
-              className="flex w-full items-center justify-center gap-2 rounded-[10px] bg-[rgba(109,94,246,0.14)] py-2.5 text-[13px] font-medium text-accent-soft transition-colors hover:bg-[rgba(109,94,246,0.22)]"
+              className="flex w-full items-center justify-center gap-2 rounded-[10px] bg-[rgba(102,112,255,0.14)] py-2.5 text-[13px] font-medium text-accent-soft transition-colors hover:bg-[rgba(102,112,255,0.22)]"
             >
               <Star size={15} fill={isFeatured ? 'currentColor' : 'none'} />
               {isFeatured ? t('eventDetail.lightbox.featured') : t('eventDetail.lightbox.feature')}

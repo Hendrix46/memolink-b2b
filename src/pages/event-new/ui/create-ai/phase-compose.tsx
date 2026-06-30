@@ -111,7 +111,7 @@ export function PhaseCompose({
                 <h1 className="max-w-[360px] truncate text-[18px] font-semibold">
                   {draft.name || t('builder.preview.untitled')}
                 </h1>
-                <span className="flex items-center gap-1 rounded-[7px] bg-[rgba(109,94,246,0.16)] px-2.5 py-[3px] text-[11px] font-semibold text-accent-soft">
+                <span className="flex items-center gap-1 rounded-[7px] bg-[rgba(102,112,255,0.16)] px-2.5 py-[3px] text-[11px] font-semibold text-accent-soft">
                   <Sparkles size={11} /> {t('create.aiDraft')}
                 </span>
               </div>
@@ -129,7 +129,7 @@ export function PhaseCompose({
         {/* LEFT — editable cards */}
         <div className="flex flex-col gap-4">
           {/* Basics */}
-          <ComposeCard icon={<Pencil size={16} />} tint="rgba(109,94,246,0.14)" color="var(--color-accent)" title={t('create.basics.title')}>
+          <ComposeCard icon={<Pencil size={16} />} tint="rgba(102,112,255,0.14)" color="var(--color-accent)" title={t('create.basics.title')}>
             <Label text={t('create.basics.name')} />
             <TextField value={draft.name} onChange={(v) => patch({ name: v })} placeholder={t('create.basics.namePh')} />
             <Label text={t('create.basics.description')} className="mt-3.5" />
@@ -378,7 +378,7 @@ function ComposeCard({
           </span>
           <h3 className="text-[15px] font-semibold">{title}</h3>
           {badge && (
-            <span className="rounded-[6px] bg-[rgba(109,94,246,0.16)] px-2 py-0.5 text-[10.5px] font-semibold text-accent-soft">
+            <span className="rounded-[6px] bg-[rgba(102,112,255,0.16)] px-2 py-0.5 text-[10.5px] font-semibold text-accent-soft">
               {badge}
             </span>
           )}

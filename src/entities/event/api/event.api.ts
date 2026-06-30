@@ -123,6 +123,8 @@ function toDetail(c: GetEventResponseContract): EventDetail {
     photographerTeam: [],
     hosts,
     agenda: [],
+    uploadMaxBytes: c.myFileUploadMaxBytes ?? null,
+    resumableUploadAllowed: Boolean(c.resumableUploadAllowed),
   };
 }
 

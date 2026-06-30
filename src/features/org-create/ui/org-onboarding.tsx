@@ -12,7 +12,7 @@ export function OrgOnboarding() {
   return (
     <div className="flex min-h-full items-center justify-center p-6">
       <div className="w-full max-w-[440px] rounded-[var(--radius-card)] border border-border bg-surface-raised p-8 shadow-[var(--shadow-pop)]">
-        <span className="mb-5 flex size-12 items-center justify-center rounded-[12px] bg-[rgba(109,94,246,0.14)] text-accent-soft">
+        <span className="mb-5 flex size-12 items-center justify-center rounded-[12px] bg-[rgba(102,112,255,0.14)] text-accent-soft">
           <Building2 size={22} />
         </span>
         <h1 className="text-[19px] font-semibold tracking-[-0.01em]">{t('orgCreate.onboardingTitle')}</h1>

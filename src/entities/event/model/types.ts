@@ -105,6 +105,10 @@ export interface GetEventResponseContract {
   creator?: OwnerDetailsContract | null;
   dateCreated: string;
   dateUpdated?: string | null;
+  /** Caller's max per-file upload size for this event (500 MB, or 50 GB for an active photographer). */
+  myFileUploadMaxBytes?: number | null;
+  /** Whether the caller may use the resumable (50 GB) door — true only for an active photographer. */
+  resumableUploadAllowed?: boolean | null;
 }
 
 /* ─────────────────────────── detail view model ─────────────────────────── */
@@ -198,4 +202,8 @@ export interface EventDetail {
   hosts: EventHostMember[];
   /** Conference agenda highlights (empty until the agenda API is wired). */
   agenda: AgendaSession[];
+  /** Caller's max per-file upload size (bytes), or null when the API doesn't report it. */
+  uploadMaxBytes: number | null;
+  /** Whether the caller may use the resumable (50 GB) upload door (active photographer). */
+  resumableUploadAllowed: boolean;
 }

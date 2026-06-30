@@ -1,42 +1,93 @@
 @import 'tailwindcss';
 
 /*
- * Memolink design tokens — sourced 1:1 from the approved design spec (§7).
+ * Zona Pro — the memolink.io brand font, loaded from the marketing site's CDN
+ * (served with `Access-Control-Allow-Origin: *`). `swap` renders immediately
+ * with the Geist fallback, then swaps in when the brand font arrives.
+ */
+@font-face {
+  font-family: 'Zona Pro';
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+  src: url('https://memolink.io/_next/static/media/ZonaPro_Light-s.p.4458eae5.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Zona Pro';
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url('https://memolink.io/_next/static/media/ZonaPro_Regular-s.p.7cac48ea.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Zona Pro';
+  font-weight: 500 600;
+  font-style: normal;
+  font-display: swap;
+  src: url('https://memolink.io/_next/static/media/ZonaPro_SemiBold-s.p.136d784a.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Zona Pro';
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: url('https://memolink.io/_next/static/media/ZonaPro_Bold-s.p.a80414e2.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Zona Pro';
+  font-weight: 800 900;
+  font-style: normal;
+  font-display: swap;
+  src: url('https://memolink.io/_next/static/media/ZonaPro_ExtraBold-s.p.163ac4c3.woff2') format('woff2');
+}
+
+/*
+ * Memolink design tokens — unified with the memolink.io marketing site (§7).
  * Dark, media-first, premium. Dark canvas makes media pop; chrome stays quiet.
  * Tailwind v4 `@theme` exposes each token as a utility (bg-surface, text-muted, …).
  */
 @theme {
-  /* Surfaces */
-  --color-base: #0b0b0f;
-  --color-sidebar: #0d0d13;
-  --color-surface: #15151c;
-  --color-surface-raised: #1e1e28;
-  --color-surface-hover: #1a1a22;
+  /*
+   * Design tokens unified with the memolink.io marketing site (Mantine theme):
+   * purple-tinted near-black surfaces, the "brand" indigo accent (#6670ff scale)
+   * and the signature "neon" lime (#b3fc6a) as a secondary brand color.
+   */
+
+  /* Surfaces — purple-tinted near-black, matching the site hero (#08070e). */
+  --color-base: #08070e;
+  --color-sidebar: #0b0a12;
+  --color-surface: #14131f;
+  --color-surface-raised: #1d1c2b;
+  --color-surface-hover: #191826;
 
   /* Borders */
-  --color-border: #2a2a36;
-  --color-border-strong: #3a3a48;
-  --color-hairline: #1f1f29;
+  --color-border: #2b2a3f;
+  --color-border-strong: #3b3a55;
+  --color-hairline: #1c1b28;
 
   /* Text */
   --color-text: #f5f5f7;
   --color-text-secondary: #a1a1b5;
   --color-text-muted: #6b6b80;
 
-  /* Brand / accent */
-  --color-accent: #6d5ef6;
-  --color-accent-hover: #5b4de0;
-  --color-accent-soft: #9d7bff;
+  /* Brand / accent — site "brand" indigo scale (5/6/4). */
+  --color-accent: #6670ff;
+  --color-accent-hover: #5159cc;
+  --color-accent-soft: #8387ff;
+
+  /* Neon — site secondary brand (lime). Use for signature/celebratory moments. */
+  --color-neon: #b3fc6a;
+  --color-neon-soft: #d0fab3;
 
   /* Status (single source of truth — §8.1) */
   --color-pending: #e0a33e;
   --color-approved: #3dd68c;
   --color-rejected: #f0556e;
-  --color-featured: #6d5ef6;
+  --color-featured: #6670ff;
   --color-processing: #4aa8ff;
 
-  /* Typography */
-  --font-sans: 'Geist', system-ui, -apple-system, sans-serif;
+  /* Typography — Zona Pro is the brand font; Geist is the fallback. */
+  --font-sans: 'Zona Pro', 'Geist', system-ui, -apple-system, sans-serif;
   --font-mono: 'Geist Mono', ui-monospace, monospace;
 
   /* Radius (§7.4) */
@@ -45,7 +96,7 @@
   --radius-tile: 8px;
 
   /* Shadows — subtle; reserved for floating surfaces */
-  --shadow-accent: 0 4px 16px rgba(109, 94, 246, 0.32);
+  --shadow-accent: 0 4px 16px rgba(102, 112, 255, 0.32);
   --shadow-pop: 0 16px 50px rgba(0, 0, 0, 0.6);
 }
 
@@ -169,6 +220,47 @@
   animation: ml-pop-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
+/* Auth brand panel — staggered reveal + gentle continuous float (parallax). */
+@keyframes auth-rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes auth-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+@keyframes auth-aurora {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.9;
+  }
+  50% {
+    transform: translate(3%, -4%) scale(1.08);
+    opacity: 1;
+  }
+}
+.auth-rise {
+  animation: auth-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.auth-float {
+  animation: auth-float 6s ease-in-out infinite;
+}
+.auth-aurora {
+  animation: auth-aurora 14s ease-in-out infinite;
+}
+
 .animate-in {
   animation: ml-in 0.16s ease both;
 }
@@ -182,7 +274,7 @@
 /* react-day-picker — themed to the Memolink dark palette */
 .ml-rdp .rdp-root {
   --rdp-accent-color: var(--color-accent);
-  --rdp-accent-background-color: rgba(109, 94, 246, 0.18);
+  --rdp-accent-background-color: rgba(102, 112, 255, 0.18);
   --rdp-today-color: var(--color-accent-soft);
   --rdp-day-width: 38px;
   --rdp-day-height: 38px;

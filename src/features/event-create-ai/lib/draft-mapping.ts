@@ -81,7 +81,7 @@ export function draftResponseToStore(res: EventDraftResponse): Partial<EventDraf
     longitude: res.location?.longitude,
     capacity: res.maxAttendees ?? 0,
     visibility: accessToVisibility(res.accessLevel),
-    accent: normalizeAccent(res.suggestedAccent) ?? '#6D5EF6',
+    accent: normalizeAccent(res.suggestedAccent) ?? '#6670FF',
     agenda: parseAgenda(res.agenda ?? []),
   };
 }

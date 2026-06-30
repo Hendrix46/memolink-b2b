@@ -50,7 +50,7 @@ export function ModuleGrid() {
             onClick={() => setModule(key, !on)}
             className={cn(
               'flex items-center gap-3.5 rounded-[14px] border p-4 text-left transition-colors',
-              on ? 'border-accent bg-[rgba(109,94,246,0.08)]' : 'border-border hover:border-border-strong',
+              on ? 'border-accent bg-[rgba(102,112,255,0.08)]' : 'border-border hover:border-border-strong',
             )}
           >
             <span

@@ -19,9 +19,9 @@ import {
 } from '@/shared/ui';
 
 /**
- * Photographer: My Assignments. The backend has no dedicated "my assignments"
- * endpoint, so the list is derived best-effort from the active org's events
- * (`GET /api/org/events`, changelog §11/§13).
+ * Photographer: My Assignments — the events the caller is an ACTIVE photographer
+ * on, from the unified list `GET /api/event/list?filter=assigned`. This is the
+ * photographer's real work queue (user-scoped, exact), not the active org's events.
  */
 export function AssignmentsPage() {
   const { t } = useTranslation();

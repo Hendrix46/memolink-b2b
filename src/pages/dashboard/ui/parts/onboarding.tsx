@@ -56,7 +56,7 @@ export function Onboarding() {
   return (
     <div className="animate-in mx-auto max-w-[940px] px-[34px] pb-20 pt-[54px]">
       <div className="mb-10 flex flex-col items-center text-center">
-        <span className="mb-5 flex size-14 items-center justify-center rounded-2xl bg-[linear-gradient(140deg,#6D5EF6,#9d7bff)] shadow-[0_12px_34px_rgba(109,94,246,0.45)]">
+        <span className="mb-5 flex size-14 items-center justify-center rounded-2xl bg-[linear-gradient(140deg,#6670FF,#8387ff)] shadow-[0_12px_34px_rgba(102,112,255,0.45)]">
           <Camera size={27} className="text-white" strokeWidth={1.8} />
         </span>
         <h1 className="text-[30px] font-semibold tracking-[-0.025em]">
@@ -67,7 +67,7 @@ export function Onboarding() {
         </p>
         <button
           onClick={create}
-          className="flex h-[46px] items-center gap-2.5 rounded-[12px] bg-accent px-[22px] text-[14.5px] font-semibold text-white shadow-[0_8px_24px_rgba(109,94,246,0.4)] transition-colors hover:bg-accent-hover"
+          className="flex h-[46px] items-center gap-2.5 rounded-[12px] bg-accent px-[22px] text-[14.5px] font-semibold text-white shadow-[0_8px_24px_rgba(102,112,255,0.4)] transition-colors hover:bg-accent-hover"
         >
           <Sparkles size={18} />
           {t('onboarding.createWithAi')}

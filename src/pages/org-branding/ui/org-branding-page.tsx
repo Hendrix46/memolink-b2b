@@ -31,7 +31,7 @@ import {
   toast,
 } from '@/shared/ui';
 
-const PALETTE = ['#6D5EF6', '#3DD68C', '#4AA8FF', '#E0A33E', '#F0556E', '#9d7bff', '#F5F5F7', '#0B0B0F'];
+const PALETTE = ['#6670FF', '#3DD68C', '#4AA8FF', '#E0A33E', '#F0556E', '#8387ff', '#F5F5F7', '#0B0B0F'];
 const WATERMARK_TYPES: WatermarkType[] = ['NONE', 'TEXT', 'IMAGE'];
 const WATERMARK_POSITIONS: WatermarkPosition[] = [
   'CENTER',
@@ -45,8 +45,8 @@ const HEX = /^#([0-9a-fA-F]{6})$/;
 
 function emptyForm(): BrandingAttributes {
   return {
-    primaryColor: '#6D5EF6',
-    accentColor: '#9d7bff',
+    primaryColor: '#6670FF',
+    accentColor: '#8387ff',
     fontFamily: '',
     watermarkType: 'NONE',
     watermarkText: '',
@@ -263,7 +263,7 @@ export function OrgBrandingPage() {
                   <span
                     className="block h-20"
                     style={{
-                      background: `linear-gradient(140deg, ${tpl.attributes.primaryColor || '#6D5EF6'}, ${tpl.attributes.accentColor || '#9d7bff'})`,
+                      background: `linear-gradient(140deg, ${tpl.attributes.primaryColor || '#6670FF'}, ${tpl.attributes.accentColor || '#8387ff'})`,
                     }}
                   />
                   <span className="flex items-center justify-between px-3 py-2.5 text-[12.5px] font-medium">

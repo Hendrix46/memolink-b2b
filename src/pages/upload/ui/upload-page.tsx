@@ -92,19 +92,23 @@ export function UploadPage() {
 
   const addFiles = (fileList: FileList | null) => {
     if (!fileList || fileList.length === 0) return;
+    const maxBytes = event?.uploadMaxBytes ?? null;
     const newItems: UploadItem[] = Array.from(fileList).map((file) => {
       seq += 1;
+      // Reject oversize files up front rather than starting an upload the server will 403.
+      const tooLarge = maxBytes != null && file.size > maxBytes;
       return {
         id: `up_${seq}`,
         file,
         isVideo: file.type.startsWith('video/'),
         uploadedBytes: 0,
         totalSize: file.size,
-        state: 'uploading' as const,
+        state: tooLarge ? ('failed' as const) : ('uploading' as const),
+        error: tooLarge ? t('upload.tooLarge', { max: fmtBytes(maxBytes) }) : undefined,
       };
     });
     setItems((prev) => [...newItems, ...prev]);
-    newItems.forEach(startUpload);
+    newItems.filter((it) => it.state === 'uploading').forEach(startUpload);
   };
 
   const retry = (id: string) => {
@@ -193,9 +197,9 @@ export function UploadPage() {
           e.preventDefault();
           addFiles(e.dataTransfer.files);
         }}
-        className="group flex w-full flex-col items-center gap-3.5 rounded-[18px] border-[1.5px] border-dashed border-border-strong bg-[linear-gradient(180deg,rgba(109,94,246,0.05),transparent)] px-5 py-[46px] text-center transition-colors hover:border-accent hover:bg-[rgba(109,94,246,0.08)]"
+        className="group flex w-full flex-col items-center gap-3.5 rounded-[18px] border-[1.5px] border-dashed border-border-strong bg-[linear-gradient(180deg,rgba(102,112,255,0.05),transparent)] px-5 py-[46px] text-center transition-colors hover:border-accent hover:bg-[rgba(102,112,255,0.08)]"
       >
-        <span className="flex size-[62px] items-center justify-center rounded-2xl bg-[rgba(109,94,246,0.14)] text-accent-soft">
+        <span className="flex size-[62px] items-center justify-center rounded-2xl bg-[rgba(102,112,255,0.14)] text-accent-soft">
           <UploadCloud size={28} />
         </span>
         <span>
@@ -206,6 +210,17 @@ export function UploadPage() {
           {t('upload.selectFiles')}
         </span>
       </button>
+
+      {event?.uploadMaxBytes != null && (
+        <p className="mt-3 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-center text-[12px] text-text-muted">
+          <span>{t('upload.limitHint', { max: fmtBytes(event.uploadMaxBytes) })}</span>
+          {event.resumableUploadAllowed && (
+            <span className="rounded-full border border-[rgba(179,252,106,0.28)] bg-[rgba(179,252,106,0.12)] px-2 py-0.5 text-[11px] font-medium text-[#b3fc6a]">
+              {t('upload.resumable')}
+            </span>
+          )}
+        </p>
+      )}
 
       {/* Upload queue */}
       {items.length > 0 && (

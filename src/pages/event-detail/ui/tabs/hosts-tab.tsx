@@ -83,13 +83,13 @@ export function HostsTab({ event }: { event: EventDetail }) {
             <div className="min-w-0 flex-1">
               <div className="flex items-center gap-2">
                 <span className="text-[15px] font-semibold">{owner.name}</span>
-                <span className="rounded-md bg-[rgba(109,94,246,0.15)] px-1.5 py-0.5 text-[10px] font-bold text-accent-soft">
+                <span className="rounded-md bg-[rgba(102,112,255,0.15)] px-1.5 py-0.5 text-[10px] font-bold text-accent-soft">
                   {t('eventDetail.hosts.you')}
                 </span>
               </div>
               <div className="mt-0.5 font-mono text-[12.5px] text-text-muted">{owner.email}</div>
             </div>
-            <span className="rounded-md bg-[rgba(109,94,246,0.1)] px-2.5 py-1 text-[12px] font-medium text-accent-soft">
+            <span className="rounded-md bg-[rgba(102,112,255,0.1)] px-2.5 py-1 text-[12px] font-medium text-accent-soft">
               {t('eventDetail.hosts.ownerRole')}
             </span>
           </Card>

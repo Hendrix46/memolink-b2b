@@ -63,7 +63,7 @@ export function TimePicker({ value, onChange, step = 15, className }: TimePicker
             }}
             className={cn(
               'block w-full rounded-md px-3 py-1.5 text-left font-mono text-[13px] transition-colors hover:bg-border',
-              opt === value ? 'bg-[rgba(109,94,246,0.16)] text-accent-soft' : 'text-text-secondary',
+              opt === value ? 'bg-[rgba(102,112,255,0.16)] text-accent-soft' : 'text-text-secondary',
             )}
           >
             {opt}

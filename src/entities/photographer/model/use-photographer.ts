@@ -55,7 +55,7 @@ export function useDeleteAvailability() {
   });
 }
 
-// --- Assignments (derived from the active org's events) ---
+// --- Assignments (events the caller is an ACTIVE photographer on) ---
 export function useMyAssignments() {
   return useQuery({
     queryKey: queryKeys.photographer.assignments,

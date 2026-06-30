@@ -24,7 +24,7 @@ const LENS_META: Record<Lens, LensMeta> = {
   organizer: {
     icon: LayoutDashboard,
     color: 'var(--color-accent)',
-    tint: 'rgba(109,94,246,0.16)',
+    tint: 'rgba(102,112,255,0.16)',
     labelKey: 'lens.organizer',
     descKey: 'lens.organizerDesc',
     home: paths.dashboard,

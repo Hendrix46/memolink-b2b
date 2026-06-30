@@ -32,11 +32,15 @@ import {
 
 const ROLES: OrgMemberRole[] = ['ADMIN', 'COORDINATOR', 'PHOTOGRAPHER', 'STAFF'];
 
+// Org-role capabilities. Per the photographer-role spec, the org PHOTOGRAPHER
+// role is inert (a label) — a photographer's real abilities come from a per-event
+// assignment, not from this role. STAFF likewise grants nothing at the org level.
 const PERMISSIONS = [
   { key: 'createEvents', roles: { ADMIN: true, COORDINATOR: true, PHOTOGRAPHER: false, STAFF: false } },
   { key: 'curate', roles: { ADMIN: true, COORDINATOR: true, PHOTOGRAPHER: false, STAFF: false } },
+  { key: 'assignPhotographers', roles: { ADMIN: true, COORDINATOR: true, PHOTOGRAPHER: false, STAFF: false } },
   { key: 'manageTeam', roles: { ADMIN: true, COORDINATOR: false, PHOTOGRAPHER: false, STAFF: false } },
-  { key: 'upload', roles: { ADMIN: true, COORDINATOR: true, PHOTOGRAPHER: true, STAFF: false } },
+  { key: 'upload', roles: { ADMIN: true, COORDINATOR: true, PHOTOGRAPHER: false, STAFF: false } },
 ] as const;
 
 export function TeamPage() {
@@ -207,6 +211,9 @@ export function TeamPage() {
               </div>
             ))}
           </div>
+          <p className="mt-3 border-t border-hairline pt-3 text-[12px] leading-relaxed text-text-muted">
+            {t('team.permsNote')}
+          </p>
         </Card>
       </div>
 

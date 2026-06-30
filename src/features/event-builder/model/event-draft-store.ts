@@ -22,7 +22,7 @@ function createInitialDraft(): EventDraft {
     virtualUrl: '',
 
     coverSeed: 'new-event',
-    accent: '#6D5EF6',
+    accent: '#6670FF',
     layout: 'masonry',
     welcomeMessage: '',
     watermark: true,

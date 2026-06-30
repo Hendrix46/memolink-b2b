@@ -25,7 +25,7 @@ export function PhaseGenerating({ prompt }: { prompt: string }) {
 
   return (
     <div className="mx-auto flex max-w-[500px] flex-col items-center px-6 py-10 text-center">
-      <span className="animate-pulse-dot mb-5 flex size-[60px] items-center justify-center rounded-[18px] bg-[linear-gradient(140deg,#6D5EF6,#9d7bff)] shadow-[0_12px_36px_rgba(109,94,246,0.5)]">
+      <span className="animate-pulse-dot mb-5 flex size-[60px] items-center justify-center rounded-[18px] bg-[linear-gradient(140deg,#6670FF,#8387ff)] shadow-[0_12px_36px_rgba(102,112,255,0.5)]">
         <Sparkles size={28} className="text-white" />
       </span>
       <h2 className="text-[21px] font-semibold">{t('create.generating.title')}</h2>

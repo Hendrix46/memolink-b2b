@@ -21,7 +21,7 @@ export function FilterChip({ label, active, count, dotColor, onClick }: FilterCh
       className={cn(
         'inline-flex h-[34px] items-center gap-2 rounded-lg border px-3 text-[12.5px] font-medium transition-colors',
         active
-          ? 'border-accent bg-[rgba(109,94,246,0.14)] text-text'
+          ? 'border-accent bg-[rgba(102,112,255,0.14)] text-text'
           : 'border-border bg-surface text-text-secondary hover:border-border-strong',
       )}
     >

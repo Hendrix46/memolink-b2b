@@ -103,7 +103,7 @@ export function BillingPage() {
       <PageHeader title={t('billing.title')} description={t('billing.subtitle')} />
 
       <div className="grid grid-cols-1 gap-[18px] lg:grid-cols-[1fr_1.3fr]">
-        <Card className="space-y-4 border-[rgba(109,94,246,0.35)] bg-[linear-gradient(135deg,rgba(109,94,246,0.16),rgba(109,94,246,0.04))]">
+        <Card className="space-y-4 border-[rgba(102,112,255,0.35)] bg-[linear-gradient(135deg,rgba(102,112,255,0.16),rgba(102,112,255,0.04))]">
           <div>
             <div className="text-[12px] font-semibold uppercase tracking-[0.06em] text-accent-soft">
               {t('billing.currentPlan')}

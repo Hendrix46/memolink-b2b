@@ -34,3 +34,4 @@ export { ConfirmDialog } from './confirm-dialog';
 export type { ConfirmDialogProps } from './confirm-dialog';
 export { Popover } from './popover';
 export type { PopoverProps } from './popover';
+export { Logo, LogoMark } from './logo';

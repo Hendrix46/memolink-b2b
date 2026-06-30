@@ -128,7 +128,7 @@ export function MediaTile({
               className={cn(
                 'flex size-[26px] items-center justify-center rounded-md backdrop-blur-sm transition',
                 asset.featured
-                  ? 'bg-[rgba(109,94,246,0.85)] text-white'
+                  ? 'bg-[rgba(102,112,255,0.85)] text-white'
                   : 'bg-black/55 text-white opacity-0 group-hover:opacity-100',
               )}
             >
@@ -136,7 +136,7 @@ export function MediaTile({
             </button>
           ) : (
             asset.featured && (
-              <span className="flex size-[26px] items-center justify-center rounded-md bg-[rgba(109,94,246,0.85)] text-white backdrop-blur-sm">
+              <span className="flex size-[26px] items-center justify-center rounded-md bg-[rgba(102,112,255,0.85)] text-white backdrop-blur-sm">
                 <Star size={13} fill="currentColor" />
               </span>
             )

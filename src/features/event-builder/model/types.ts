@@ -98,4 +98,4 @@ export const TIMEZONES = [
   'Australia/Sydney',
 ];
 
-export const ACCENT_PRESETS = ['#6D5EF6', '#3DD68C', '#4AA8FF', '#E0A33E', '#F0556E', '#9d7bff'];
+export const ACCENT_PRESETS = ['#6670FF', '#3DD68C', '#4AA8FF', '#E0A33E', '#F0556E', '#8387ff'];

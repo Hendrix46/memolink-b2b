@@ -68,6 +68,10 @@
       "description": "Self-scoped reflection / content-understanding consent (opt-in / revoke) — RCN-01"
     },
     {
+      "name": "Multipart Upload",
+      "description": "Resumable multipart direct upload up to 50 GB (init/parts/status/complete)"
+    },
+    {
       "name": "Event AI Draft Apply",
       "description": "Apply a confirmed AI-draft suggestion into agenda + branding (relationship-scoped)"
     },
@@ -102,6 +106,10 @@
     {
       "name": "Org Photographers",
       "description": "Org admin read of photographers + availability (assignment surface)"
+    },
+    {
+      "name": "Upload",
+      "description": "Presigned single-PUT direct upload (init/finalize)"
     },
     {
       "name": "Person Graph",
@@ -165,6 +173,540 @@
     }
   ],
   "paths": {
+    "/api/event/{eventId}/poster": {
+      "get": {
+        "tags": [
+          "Event"
+        ],
+        "summary": "Get Event Poster",
+        "description": "Retrieves the event poster image",
+        "operationId": "getEventPoster",
+        "parameters": [
+          {
+            "name": "eventId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "4XX": {
+            "description": "Default error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponse",
+                  "example": {
+                    "success": false,
+                    "message": "Error message",
+                    "data": null,
+                    "errorCode": 100,
+                    "timestamp": "2025-07-31T10:55:12.588Z",
+                    "statusCode": 400,
+                    "path": "/api/some-endpoint",
+                    "errors": [
+                      "Validation error occurred"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Event"
+        ],
+        "summary": "Upload Event Poster",
+        "description": "Uploads or updates the event poster image (hosts only)",
+        "operationId": "uploadEventPoster",
+        "parameters": [
+          {
+            "name": "eventId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                },
+                "required": [
+                  "file"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponseVoid"
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Default error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponse",
+                  "example": {
+                    "success": false,
+                    "message": "Error message",
+                    "data": null,
+                    "errorCode": 100,
+                    "timestamp": "2025-07-31T10:55:12.588Z",
+                    "statusCode": 400,
+                    "path": "/api/some-endpoint",
+                    "errors": [
+                      "Validation error occurred"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Event"
+        ],
+        "summary": "Delete Event Poster",
+        "description": "Deletes the event poster image (hosts only)",
+        "operationId": "deleteEventPoster",
+        "parameters": [
+          {
+            "name": "eventId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponseVoid"
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Default error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponse",
+                  "example": {
+                    "success": false,
+                    "message": "Error message",
+                    "data": null,
+                    "errorCode": 100,
+                    "timestamp": "2025-07-31T10:55:12.588Z",
+                    "statusCode": 400,
+                    "path": "/api/some-endpoint",
+                    "errors": [
+                      "Validation error occurred"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "head": {
+        "tags": [
+          "Event"
+        ],
+        "summary": "Get Event Poster",
+        "description": "Retrieves the event poster image",
+        "operationId": "getEventPoster_1",
+        "parameters": [
+          {
+            "name": "eventId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "4XX": {
+            "description": "Default error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponse",
+                  "example": {
+                    "success": false,
+                    "message": "Error message",
+                    "data": null,
+                    "errorCode": 100,
+                    "timestamp": "2025-07-31T10:55:12.588Z",
+                    "statusCode": 400,
+                    "path": "/api/some-endpoint",
+                    "errors": [
+                      "Validation error occurred"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/event/{eventId}/photo/{photoId}": {
+      "get": {
+        "tags": [
+          "Event"
+        ],
+        "summary": "Get Event Photo File",
+        "description": "Downloads an event photo file (with access control)",
+        "operationId": "getEventPhotoFile",
+        "parameters": [
+          {
+            "name": "eventId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "photoId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "4XX": {
+            "description": "Default error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponse",
+                  "example": {
+                    "success": false,
+                    "message": "Error message",
+                    "data": null,
+                    "errorCode": 100,
+                    "timestamp": "2025-07-31T10:55:12.588Z",
+                    "statusCode": 400,
+                    "path": "/api/some-endpoint",
+                    "errors": [
+                      "Validation error occurred"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Event"
+        ],
+        "summary": "Delete Event Photo",
+        "description": "Deletes a photo from an event's album (uploader or hosts only)",
+        "operationId": "deleteEventPhoto",
+        "parameters": [
+          {
+            "name": "eventId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "photoId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponseVoid"
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Default error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponse",
+                  "example": {
+                    "success": false,
+                    "message": "Error message",
+                    "data": null,
+                    "errorCode": 100,
+                    "timestamp": "2025-07-31T10:55:12.588Z",
+                    "statusCode": 400,
+                    "path": "/api/some-endpoint",
+                    "errors": [
+                      "Validation error occurred"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "head": {
+        "tags": [
+          "Event"
+        ],
+        "summary": "Get Event Photo File",
+        "description": "Downloads an event photo file (with access control)",
+        "operationId": "getEventPhotoFile_1",
+        "parameters": [
+          {
+            "name": "eventId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "photoId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "4XX": {
+            "description": "Default error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponse",
+                  "example": {
+                    "success": false,
+                    "message": "Error message",
+                    "data": null,
+                    "errorCode": 100,
+                    "timestamp": "2025-07-31T10:55:12.588Z",
+                    "statusCode": 400,
+                    "path": "/api/some-endpoint",
+                    "errors": [
+                      "Validation error occurred"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/event/{eventId}/file/{fileId}": {
+      "get": {
+        "tags": [
+          "Event"
+        ],
+        "summary": "Get Event File",
+        "description": "Downloads an event file",
+        "operationId": "getEventFile",
+        "parameters": [
+          {
+            "name": "fileId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "4XX": {
+            "description": "Default error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponse",
+                  "example": {
+                    "success": false,
+                    "message": "Error message",
+                    "data": null,
+                    "errorCode": 100,
+                    "timestamp": "2025-07-31T10:55:12.588Z",
+                    "statusCode": 400,
+                    "path": "/api/some-endpoint",
+                    "errors": [
+                      "Validation error occurred"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Event"
+        ],
+        "summary": "Remove File from Event",
+        "description": "Removes a file from an event (hosts only)",
+        "operationId": "removeFileFromEvent",
+        "parameters": [
+          {
+            "name": "eventId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "fileId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponseVoid"
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Default error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponse",
+                  "example": {
+                    "success": false,
+                    "message": "Error message",
+                    "data": null,
+                    "errorCode": 100,
+                    "timestamp": "2025-07-31T10:55:12.588Z",
+                    "statusCode": 400,
+                    "path": "/api/some-endpoint",
+                    "errors": [
+                      "Validation error occurred"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "head": {
+        "tags": [
+          "Event"
+        ],
+        "summary": "Get Event File",
+        "description": "Downloads an event file",
+        "operationId": "getEventFile_1",
+        "parameters": [
+          {
+            "name": "fileId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "4XX": {
+            "description": "Default error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponse",
+                  "example": {
+                    "success": false,
+                    "message": "Error message",
+                    "data": null,
+                    "errorCode": 100,
+                    "timestamp": "2025-07-31T10:55:12.588Z",
+                    "statusCode": 400,
+                    "path": "/api/some-endpoint",
+                    "errors": [
+                      "Validation error occurred"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/event/{eventId}/file/{fileId}/variant/{size}": {
       "get": {
         "tags": [
@@ -1735,6 +2277,80 @@
               "*/*": {
                 "schema": {
                   "$ref": "#/components/schemas/BaseContractResponseVoid"
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Default error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponse",
+                  "example": {
+                    "success": false,
+                    "message": "Error message",
+                    "data": null,
+                    "errorCode": 100,
+                    "timestamp": "2025-07-31T10:55:12.588Z",
+                    "statusCode": 400,
+                    "path": "/api/some-endpoint",
+                    "errors": [
+                      "Validation error occurred"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/event/{eventId}/visibility": {
+      "put": {
+        "tags": [
+          "Event"
+        ],
+        "summary": "Set org event visibility (publish/unpublish to consumer surfaces)",
+        "description": "Toggles an org event's visibility (ORG_INTERNAL/PUBLIC). Org Admin/Coordinator only; B2C (non-org) events are rejected.",
+        "operationId": "setEventVisibility",
+        "parameters": [
+          {
+            "name": "eventId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetEventVisibilityRequestContract"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetEventResponseWrapper"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Event is not org-scoped",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponseGetEventResponseContract"
                 }
               }
             }
@@ -3816,6 +4432,398 @@
             }
           }
         }
+      }
+    },
+    "/api/upload/multipart/init": {
+      "post": {
+        "tags": [
+          "Multipart Upload"
+        ],
+        "summary": "Open a multipart upload (server-derived key + uploadId; returns partSize/partCount)",
+        "operationId": "init",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MultipartInitRequestContract"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "uploadId + fileId + partSize + partCount",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponseMultipartInitResponseContract"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Declared size outside the multipart band / unclassifiable type",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponseMultipartInitResponseContract"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponseMultipartInitResponseContract"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Caller does not own the parent capsule",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponseMultipartInitResponseContract"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Parent capsule not found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponseMultipartInitResponseContract"
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Default error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponse",
+                  "example": {
+                    "success": false,
+                    "message": "Error message",
+                    "data": null,
+                    "errorCode": 100,
+                    "timestamp": "2025-07-31T10:55:12.588Z",
+                    "statusCode": 400,
+                    "path": "/api/some-endpoint",
+                    "errors": [
+                      "Validation error occurred"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/upload/multipart/complete": {
+      "post": {
+        "tags": [
+          "Multipart Upload"
+        ],
+        "summary": "Complete a multipart upload (idempotent; 5 MiB pre-validate; flip to PENDING)",
+        "operationId": "complete",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MultipartCompleteRequestContract"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "File finalized to PENDING (or the existing contract on replay)",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponseFileResponseContract"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Sub-5-MiB non-last part / invalid or missing part",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponseFileResponseContract"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponseFileResponseContract"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Caller does not own the parent capsule",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponseFileResponseContract"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "File not found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponseFileResponseContract"
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Default error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponse",
+                  "example": {
+                    "success": false,
+                    "message": "Error message",
+                    "data": null,
+                    "errorCode": 100,
+                    "timestamp": "2025-07-31T10:55:12.588Z",
+                    "statusCode": 400,
+                    "path": "/api/some-endpoint",
+                    "errors": [
+                      "Validation error occurred"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/upload/init": {
+      "post": {
+        "tags": [
+          "Upload"
+        ],
+        "summary": "Request a direct single-PUT upload grant (server-derived key; bytes never transit Java)",
+        "operationId": "init_1",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UploadInitRequestContract"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Presigned PUT + server-generated fileId + expiry + byte ceiling",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponseUploadInitResponseContract"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Oversize declared size / unclassifiable type",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponseUploadInitResponseContract"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponseUploadInitResponseContract"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Caller does not own the parent",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponseUploadInitResponseContract"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Parent capsule not found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponseUploadInitResponseContract"
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Default error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponse",
+                  "example": {
+                    "success": false,
+                    "message": "Error message",
+                    "data": null,
+                    "errorCode": 100,
+                    "timestamp": "2025-07-31T10:55:12.588Z",
+                    "statusCode": 400,
+                    "path": "/api/some-endpoint",
+                    "errors": [
+                      "Validation error occurred"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/upload/finalize": {
+      "post": {
+        "tags": [
+          "Upload"
+        ],
+        "summary": "Finalize a direct upload (HEAD-verify + flip to PENDING; no bytes transit Java)",
+        "operationId": "finalize",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UploadFinalizeRequestContract"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "File finalized to PENDING; validate/moderation enqueued",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponseFileResponseContract"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Uploaded body exceeds the declared size (FAILED + deleted)",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponseFileResponseContract"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponseFileResponseContract"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Caller does not own the parent",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponseFileResponseContract"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "File not found / object never uploaded",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponseFileResponseContract"
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Default error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponse",
+                  "example": {
+                    "success": false,
+                    "message": "Error message",
+                    "data": null,
+                    "errorCode": 100,
+                    "timestamp": "2025-07-31T10:55:12.588Z",
+                    "statusCode": 400,
+                    "path": "/api/some-endpoint",
+                    "errors": [
+                      "Validation error occurred"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/api/speaker/profile/photo": {
@@ -6076,175 +7084,6 @@
         }
       }
     },
-    "/api/event/{eventId}/poster": {
-      "get": {
-        "tags": [
-          "Event"
-        ],
-        "summary": "Get Event Poster",
-        "description": "Retrieves the event poster image",
-        "operationId": "getEventPoster",
-        "parameters": [
-          {
-            "name": "eventId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "4XX": {
-            "description": "Default error response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BaseContractResponse",
-                  "example": {
-                    "success": false,
-                    "message": "Error message",
-                    "data": null,
-                    "errorCode": 100,
-                    "timestamp": "2025-07-31T10:55:12.588Z",
-                    "statusCode": 400,
-                    "path": "/api/some-endpoint",
-                    "errors": [
-                      "Validation error occurred"
-                    ]
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Event"
-        ],
-        "summary": "Upload Event Poster",
-        "description": "Uploads or updates the event poster image (hosts only)",
-        "operationId": "uploadEventPoster",
-        "parameters": [
-          {
-            "name": "eventId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "file": {
-                    "type": "string",
-                    "format": "binary"
-                  }
-                },
-                "required": [
-                  "file"
-                ]
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/BaseContractResponseVoid"
-                }
-              }
-            }
-          },
-          "4XX": {
-            "description": "Default error response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BaseContractResponse",
-                  "example": {
-                    "success": false,
-                    "message": "Error message",
-                    "data": null,
-                    "errorCode": 100,
-                    "timestamp": "2025-07-31T10:55:12.588Z",
-                    "statusCode": 400,
-                    "path": "/api/some-endpoint",
-                    "errors": [
-                      "Validation error occurred"
-                    ]
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Event"
-        ],
-        "summary": "Delete Event Poster",
-        "description": "Deletes the event poster image (hosts only)",
-        "operationId": "deleteEventPoster",
-        "parameters": [
-          {
-            "name": "eventId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/BaseContractResponseVoid"
-                }
-              }
-            }
-          },
-          "4XX": {
-            "description": "Default error response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BaseContractResponse",
-                  "example": {
-                    "success": false,
-                    "message": "Error message",
-                    "data": null,
-                    "errorCode": 100,
-                    "timestamp": "2025-07-31T10:55:12.588Z",
-                    "statusCode": 400,
-                    "path": "/api/some-endpoint",
-                    "errors": [
-                      "Validation error occurred"
-                    ]
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/api/event/{eventId}/photos/batch": {
       "post": {
         "tags": [
@@ -6464,7 +7303,7 @@
           "Resumable Upload"
         ],
         "summary": "Assemble the multipart upload and hand off to the photo pipeline",
-        "operationId": "complete",
+        "operationId": "complete_1",
         "parameters": [
           {
             "name": "eventId",
@@ -6525,7 +7364,7 @@
           "Resumable Upload"
         ],
         "summary": "Open a resumable upload session for an event photo",
-        "operationId": "init",
+        "operationId": "init_2",
         "parameters": [
           {
             "name": "eventId",
@@ -10659,6 +11498,254 @@
         }
       }
     },
+    "/api/user/avatar/{fileId}/url": {
+      "get": {
+        "tags": [
+          "user-controller"
+        ],
+        "summary": "Get User Avatar presign URL",
+        "description": "JSON sibling of GET /avatar/{fileId}: same DELETED-account gate, but returns {url, expiresAt} instead of a 302 so a web <img> can render the avatar after fetching this with a Bearer token. Feed `url` into the tag's src.",
+        "operationId": "getUserAvatarUrl",
+        "parameters": [
+          {
+            "name": "fileId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponseMediaUrlResponseContract"
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Default error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponse",
+                  "example": {
+                    "success": false,
+                    "message": "Error message",
+                    "data": null,
+                    "errorCode": 100,
+                    "timestamp": "2025-07-31T10:55:12.588Z",
+                    "statusCode": 400,
+                    "path": "/api/some-endpoint",
+                    "errors": [
+                      "Validation error occurred"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/upload/multipart/status": {
+      "get": {
+        "tags": [
+          "Multipart Upload"
+        ],
+        "summary": "List the already-uploaded parts for resume (partCount + uploaded[])",
+        "operationId": "status",
+        "parameters": [
+          {
+            "name": "fileId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "partCount + the uploaded parts (partNumber, etag, size)",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponseMultipartStatusResponseContract"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponseMultipartStatusResponseContract"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Caller does not own the parent capsule",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponseMultipartStatusResponseContract"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "File not found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponseMultipartStatusResponseContract"
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Default error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponse",
+                  "example": {
+                    "success": false,
+                    "message": "Error message",
+                    "data": null,
+                    "errorCode": 100,
+                    "timestamp": "2025-07-31T10:55:12.588Z",
+                    "statusCode": 400,
+                    "path": "/api/some-endpoint",
+                    "errors": [
+                      "Validation error occurred"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/upload/multipart/parts": {
+      "get": {
+        "tags": [
+          "Multipart Upload"
+        ],
+        "summary": "Mint a window of presigned part PUT URLs (lazy; each URL is short-lived)",
+        "operationId": "parts",
+        "parameters": [
+          {
+            "name": "fileId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The presigned part PUT URLs for the clamped window",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponseMultipartPartUrlsResponseContract"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponseMultipartPartUrlsResponseContract"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Caller does not own the parent capsule",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponseMultipartPartUrlsResponseContract"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "File not found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponseMultipartPartUrlsResponseContract"
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Default error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponse",
+                  "example": {
+                    "success": false,
+                    "message": "Error message",
+                    "data": null,
+                    "errorCode": 100,
+                    "timestamp": "2025-07-31T10:55:12.588Z",
+                    "statusCode": 400,
+                    "path": "/api/some-endpoint",
+                    "errors": [
+                      "Validation error occurred"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
     "/api/speaker/{userId}/profile": {
       "get": {
         "tags": [
@@ -11734,6 +12821,50 @@
         ]
       }
     },
+    "/api/org/mine": {
+      "get": {
+        "tags": [
+          "Organization"
+        ],
+        "summary": "List My Organizations",
+        "description": "ORG-MINE-01 — the caller's memberships in non-deleted orgs (orgId/name/role + derived isAdmin/isPhotographer). Empty list when none. Lets the client discover existing orgs instead of POSTing a duplicate.",
+        "operationId": "getMyOrgs",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponseListMyOrgResponseContract"
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Default error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponse",
+                  "example": {
+                    "success": false,
+                    "message": "Error message",
+                    "data": null,
+                    "errorCode": 100,
+                    "timestamp": "2025-07-31T10:55:12.588Z",
+                    "statusCode": 400,
+                    "path": "/api/some-endpoint",
+                    "errors": [
+                      "Validation error occurred"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/org/events": {
       "get": {
         "tags": [
@@ -12169,6 +13300,60 @@
         }
       }
     },
+    "/api/event/{eventId}/poster/url": {
+      "get": {
+        "tags": [
+          "Event"
+        ],
+        "summary": "Get Event Poster presign URL",
+        "description": "JSON sibling of GET /{eventId}/poster: same gate, returns {url, expiresAt} for web tag rendering. Public (no token) like the poster 302.",
+        "operationId": "getEventPosterUrl",
+        "parameters": [
+          {
+            "name": "eventId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponseMediaUrlResponseContract"
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Default error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponse",
+                  "example": {
+                    "success": false,
+                    "message": "Error message",
+                    "data": null,
+                    "errorCode": 100,
+                    "timestamp": "2025-07-31T10:55:12.588Z",
+                    "statusCode": 400,
+                    "path": "/api/some-endpoint",
+                    "errors": [
+                      "Validation error occurred"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/event/{eventId}/photos": {
       "get": {
         "tags": [
@@ -12470,67 +13655,14 @@
         }
       }
     },
-    "/api/event/{eventId}/photo/{photoId}": {
+    "/api/event/{eventId}/photo/{photoId}/url": {
       "get": {
         "tags": [
           "Event"
         ],
-        "summary": "Get Event Photo File",
-        "description": "Downloads an event photo file (with access control)",
-        "operationId": "getEventPhotoFile",
-        "parameters": [
-          {
-            "name": "eventId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "photoId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "4XX": {
-            "description": "Default error response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BaseContractResponse",
-                  "example": {
-                    "success": false,
-                    "message": "Error message",
-                    "data": null,
-                    "errorCode": 100,
-                    "timestamp": "2025-07-31T10:55:12.588Z",
-                    "statusCode": 400,
-                    "path": "/api/some-endpoint",
-                    "errors": [
-                      "Validation error occurred"
-                    ]
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Event"
-        ],
-        "summary": "Delete Event Photo",
-        "description": "Deletes a photo from an event's album (uploader or hosts only)",
-        "operationId": "deleteEventPhoto",
+        "summary": "Get Event Photo File presign URL",
+        "description": "JSON sibling of GET /{eventId}/photo/{photoId}: same access control, returns {url, expiresAt} for web tag rendering.",
+        "operationId": "getEventPhotoFileUrl",
         "parameters": [
           {
             "name": "eventId",
@@ -12555,7 +13687,7 @@
             "content": {
               "*/*": {
                 "schema": {
-                  "$ref": "#/components/schemas/BaseContractResponseVoid"
+                  "$ref": "#/components/schemas/BaseContractResponseMediaUrlResponseContract"
                 }
               }
             }
@@ -12693,15 +13825,23 @@
         }
       }
     },
-    "/api/event/{eventId}/file/{fileId}": {
+    "/api/event/{eventId}/file/{fileId}/variant/{size}/url": {
       "get": {
         "tags": [
           "Event"
         ],
-        "summary": "Get Event File",
-        "description": "Downloads an event file",
-        "operationId": "getEventFile",
+        "summary": "Get Event File Variant presign URL",
+        "description": "JSON sibling of GET /{eventId}/file/{fileId}/variant/{size}: same authorization, returns {url, expiresAt} for web tag rendering. 204 No Content when no image preview exists (render a placeholder).",
+        "operationId": "getEventFileVariantUrl",
         "parameters": [
+          {
+            "name": "eventId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
           {
             "name": "fileId",
             "in": "path",
@@ -12709,11 +13849,43 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "size",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "THUMBNAIL",
+                "SMALL",
+                "MEDIUM",
+                "STREAM",
+                "WATERMARKED_PREVIEW"
+              ]
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponseMediaUrlResponseContract"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "No image preview available",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponseMediaUrlResponseContract"
+                }
+              }
+            }
           },
           "4XX": {
             "description": "Default error response",
@@ -12738,14 +13910,16 @@
             }
           }
         }
-      },
-      "delete": {
+      }
+    },
+    "/api/event/{eventId}/file/{fileId}/url": {
+      "get": {
         "tags": [
           "Event"
         ],
-        "summary": "Remove File from Event",
-        "description": "Removes a file from an event (hosts only)",
-        "operationId": "removeFileFromEvent",
+        "summary": "Get Event File presign URL",
+        "description": "JSON sibling of GET /{eventId}/file/{fileId}: same authorization, returns {url, expiresAt} for web tag rendering.",
+        "operationId": "getEventFileUrl",
         "parameters": [
           {
             "name": "eventId",
@@ -12770,7 +13944,7 @@
             "content": {
               "*/*": {
                 "schema": {
-                  "$ref": "#/components/schemas/BaseContractResponseVoid"
+                  "$ref": "#/components/schemas/BaseContractResponseMediaUrlResponseContract"
                 }
               }
             }
@@ -13748,6 +14922,139 @@
               "*/*": {
                 "schema": {
                   "$ref": "#/components/schemas/BaseContractResponseCursorPageItemOfCapsuleInfoResponseContract"
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Default error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponse",
+                  "example": {
+                    "success": false,
+                    "message": "Error message",
+                    "data": null,
+                    "errorCode": 100,
+                    "timestamp": "2025-07-31T10:55:12.588Z",
+                    "statusCode": 400,
+                    "path": "/api/some-endpoint",
+                    "errors": [
+                      "Validation error occurred"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/capsule/file/{fileId}/variant/{size}/url": {
+      "get": {
+        "tags": [
+          "capsule-controller"
+        ],
+        "summary": "Get File Variant presign URL",
+        "description": "JSON sibling of GET /file/{fileId}/variant/{size}: same authorization, returns {url, expiresAt} for web tag rendering. 204 No Content when no image preview exists (render a placeholder).",
+        "operationId": "getCapsuleVariantUrl",
+        "parameters": [
+          {
+            "name": "fileId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "size",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "THUMBNAIL",
+                "SMALL",
+                "MEDIUM",
+                "STREAM",
+                "WATERMARKED_PREVIEW"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponseMediaUrlResponseContract"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "No image preview available",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponseMediaUrlResponseContract"
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Default error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponse",
+                  "example": {
+                    "success": false,
+                    "message": "Error message",
+                    "data": null,
+                    "errorCode": 100,
+                    "timestamp": "2025-07-31T10:55:12.588Z",
+                    "statusCode": 400,
+                    "path": "/api/some-endpoint",
+                    "errors": [
+                      "Validation error occurred"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/capsule/file/{fileId}/url": {
+      "get": {
+        "tags": [
+          "capsule-controller"
+        ],
+        "summary": "Get File presign URL",
+        "description": "JSON sibling of GET /file/{fileId}: same owner-OR-PUBLIC authorization, but returns {url, expiresAt} instead of a 302 so a web <img>/<video> can render private media after fetching this with a Bearer token. Feed `url` into the tag's src.",
+        "operationId": "getCapsuleFileUrl",
+        "parameters": [
+          {
+            "name": "fileId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponseMediaUrlResponseContract"
                 }
               }
             }
@@ -17198,6 +18505,632 @@
           }
         }
       },
+      "EventAttendeeResponseContract": {
+        "type": "object",
+        "description": "Event attendee information",
+        "properties": {
+          "attendeeId": {
+            "type": "string",
+            "description": "unique identifier of the attendee",
+            "example": "123e4567-e89b-12d3-a456-426614174000"
+          },
+          "userId": {
+            "type": "string",
+            "description": "user ID of the attendee",
+            "example": "123e4567-e89b-12d3-a456-426614174000"
+          },
+          "phoneNumber": {
+            "type": "string",
+            "description": "phone number of the attendee",
+            "example": 998901234567
+          },
+          "firstName": {
+            "type": "string",
+            "description": "first name of the attendee",
+            "example": "Jane"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "last name of the attendee",
+            "example": "Smith"
+          },
+          "avatarUrl": {
+            "type": "string",
+            "description": "URL of the attendee's avatar",
+            "example": "https://example.com/avatars/janesmith.jpg"
+          },
+          "rsvpStatus": {
+            "type": "string",
+            "description": "RSVP status of the attendee",
+            "enum": [
+              "INVITED",
+              "GOING",
+              "MAYBE",
+              "NOT_GOING",
+              "CANCELLED"
+            ],
+            "example": "GOING"
+          },
+          "respondedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "timestamp when the attendee responded",
+            "example": "2025-06-05T14:30:00Z"
+          },
+          "checkedIn": {
+            "type": "boolean",
+            "description": "check-in status of the attendee",
+            "example": true
+          },
+          "checkedInAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "timestamp when the attendee was checked in",
+            "example": "2025-06-10T18:30:00Z"
+          },
+          "checkedInByHostUserId": {
+            "type": "string",
+            "description": "user ID of the host who checked in the attendee",
+            "example": "123e4567-e89b-12d3-a456-426614174000"
+          },
+          "dateCreated": {
+            "type": "string",
+            "format": "date-time",
+            "description": "timestamp when the attendee was invited",
+            "example": "2025-06-01T12:00:00Z"
+          }
+        }
+      },
+      "EventHostResponseContract": {
+        "type": "object",
+        "description": "Event host information",
+        "properties": {
+          "eventHostId": {
+            "type": "string",
+            "description": "unique identifier of the event host",
+            "example": "123e4567-e89b-12d3-a456-426614174000"
+          },
+          "userId": {
+            "type": "string",
+            "description": "user ID of the host",
+            "example": "123e4567-e89b-12d3-a456-426614174000"
+          },
+          "phoneNumber": {
+            "type": "string",
+            "description": "phone number of the host",
+            "example": 998901234567
+          },
+          "firstName": {
+            "type": "string",
+            "description": "first name of the host",
+            "example": "John"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "last name of the host",
+            "example": "Doe"
+          },
+          "avatarUrl": {
+            "type": "string",
+            "description": "URL of the host's avatar",
+            "example": "https://example.com/avatars/johndoe.jpg"
+          },
+          "dateCreated": {
+            "type": "string",
+            "format": "date-time",
+            "description": "timestamp when the host was added",
+            "example": "2025-06-01T12:00:00Z"
+          }
+        }
+      },
+      "EventPhotoResponseContract": {
+        "type": "object",
+        "description": "Event photo information",
+        "properties": {
+          "eventPhotoId": {
+            "type": "string",
+            "description": "unique identifier of the event photo",
+            "example": "123e4567-e89b-12d3-a456-426614174000"
+          },
+          "fileId": {
+            "type": "string",
+            "description": "file ID of the photo",
+            "example": "123e4567-e89b-12d3-a456-426614174000"
+          },
+          "fileUrl": {
+            "type": "string",
+            "description": "URL of the photo",
+            "example": "https://example.com/photos/photo.jpg"
+          },
+          "fileName": {
+            "type": "string",
+            "description": "file name",
+            "example": "birthday_cake.jpg"
+          },
+          "uploadedByUserId": {
+            "type": "string",
+            "description": "user ID of the uploader",
+            "example": "123e4567-e89b-12d3-a456-426614174000"
+          },
+          "uploaderFirstName": {
+            "type": "string",
+            "description": "first name of the uploader",
+            "example": "John"
+          },
+          "uploaderLastName": {
+            "type": "string",
+            "description": "last name of the uploader",
+            "example": "Doe"
+          },
+          "uploaderAvatarUrl": {
+            "type": "string",
+            "description": "avatar URL of the uploader",
+            "example": "https://example.com/avatars/johndoe.jpg"
+          },
+          "accessLevel": {
+            "type": "string",
+            "description": "access level of the photo",
+            "enum": [
+              "PRIVATE_TO_ME",
+              "EVENT_ATTENDEES_ONLY",
+              "PUBLIC"
+            ],
+            "example": "EVENT_ATTENDEES_ONLY"
+          },
+          "mediaType": {
+            "type": "string",
+            "description": "Rich-media classification of the file (RICH-04) — lets the client render the right tile (e.g. a video play overlay vs an <img>). Null for legacy rows whose type was not probed.",
+            "enum": [
+              "IMAGE",
+              "GIF",
+              "VIDEO",
+              "AUDIO",
+              "PDF",
+              "LIVE_PHOTO"
+            ],
+            "example": "VIDEO"
+          },
+          "dateCreated": {
+            "type": "string",
+            "format": "date-time",
+            "description": "timestamp when the photo was uploaded",
+            "example": "2025-06-10T19:00:00Z"
+          },
+          "thumbnailUrl": {
+            "type": "string",
+            "description": "Thumbnail variant URL (THUMBNAIL size) — client lazy-loads full-size on demand via the variant endpoint (MED-05). Null when not populated.",
+            "example": "/api/capsule/file/abc-123/variant/THUMBNAIL"
+          },
+          "smallUrl": {
+            "type": "string",
+            "description": "Eager SMALL (640px) variant URL (MDS-03/D-08). Detail responses only (D-10). Null when the variant is not yet generated; client serves the original fileUrl.",
+            "example": "/api/event/abc/file/def-123/variant/SMALL"
+          },
+          "mediumUrl": {
+            "type": "string",
+            "description": "Eager MEDIUM (1280px) variant URL (MDS-03/D-08). Detail responses only (D-10). Null when the variant is not yet generated; client serves the original fileUrl.",
+            "example": "/api/event/abc/file/def-123/variant/MEDIUM"
+          },
+          "streamUrl": {
+            "type": "string",
+            "description": "Eager STREAM (canonical H.264) video URL (MDS-03/D-08). Detail responses only (D-10). Null when the transcoded variant is not yet generated / for non-video media; client serves the original fileUrl.",
+            "example": "/api/event/abc/file/def-123/variant/STREAM"
+          },
+          "processingStatus": {
+            "type": "string",
+            "description": "Derivative processing status (D-07): PENDING/READY/FAILED, or null when no variants exist (serve original).",
+            "enum": [
+              "AWAITING_UPLOAD",
+              "PENDING",
+              "READY",
+              "FAILED"
+            ],
+            "example": "READY"
+          },
+          "moderationBadge": {
+            "type": "string",
+            "description": "Owner-only localized moderation status badge (MOD-04) for a PUBLIC event photo. Null when APPROVED or for a non-owner. The raw moderation score is never exposed.",
+            "example": "Under review"
+          }
+        }
+      },
+      "FileResponseContract": {
+        "type": "object",
+        "description": "File response contract",
+        "properties": {
+          "fileId": {
+            "type": "string",
+            "description": "Unique identifier of the file",
+            "example": "unique-file-id"
+          },
+          "fileUrl": {
+            "type": "string",
+            "description": "URL of the file",
+            "example": "https://example.com/files/unique-file-id"
+          },
+          "accessLevel": {
+            "type": "string",
+            "description": "Access level of the file",
+            "enum": [
+              "PRIVATE_TO_ME",
+              "EVENT_ATTENDEES_ONLY",
+              "PUBLIC"
+            ],
+            "example": "PUBLIC"
+          },
+          "mediaType": {
+            "type": "string",
+            "description": "Rich-media classification of the file (phase 42, RICH-04). Null for legacy rows whose type was not probed.",
+            "enum": [
+              "IMAGE",
+              "GIF",
+              "VIDEO",
+              "AUDIO",
+              "PDF",
+              "LIVE_PHOTO"
+            ],
+            "example": "VIDEO"
+          },
+          "durationMs": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Audio/video duration in milliseconds, or null when unavailable.",
+            "example": 12000
+          },
+          "width": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Pixel width for image/video/GIF, or null when unavailable.",
+            "example": 1920
+          },
+          "height": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Pixel height for image/video/GIF, or null when unavailable.",
+            "example": 1080
+          },
+          "pageCount": {
+            "type": "integer",
+            "format": "int32",
+            "description": "PDF page count, or null when unavailable.",
+            "example": 12
+          },
+          "moderationBadge": {
+            "type": "string",
+            "description": "Owner-only localized moderation status badge (MOD-04): a non-accusatory statement of reason on the owner's own pending/blocked content. Null when APPROVED or for a non-owner. The raw moderation score is never exposed.",
+            "example": "Under review"
+          },
+          "blurHash": {
+            "type": "string",
+            "description": "BlurHash placeholder for smooth gallery loading (DEL-06); a short opaque string, null until variants are generated.",
+            "example": "LEHV6nWB2yk8pyo0adR*.7kCMdnj"
+          },
+          "thumbnailUrl": {
+            "type": "string",
+            "description": "Eager THUMBNAIL (256px) variant URL (MDS-03/D-08). Null when the variant is not yet generated; client serves the original fileUrl.",
+            "example": "/api/capsule/file/abc-123/variant/THUMBNAIL"
+          },
+          "smallUrl": {
+            "type": "string",
+            "description": "Eager SMALL (640px) variant URL (MDS-03/D-08). Null when the variant is not yet generated; client serves the original fileUrl.",
+            "example": "/api/capsule/file/abc-123/variant/SMALL"
+          },
+          "mediumUrl": {
+            "type": "string",
+            "description": "Eager MEDIUM (1280px) variant URL (MDS-03/D-08). Null when the variant is not yet generated; client serves the original fileUrl.",
+            "example": "/api/capsule/file/abc-123/variant/MEDIUM"
+          },
+          "streamUrl": {
+            "type": "string",
+            "description": "Eager STREAM (canonical H.264) video URL (MDS-03/D-08). Null when the transcoded variant is not yet generated / for non-video media; client serves the original fileUrl.",
+            "example": "/api/capsule/file/abc-123/variant/STREAM"
+          },
+          "processingStatus": {
+            "type": "string",
+            "description": "Async processing state of the file (AWAITING_UPLOAD/PENDING/READY/FAILED); lets mobile show 'processing' for a direct-upload asset not yet READY.",
+            "enum": [
+              "AWAITING_UPLOAD",
+              "PENDING",
+              "READY",
+              "FAILED"
+            ],
+            "example": "PENDING"
+          }
+        }
+      },
+      "GetEventResponseContract": {
+        "type": "object",
+        "description": "Get event response contract",
+        "properties": {
+          "eventId": {
+            "type": "string",
+            "description": "unique identifier of the event",
+            "example": "123e4567-e89b-12d3-a456-426614174000"
+          },
+          "title": {
+            "type": "string",
+            "description": "title of the event",
+            "example": "Birthday Party"
+          },
+          "description": {
+            "type": "string",
+            "description": "description of the event",
+            "example": "Celebrating my 30th birthday!"
+          },
+          "eventUrl": {
+            "type": "string",
+            "description": "URL of the event",
+            "example": "https://example.com/event/123e4567-e89b-12d3-a456-426614174000"
+          },
+          "location": {
+            "$ref": "#/components/schemas/LocationInfoResponseContract",
+            "description": "location details of the event"
+          },
+          "accessLevel": {
+            "type": "string",
+            "description": "access level of the event",
+            "enum": [
+              "PUBLIC",
+              "PRIVATE"
+            ],
+            "example": "PUBLIC"
+          },
+          "allowJoinRequests": {
+            "type": "boolean",
+            "description": "Join mode (BUG-013a): true = direct join (guest becomes GOING); false = by request (guest becomes INVITED, host must approve). The client renders 'Join' vs 'Request to Join' from this flag.",
+            "example": false
+          },
+          "discoveryStatus": {
+            "type": "string",
+            "description": "Public-discovery submission status of the event.",
+            "enum": [
+              "NOT_SUBMITTED",
+              "PENDING",
+              "APPROVED",
+              "REJECTED",
+              "REMOVED"
+            ],
+            "example": "NOT_SUBMITTED"
+          },
+          "visibility": {
+            "type": "string",
+            "description": "Whether an org-scoped event is published to consumer surfaces. ORG_INTERNAL = visible only to the owning org; PUBLIC = appears in discovery/search and is consumer-registerable. Irrelevant for B2C events (orgId null).",
+            "enum": [
+              "ORG_INTERNAL",
+              "PUBLIC"
+            ],
+            "example": "ORG_INTERNAL"
+          },
+          "eventStartDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "event start date and time",
+            "example": "2025-06-10T18:00:00"
+          },
+          "eventEndDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "event end date and time",
+            "example": "2025-06-10T23:00:00"
+          },
+          "eventStatus": {
+            "type": "string",
+            "description": "event status",
+            "enum": [
+              "UPCOMING",
+              "ONGOING",
+              "COMPLETED",
+              "CANCELLED"
+            ],
+            "example": "UPCOMING"
+          },
+          "maxAttendees": {
+            "type": "integer",
+            "format": "int32",
+            "description": "maximum number of attendees",
+            "example": 50
+          },
+          "currentAttendeeCount": {
+            "type": "integer",
+            "format": "int64",
+            "description": "current number of attendees",
+            "example": 23
+          },
+          "hosts": {
+            "type": "array",
+            "description": "list of event hosts",
+            "items": {
+              "$ref": "#/components/schemas/EventHostResponseContract"
+            }
+          },
+          "attendees": {
+            "type": "array",
+            "description": "list of event attendees",
+            "items": {
+              "$ref": "#/components/schemas/EventAttendeeResponseContract"
+            }
+          },
+          "posterFileId": {
+            "type": "string",
+            "description": "event poster file ID",
+            "example": "poster-file-id-123"
+          },
+          "coverPhotoUrl": {
+            "type": "string",
+            "description": "cover photo URL — same 3-tier fallback as the event list (poster → first moderation-visible public attendee photo → first event file); null when the event has no displayable image",
+            "example": "https://example.com/api/event/123/file/abc"
+          },
+          "files": {
+            "type": "array",
+            "description": "list of event files",
+            "items": {
+              "$ref": "#/components/schemas/FileResponseContract"
+            }
+          },
+          "photos": {
+            "type": "array",
+            "description": "list of event photos from attendees",
+            "items": {
+              "$ref": "#/components/schemas/EventPhotoResponseContract"
+            }
+          },
+          "creator": {
+            "$ref": "#/components/schemas/OwnerDetails",
+            "description": "details of the event creator"
+          },
+          "dateCreated": {
+            "type": "string",
+            "format": "date-time",
+            "description": "timestamp when the event was created",
+            "example": "2025-06-01T12:00:00Z"
+          },
+          "dateUpdated": {
+            "type": "string",
+            "format": "date-time",
+            "description": "timestamp when the event was last updated",
+            "example": "2025-06-05T15:30:00Z"
+          },
+          "myFileUploadMaxBytes": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The caller's effective per-file upload byte cap FOR THIS EVENT — 500 MiB for a regular uploader, or the 50 GB ceiling for an assigned active photographer.",
+            "example": 524288000
+          },
+          "resumableUploadAllowed": {
+            "type": "boolean",
+            "description": "Whether the caller may use the resumable large-file upload path for this event (true only for an assigned active photographer).",
+            "example": false
+          }
+        }
+      },
+      "GetEventResponseWrapper": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "example": null
+          },
+          "data": {
+            "$ref": "#/components/schemas/GetEventResponseContract"
+          },
+          "errorCode": {
+            "type": "integer",
+            "format": "int32",
+            "example": null
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "statusCode": {
+            "type": "integer",
+            "format": "int32",
+            "example": 200
+          },
+          "path": {
+            "type": "string",
+            "example": "/api/some-endpoint"
+          },
+          "errors": {
+            "type": "array",
+            "example": null,
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "OwnerDetails": {
+        "type": "object",
+        "description": "Owner details response contract",
+        "properties": {
+          "phoneNumber": {
+            "type": "string",
+            "description": "phone number of the user",
+            "example": 998901234567
+          },
+          "firstName": {
+            "type": "string",
+            "description": "first name of the user",
+            "example": "John"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "last name of the user",
+            "example": "Doe"
+          },
+          "userId": {
+            "type": "string",
+            "description": "unique identifier of the user",
+            "example": "123e4567-e89b-12d3-a456-426614174000"
+          },
+          "avatarUrl": {
+            "type": "string",
+            "description": "URL of the user's avatar image",
+            "example": "https://example.com/avatars/johndoe.jpg"
+          }
+        }
+      },
+      "SetEventVisibilityRequestContract": {
+        "type": "object",
+        "properties": {
+          "visibility": {
+            "type": "string",
+            "enum": [
+              "ORG_INTERNAL",
+              "PUBLIC"
+            ]
+          }
+        },
+        "required": [
+          "visibility"
+        ]
+      },
+      "BaseContractResponseGetEventResponseContract": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "example": null
+          },
+          "data": {
+            "$ref": "#/components/schemas/GetEventResponseContract"
+          },
+          "errorCode": {
+            "type": "integer",
+            "format": "int32",
+            "example": null
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "statusCode": {
+            "type": "integer",
+            "format": "int32",
+            "example": 200
+          },
+          "path": {
+            "type": "string",
+            "example": "/api/some-endpoint"
+          },
+          "errors": {
+            "type": "array",
+            "example": null,
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
       "VenueRequestContract": {
         "type": "object",
         "properties": {
@@ -17717,99 +19650,6 @@
           }
         }
       },
-      "FileResponseContract": {
-        "type": "object",
-        "description": "File response contract",
-        "properties": {
-          "fileId": {
-            "type": "string",
-            "description": "Unique identifier of the file",
-            "example": "unique-file-id"
-          },
-          "fileUrl": {
-            "type": "string",
-            "description": "URL of the file",
-            "example": "https://example.com/files/unique-file-id"
-          },
-          "accessLevel": {
-            "type": "string",
-            "description": "Access level of the file",
-            "enum": [
-              "PRIVATE_TO_ME",
-              "EVENT_ATTENDEES_ONLY",
-              "PUBLIC"
-            ],
-            "example": "PUBLIC"
-          },
-          "mediaType": {
-            "type": "string",
-            "description": "Rich-media classification of the file (phase 42, RICH-04). Null for legacy rows whose type was not probed.",
-            "enum": [
-              "IMAGE",
-              "GIF",
-              "VIDEO",
-              "AUDIO",
-              "PDF",
-              "LIVE_PHOTO"
-            ],
-            "example": "VIDEO"
-          },
-          "durationMs": {
-            "type": "integer",
-            "format": "int64",
-            "description": "Audio/video duration in milliseconds, or null when unavailable.",
-            "example": 12000
-          },
-          "width": {
-            "type": "integer",
-            "format": "int32",
-            "description": "Pixel width for image/video/GIF, or null when unavailable.",
-            "example": 1920
-          },
-          "height": {
-            "type": "integer",
-            "format": "int32",
-            "description": "Pixel height for image/video/GIF, or null when unavailable.",
-            "example": 1080
-          },
-          "pageCount": {
-            "type": "integer",
-            "format": "int32",
-            "description": "PDF page count, or null when unavailable.",
-            "example": 12
-          },
-          "moderationBadge": {
-            "type": "string",
-            "description": "Owner-only localized moderation status badge (MOD-04): a non-accusatory statement of reason on the owner's own pending/blocked content. Null when APPROVED or for a non-owner. The raw moderation score is never exposed.",
-            "example": "Under review"
-          },
-          "blurHash": {
-            "type": "string",
-            "description": "BlurHash placeholder for smooth gallery loading (DEL-06); a short opaque string, null until variants are generated.",
-            "example": "LEHV6nWB2yk8pyo0adR*.7kCMdnj"
-          },
-          "thumbnailUrl": {
-            "type": "string",
-            "description": "Eager THUMBNAIL (256px) variant URL (MDS-03/D-08). Null when the variant is not yet generated; client serves the original fileUrl.",
-            "example": "/api/capsule/file/abc-123/variant/THUMBNAIL"
-          },
-          "smallUrl": {
-            "type": "string",
-            "description": "Eager SMALL (640px) variant URL (MDS-03/D-08). Null when the variant is not yet generated; client serves the original fileUrl.",
-            "example": "/api/capsule/file/abc-123/variant/SMALL"
-          },
-          "mediumUrl": {
-            "type": "string",
-            "description": "Eager MEDIUM (1280px) variant URL (MDS-03/D-08). Null when the variant is not yet generated; client serves the original fileUrl.",
-            "example": "/api/capsule/file/abc-123/variant/MEDIUM"
-          },
-          "streamUrl": {
-            "type": "string",
-            "description": "Eager STREAM (canonical H.264) video URL (MDS-03/D-08). Null when the transcoded variant is not yet generated / for non-video media; client serves the original fileUrl.",
-            "example": "/api/capsule/file/abc-123/variant/STREAM"
-          }
-        }
-      },
       "GetCapsuleResponseContract": {
         "type": "object",
         "description": "Get capsule response contract",
@@ -17925,37 +19765,6 @@
             "items": {
               "type": "string"
             }
-          }
-        }
-      },
-      "OwnerDetails": {
-        "type": "object",
-        "description": "Owner details response contract",
-        "properties": {
-          "phoneNumber": {
-            "type": "string",
-            "description": "phone number of the user",
-            "example": 998901234567
-          },
-          "firstName": {
-            "type": "string",
-            "description": "first name of the user",
-            "example": "John"
-          },
-          "lastName": {
-            "type": "string",
-            "description": "last name of the user",
-            "example": "Doe"
-          },
-          "userId": {
-            "type": "string",
-            "description": "unique identifier of the user",
-            "example": "123e4567-e89b-12d3-a456-426614174000"
-          },
-          "avatarUrl": {
-            "type": "string",
-            "description": "URL of the user's avatar image",
-            "example": "https://example.com/avatars/johndoe.jpg"
           }
         }
       },
@@ -18712,6 +20521,345 @@
             "pattern": "^[\\p{L}\\p{M} '’ʻ-]{2,32}$"
           }
         }
+      },
+      "MultipartInitRequestContract": {
+        "type": "object",
+        "description": "Request a multipart upload grant for a CAPSULE or EVENT parent. Subject is the JWT — no caller-identity field; the storage key + uploadId are server-generated and never derived from client input.",
+        "properties": {
+          "parentType": {
+            "type": "string",
+            "description": "Whether the file attaches to a CAPSULE or an EVENT parent (D-04). Optional — defaults to CAPSULE when omitted (existing clients unaffected). EVENT selects the resumable photographer door.",
+            "enum": [
+              "CAPSULE",
+              "EVENT"
+            ],
+            "example": "EVENT"
+          },
+          "parentId": {
+            "type": "string",
+            "description": "The id of the already-created parent capsule (parent-first, D-01).",
+            "example": "8f2c1d9e-0a3b-4c5d-9e7f-1a2b3c4d5e6f",
+            "minLength": 1
+          },
+          "declaredSize": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Client-declared byte size; band-routed server-side into (singlePutMaxBytes, multipartMaxBytes] (a signed part Content-Length is never trusted as enforcement).",
+            "example": 21474836480
+          },
+          "contentType": {
+            "type": "string",
+            "description": "Optional content-type hint (e.g. video/mp4). HINT ONLY — never used as the MIME; the worker re-derives the real type from the bytes via Tika.",
+            "example": "video/mp4",
+            "maxLength": 128,
+            "minLength": 0
+          },
+          "filename": {
+            "type": "string",
+            "description": "Optional original filename. Stored as metadata only — NEVER enters the storage key (the key is a server UUID, Pitfall 4).",
+            "example": "wedding-4k-edit.mp4",
+            "maxLength": 255,
+            "minLength": 0
+          },
+          "fileType": {
+            "type": "string",
+            "description": "Optional declared media classification; a dispatch bootstrap only (D-05) — the worker re-derives the real type and FAILs a spoofed body.",
+            "enum": [
+              "IMAGE",
+              "GIF",
+              "VIDEO",
+              "AUDIO",
+              "PDF",
+              "LIVE_PHOTO"
+            ],
+            "example": "VIDEO"
+          },
+          "accessLevel": {
+            "type": "string",
+            "description": "Photo access level for the EventPhotoEntity. REQUIRED only when parentType=EVENT (governs the event read gate + PUBLIC moderation); IGNORED for CAPSULE.",
+            "enum": [
+              "PRIVATE_TO_ME",
+              "EVENT_ATTENDEES_ONLY",
+              "PUBLIC"
+            ],
+            "example": "PUBLIC"
+          }
+        },
+        "required": [
+          "declaredSize",
+          "parentId"
+        ]
+      },
+      "BaseContractResponseMultipartInitResponseContract": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "example": null
+          },
+          "data": {
+            "$ref": "#/components/schemas/MultipartInitResponseContract"
+          },
+          "errorCode": {
+            "type": "integer",
+            "format": "int32",
+            "example": null
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "statusCode": {
+            "type": "integer",
+            "format": "int32",
+            "example": 200
+          },
+          "path": {
+            "type": "string",
+            "example": "/api/some-endpoint"
+          },
+          "errors": {
+            "type": "array",
+            "example": null,
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "MultipartInitResponseContract": {
+        "type": "object",
+        "description": "Multipart upload grant: the server-generated fileId + uploadId plus the part math (partSize, partCount). Part URLs are minted lazily by the parts endpoint — no eager array.",
+        "properties": {
+          "fileId": {
+            "type": "string",
+            "description": "The server-generated file id; pass it back unchanged to parts/status/complete.",
+            "example": "8f2c1d9e-0a3b-4c5d-9e7f-1a2b3c4d5e6f"
+          },
+          "uploadId": {
+            "type": "string",
+            "description": "The server-created multipart upload id; persisted on the AWAITING_UPLOAD row and re-loaded server-side (never sent in subsequent request bodies).",
+            "example": "2~abcDEF1234567890"
+          },
+          "partSize": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The fixed part size in bytes (the single server knob; every part except the last is exactly this size).",
+            "example": 16777216
+          },
+          "partCount": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The number of parts: ceil(declaredSize / partSize).",
+            "example": 1280
+          }
+        }
+      },
+      "MultipartCompleteRequestContract": {
+        "type": "object",
+        "description": "Complete a multipart upload: pre-validate 5 MiB part-min + assemble + flip AWAITING_UPLOAD→PENDING. Subject is the JWT; only fileId + per-part (partNumber, etag) are trusted.",
+        "properties": {
+          "fileId": {
+            "type": "string",
+            "description": "The server-generated file id returned by init; the storage key + uploadId are re-derived/re-loaded server-side (never a client-supplied key).",
+            "example": "8f2c1d9e-0a3b-4c5d-9e7f-1a2b3c4d5e6f",
+            "maxLength": 64,
+            "minLength": 0
+          },
+          "parts": {
+            "type": "array",
+            "description": "The uploaded parts, each carrying its 1-based partNumber and the server-recorded ETag returned by the part PUT.",
+            "items": {
+              "$ref": "#/components/schemas/PartRef"
+            },
+            "minItems": 1
+          }
+        },
+        "required": [
+          "fileId",
+          "parts"
+        ]
+      },
+      "PartRef": {
+        "type": "object",
+        "description": "A single completed multipart part: 1-based partNumber + the part's ETag.",
+        "properties": {
+          "partNumber": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The 1-based part index.",
+            "example": 1,
+            "minimum": 1
+          },
+          "etag": {
+            "type": "string",
+            "description": "The server-recorded ETag of the stored part (opaque; from the part PUT response).",
+            "example": "d41d8cd98f00b204e9800998ecf8427e",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "etag",
+          "partNumber"
+        ]
+      },
+      "UploadInitRequestContract": {
+        "type": "object",
+        "description": "Request a direct single-PUT upload grant. Subject is the JWT — no caller-identity field; the storage key is server-generated and never derived from the client filename.",
+        "properties": {
+          "parentType": {
+            "type": "string",
+            "description": "Whether the file attaches to a CAPSULE or an EVENT parent (D-04).",
+            "enum": [
+              "CAPSULE",
+              "EVENT"
+            ],
+            "example": "CAPSULE"
+          },
+          "parentId": {
+            "type": "string",
+            "description": "The id of the already-created parent capsule/event (parent-first, D-01).",
+            "example": "8f2c1d9e-0a3b-4c5d-9e7f-1a2b3c4d5e6f",
+            "minLength": 1
+          },
+          "declaredSize": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Client-declared byte size; re-validated against caps + the single-PUT ceiling server-side (a signed PUT Content-Length is never trusted as enforcement).",
+            "example": 734003200
+          },
+          "contentType": {
+            "type": "string",
+            "description": "Optional content-type hint (e.g. video/mp4). HINT ONLY — never used as the MIME; the worker re-derives the real type from the bytes via Tika.",
+            "example": "video/mp4",
+            "maxLength": 128,
+            "minLength": 0
+          },
+          "filename": {
+            "type": "string",
+            "description": "Optional original filename. Stored as metadata only — NEVER enters the storage key (the key is a server UUID, Pitfall 4).",
+            "example": "vacation-clip.mp4",
+            "maxLength": 255,
+            "minLength": 0
+          },
+          "fileType": {
+            "type": "string",
+            "description": "Optional declared media classification; a dispatch bootstrap only (D-05) — the worker re-derives the real type and FAILs a spoofed body.",
+            "enum": [
+              "IMAGE",
+              "GIF",
+              "VIDEO",
+              "AUDIO",
+              "PDF",
+              "LIVE_PHOTO"
+            ],
+            "example": "VIDEO"
+          },
+          "accessLevel": {
+            "type": "string",
+            "description": "Photo access level for the EventPhotoEntity. REQUIRED only when parentType=EVENT (governs the event read gate + PUBLIC moderation); IGNORED for CAPSULE (the capsule's own access level governs).",
+            "enum": [
+              "PRIVATE_TO_ME",
+              "EVENT_ATTENDEES_ONLY",
+              "PUBLIC"
+            ],
+            "example": "PUBLIC"
+          }
+        },
+        "required": [
+          "declaredSize",
+          "parentId",
+          "parentType"
+        ]
+      },
+      "BaseContractResponseUploadInitResponseContract": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "example": null
+          },
+          "data": {
+            "$ref": "#/components/schemas/UploadInitResponseContract"
+          },
+          "errorCode": {
+            "type": "integer",
+            "format": "int32",
+            "example": null
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "statusCode": {
+            "type": "integer",
+            "format": "int32",
+            "example": 200
+          },
+          "path": {
+            "type": "string",
+            "example": "/api/some-endpoint"
+          },
+          "errors": {
+            "type": "array",
+            "example": null,
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "UploadInitResponseContract": {
+        "type": "object",
+        "description": "Direct single-PUT upload grant: the server-generated fileId plus the presigned PUT URL, its expiry, and the enforced max byte ceiling.",
+        "properties": {
+          "fileId": {
+            "type": "string",
+            "description": "The server-generated file id; pass it back unchanged to finalize.",
+            "example": "8f2c1d9e-0a3b-4c5d-9e7f-1a2b3c4d5e6f"
+          },
+          "uploadUrl": {
+            "type": "string",
+            "description": "The presigned single-PUT URL the client uploads the raw bytes to (bytes never transit Java).",
+            "example": "https://storage.example.com/memolink/capsules/8f2c1d9e...?X-Amz-Signature=..."
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Absolute expiry of the presigned PUT; the client must complete the upload before it.",
+            "example": "2026-06-26T12:45:00Z"
+          },
+          "maxBytes": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The enforced byte ceiling echoed back to the client.",
+            "example": 5368709120
+          }
+        }
+      },
+      "UploadFinalizeRequestContract": {
+        "type": "object",
+        "description": "Finalize a direct upload: HEAD-verify + flip AWAITING_UPLOAD→PENDING. Subject is the JWT; the only field is the server-generated fileId — no key/path/name is trusted.",
+        "properties": {
+          "fileId": {
+            "type": "string",
+            "description": "The server-generated file id returned by init; the storage key is re-derived from it server-side (never a client-supplied key).",
+            "example": "8f2c1d9e-0a3b-4c5d-9e7f-1a2b3c4d5e6f",
+            "maxLength": 64,
+            "minLength": 0
+          }
+        },
+        "required": [
+          "fileId"
+        ]
       },
       "UnlockGalleryRequestContract": {
         "type": "object",
@@ -19751,48 +21899,6 @@
           }
         }
       },
-      "EventHostResponseContract": {
-        "type": "object",
-        "description": "Event host information",
-        "properties": {
-          "eventHostId": {
-            "type": "string",
-            "description": "unique identifier of the event host",
-            "example": "123e4567-e89b-12d3-a456-426614174000"
-          },
-          "userId": {
-            "type": "string",
-            "description": "user ID of the host",
-            "example": "123e4567-e89b-12d3-a456-426614174000"
-          },
-          "phoneNumber": {
-            "type": "string",
-            "description": "phone number of the host",
-            "example": 998901234567
-          },
-          "firstName": {
-            "type": "string",
-            "description": "first name of the host",
-            "example": "John"
-          },
-          "lastName": {
-            "type": "string",
-            "description": "last name of the host",
-            "example": "Doe"
-          },
-          "avatarUrl": {
-            "type": "string",
-            "description": "URL of the host's avatar",
-            "example": "https://example.com/avatars/johndoe.jpg"
-          },
-          "dateCreated": {
-            "type": "string",
-            "format": "date-time",
-            "description": "timestamp when the host was added",
-            "example": "2025-06-01T12:00:00Z"
-          }
-        }
-      },
       "CreateEventRequestContract": {
         "type": "object",
         "properties": {
@@ -19842,6 +21948,13 @@
           },
           "orgId": {
             "type": "string"
+          },
+          "visibility": {
+            "type": "string",
+            "enum": [
+              "ORG_INTERNAL",
+              "PUBLIC"
+            ]
           }
         },
         "required": [
@@ -22207,18 +24320,18 @@
           "sort": {
             "$ref": "#/components/schemas/SortObject"
           },
+          "first": {
+            "type": "boolean"
+          },
+          "last": {
+            "type": "boolean"
+          },
           "numberOfElements": {
             "type": "integer",
             "format": "int32"
           },
           "pageable": {
             "$ref": "#/components/schemas/PageableObject"
-          },
-          "first": {
-            "type": "boolean"
-          },
-          "last": {
-            "type": "boolean"
           },
           "empty": {
             "type": "boolean"
@@ -22910,18 +25023,18 @@
           "sort": {
             "$ref": "#/components/schemas/SortObject"
           },
+          "first": {
+            "type": "boolean"
+          },
+          "last": {
+            "type": "boolean"
+          },
           "numberOfElements": {
             "type": "integer",
             "format": "int32"
           },
           "pageable": {
             "$ref": "#/components/schemas/PageableObject"
-          },
-          "first": {
-            "type": "boolean"
-          },
-          "last": {
-            "type": "boolean"
           },
           "empty": {
             "type": "boolean"
@@ -22972,6 +25085,219 @@
             "type": "string",
             "description": "Case-insensitive substring search on first name, last name, OR phone number. Null or blank returns all eligible users paginated.",
             "example": "john"
+          }
+        }
+      },
+      "BaseContractResponseMediaUrlResponseContract": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "example": null
+          },
+          "data": {
+            "$ref": "#/components/schemas/MediaUrlResponseContract"
+          },
+          "errorCode": {
+            "type": "integer",
+            "format": "int32",
+            "example": null
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "statusCode": {
+            "type": "integer",
+            "format": "int32",
+            "example": 200
+          },
+          "path": {
+            "type": "string",
+            "example": "/api/some-endpoint"
+          },
+          "errors": {
+            "type": "array",
+            "example": null,
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "MediaUrlResponseContract": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string"
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "BaseContractResponseMultipartStatusResponseContract": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "example": null
+          },
+          "data": {
+            "$ref": "#/components/schemas/MultipartStatusResponseContract"
+          },
+          "errorCode": {
+            "type": "integer",
+            "format": "int32",
+            "example": null
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "statusCode": {
+            "type": "integer",
+            "format": "int32",
+            "example": 200
+          },
+          "path": {
+            "type": "string",
+            "example": "/api/some-endpoint"
+          },
+          "errors": {
+            "type": "array",
+            "example": null,
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "MultipartStatusResponseContract": {
+        "type": "object",
+        "description": "Multipart resume status: the total partCount + the parts already uploaded (partNumber, etag, size) so the client re-PUTs only the missing ones.",
+        "properties": {
+          "partCount": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The total number of parts expected: ceil(declaredSize / partSize).",
+            "example": 1280
+          },
+          "uploaded": {
+            "type": "array",
+            "description": "The parts already uploaded, as reported by S3 ListParts.",
+            "items": {
+              "$ref": "#/components/schemas/UploadedPart"
+            }
+          }
+        }
+      },
+      "UploadedPart": {
+        "type": "object",
+        "description": "A single already-uploaded part: partNumber + etag + size.",
+        "properties": {
+          "partNumber": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The 1-based part index.",
+            "example": 1
+          },
+          "etag": {
+            "type": "string",
+            "description": "The server-recorded ETag of the stored part.",
+            "example": "d41d8cd98f00b204e9800998ecf8427e"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The stored part size in bytes.",
+            "example": 16777216
+          }
+        }
+      },
+      "BaseContractResponseMultipartPartUrlsResponseContract": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "example": null
+          },
+          "data": {
+            "$ref": "#/components/schemas/MultipartPartUrlsResponseContract"
+          },
+          "errorCode": {
+            "type": "integer",
+            "format": "int32",
+            "example": null
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "statusCode": {
+            "type": "integer",
+            "format": "int32",
+            "example": 200
+          },
+          "path": {
+            "type": "string",
+            "example": "/api/some-endpoint"
+          },
+          "errors": {
+            "type": "array",
+            "example": null,
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "MultipartPartUrlsResponseContract": {
+        "type": "object",
+        "description": "A window of presigned part PUT URLs (windowed lazy minting; each URL is short-lived).",
+        "properties": {
+          "parts": {
+            "type": "array",
+            "description": "The presigned part PUT URLs for the requested window, in part order.",
+            "items": {
+              "$ref": "#/components/schemas/PartUrl"
+            }
+          }
+        }
+      },
+      "PartUrl": {
+        "type": "object",
+        "description": "A single presigned part PUT URL with its expiry.",
+        "properties": {
+          "partNumber": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The 1-based part index.",
+            "example": 1
+          },
+          "url": {
+            "type": "string",
+            "description": "The presigned PUT URL for this part (bytes never transit Java).",
+            "example": "https://storage.example.com/memolink/capsules/8f2c1d9e...?partNumber=1&uploadId=..."
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Absolute expiry of this presigned part URL.",
+            "example": "2026-06-27T12:45:00Z"
           }
         }
       },
@@ -23375,18 +25701,18 @@
           "sort": {
             "$ref": "#/components/schemas/SortObject"
           },
+          "first": {
+            "type": "boolean"
+          },
+          "last": {
+            "type": "boolean"
+          },
           "numberOfElements": {
             "type": "integer",
             "format": "int32"
           },
           "pageable": {
             "$ref": "#/components/schemas/PageableObject"
-          },
-          "first": {
-            "type": "boolean"
-          },
-          "last": {
-            "type": "boolean"
           },
           "empty": {
             "type": "boolean"
@@ -23844,6 +26170,76 @@
           }
         }
       },
+      "BaseContractResponseListMyOrgResponseContract": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "example": null
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MyOrgResponseContract"
+            }
+          },
+          "errorCode": {
+            "type": "integer",
+            "format": "int32",
+            "example": null
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "statusCode": {
+            "type": "integer",
+            "format": "int32",
+            "example": 200
+          },
+          "path": {
+            "type": "string",
+            "example": "/api/some-endpoint"
+          },
+          "errors": {
+            "type": "array",
+            "example": null,
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "MyOrgResponseContract": {
+        "type": "object",
+        "properties": {
+          "orgId": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "ADMIN",
+              "COORDINATOR",
+              "PHOTOGRAPHER",
+              "STAFF"
+            ]
+          },
+          "isAdmin": {
+            "type": "boolean"
+          },
+          "isPhotographer": {
+            "type": "boolean"
+          }
+        }
+      },
       "BaseContractResponsePagedResponseEventSummaryResponseContract": {
         "type": "object",
         "properties": {
@@ -24118,419 +26514,6 @@
             "items": {
               "type": "string"
             }
-          },
-          "errorCode": {
-            "type": "integer",
-            "format": "int32",
-            "example": null
-          },
-          "timestamp": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "statusCode": {
-            "type": "integer",
-            "format": "int32",
-            "example": 200
-          },
-          "path": {
-            "type": "string",
-            "example": "/api/some-endpoint"
-          },
-          "errors": {
-            "type": "array",
-            "example": null,
-            "items": {
-              "type": "string"
-            }
-          }
-        }
-      },
-      "EventAttendeeResponseContract": {
-        "type": "object",
-        "description": "Event attendee information",
-        "properties": {
-          "attendeeId": {
-            "type": "string",
-            "description": "unique identifier of the attendee",
-            "example": "123e4567-e89b-12d3-a456-426614174000"
-          },
-          "userId": {
-            "type": "string",
-            "description": "user ID of the attendee",
-            "example": "123e4567-e89b-12d3-a456-426614174000"
-          },
-          "phoneNumber": {
-            "type": "string",
-            "description": "phone number of the attendee",
-            "example": 998901234567
-          },
-          "firstName": {
-            "type": "string",
-            "description": "first name of the attendee",
-            "example": "Jane"
-          },
-          "lastName": {
-            "type": "string",
-            "description": "last name of the attendee",
-            "example": "Smith"
-          },
-          "avatarUrl": {
-            "type": "string",
-            "description": "URL of the attendee's avatar",
-            "example": "https://example.com/avatars/janesmith.jpg"
-          },
-          "rsvpStatus": {
-            "type": "string",
-            "description": "RSVP status of the attendee",
-            "enum": [
-              "INVITED",
-              "GOING",
-              "MAYBE",
-              "NOT_GOING",
-              "CANCELLED"
-            ],
-            "example": "GOING"
-          },
-          "respondedAt": {
-            "type": "string",
-            "format": "date-time",
-            "description": "timestamp when the attendee responded",
-            "example": "2025-06-05T14:30:00Z"
-          },
-          "checkedIn": {
-            "type": "boolean",
-            "description": "check-in status of the attendee",
-            "example": true
-          },
-          "checkedInAt": {
-            "type": "string",
-            "format": "date-time",
-            "description": "timestamp when the attendee was checked in",
-            "example": "2025-06-10T18:30:00Z"
-          },
-          "checkedInByHostUserId": {
-            "type": "string",
-            "description": "user ID of the host who checked in the attendee",
-            "example": "123e4567-e89b-12d3-a456-426614174000"
-          },
-          "dateCreated": {
-            "type": "string",
-            "format": "date-time",
-            "description": "timestamp when the attendee was invited",
-            "example": "2025-06-01T12:00:00Z"
-          }
-        }
-      },
-      "EventPhotoResponseContract": {
-        "type": "object",
-        "description": "Event photo information",
-        "properties": {
-          "eventPhotoId": {
-            "type": "string",
-            "description": "unique identifier of the event photo",
-            "example": "123e4567-e89b-12d3-a456-426614174000"
-          },
-          "fileId": {
-            "type": "string",
-            "description": "file ID of the photo",
-            "example": "123e4567-e89b-12d3-a456-426614174000"
-          },
-          "fileUrl": {
-            "type": "string",
-            "description": "URL of the photo",
-            "example": "https://example.com/photos/photo.jpg"
-          },
-          "fileName": {
-            "type": "string",
-            "description": "file name",
-            "example": "birthday_cake.jpg"
-          },
-          "uploadedByUserId": {
-            "type": "string",
-            "description": "user ID of the uploader",
-            "example": "123e4567-e89b-12d3-a456-426614174000"
-          },
-          "uploaderFirstName": {
-            "type": "string",
-            "description": "first name of the uploader",
-            "example": "John"
-          },
-          "uploaderLastName": {
-            "type": "string",
-            "description": "last name of the uploader",
-            "example": "Doe"
-          },
-          "uploaderAvatarUrl": {
-            "type": "string",
-            "description": "avatar URL of the uploader",
-            "example": "https://example.com/avatars/johndoe.jpg"
-          },
-          "accessLevel": {
-            "type": "string",
-            "description": "access level of the photo",
-            "enum": [
-              "PRIVATE_TO_ME",
-              "EVENT_ATTENDEES_ONLY",
-              "PUBLIC"
-            ],
-            "example": "EVENT_ATTENDEES_ONLY"
-          },
-          "mediaType": {
-            "type": "string",
-            "description": "Rich-media classification of the file (RICH-04) — lets the client render the right tile (e.g. a video play overlay vs an <img>). Null for legacy rows whose type was not probed.",
-            "enum": [
-              "IMAGE",
-              "GIF",
-              "VIDEO",
-              "AUDIO",
-              "PDF",
-              "LIVE_PHOTO"
-            ],
-            "example": "VIDEO"
-          },
-          "dateCreated": {
-            "type": "string",
-            "format": "date-time",
-            "description": "timestamp when the photo was uploaded",
-            "example": "2025-06-10T19:00:00Z"
-          },
-          "thumbnailUrl": {
-            "type": "string",
-            "description": "Thumbnail variant URL (THUMBNAIL size) — client lazy-loads full-size on demand via the variant endpoint (MED-05). Null when not populated.",
-            "example": "/api/capsule/file/abc-123/variant/THUMBNAIL"
-          },
-          "smallUrl": {
-            "type": "string",
-            "description": "Eager SMALL (640px) variant URL (MDS-03/D-08). Detail responses only (D-10). Null when the variant is not yet generated; client serves the original fileUrl.",
-            "example": "/api/event/abc/file/def-123/variant/SMALL"
-          },
-          "mediumUrl": {
-            "type": "string",
-            "description": "Eager MEDIUM (1280px) variant URL (MDS-03/D-08). Detail responses only (D-10). Null when the variant is not yet generated; client serves the original fileUrl.",
-            "example": "/api/event/abc/file/def-123/variant/MEDIUM"
-          },
-          "streamUrl": {
-            "type": "string",
-            "description": "Eager STREAM (canonical H.264) video URL (MDS-03/D-08). Detail responses only (D-10). Null when the transcoded variant is not yet generated / for non-video media; client serves the original fileUrl.",
-            "example": "/api/event/abc/file/def-123/variant/STREAM"
-          },
-          "processingStatus": {
-            "type": "string",
-            "description": "Derivative processing status (D-07): PENDING/READY/FAILED, or null when no variants exist (serve original).",
-            "enum": [
-              "PENDING",
-              "READY",
-              "FAILED"
-            ],
-            "example": "READY"
-          },
-          "moderationBadge": {
-            "type": "string",
-            "description": "Owner-only localized moderation status badge (MOD-04) for a PUBLIC event photo. Null when APPROVED or for a non-owner. The raw moderation score is never exposed.",
-            "example": "Under review"
-          }
-        }
-      },
-      "GetEventResponseContract": {
-        "type": "object",
-        "description": "Get event response contract",
-        "properties": {
-          "eventId": {
-            "type": "string",
-            "description": "unique identifier of the event",
-            "example": "123e4567-e89b-12d3-a456-426614174000"
-          },
-          "title": {
-            "type": "string",
-            "description": "title of the event",
-            "example": "Birthday Party"
-          },
-          "description": {
-            "type": "string",
-            "description": "description of the event",
-            "example": "Celebrating my 30th birthday!"
-          },
-          "eventUrl": {
-            "type": "string",
-            "description": "URL of the event",
-            "example": "https://example.com/event/123e4567-e89b-12d3-a456-426614174000"
-          },
-          "location": {
-            "$ref": "#/components/schemas/LocationInfoResponseContract",
-            "description": "location details of the event"
-          },
-          "accessLevel": {
-            "type": "string",
-            "description": "access level of the event",
-            "enum": [
-              "PUBLIC",
-              "PRIVATE"
-            ],
-            "example": "PUBLIC"
-          },
-          "allowJoinRequests": {
-            "type": "boolean",
-            "description": "Join mode (BUG-013a): true = direct join (guest becomes GOING); false = by request (guest becomes INVITED, host must approve). The client renders 'Join' vs 'Request to Join' from this flag.",
-            "example": false
-          },
-          "discoveryStatus": {
-            "type": "string",
-            "description": "Public-discovery submission status of the event.",
-            "enum": [
-              "NOT_SUBMITTED",
-              "PENDING",
-              "APPROVED",
-              "REJECTED",
-              "REMOVED"
-            ],
-            "example": "NOT_SUBMITTED"
-          },
-          "eventStartDate": {
-            "type": "string",
-            "format": "date-time",
-            "description": "event start date and time",
-            "example": "2025-06-10T18:00:00"
-          },
-          "eventEndDate": {
-            "type": "string",
-            "format": "date-time",
-            "description": "event end date and time",
-            "example": "2025-06-10T23:00:00"
-          },
-          "eventStatus": {
-            "type": "string",
-            "description": "event status",
-            "enum": [
-              "UPCOMING",
-              "ONGOING",
-              "COMPLETED",
-              "CANCELLED"
-            ],
-            "example": "UPCOMING"
-          },
-          "maxAttendees": {
-            "type": "integer",
-            "format": "int32",
-            "description": "maximum number of attendees",
-            "example": 50
-          },
-          "currentAttendeeCount": {
-            "type": "integer",
-            "format": "int64",
-            "description": "current number of attendees",
-            "example": 23
-          },
-          "hosts": {
-            "type": "array",
-            "description": "list of event hosts",
-            "items": {
-              "$ref": "#/components/schemas/EventHostResponseContract"
-            }
-          },
-          "attendees": {
-            "type": "array",
-            "description": "list of event attendees",
-            "items": {
-              "$ref": "#/components/schemas/EventAttendeeResponseContract"
-            }
-          },
-          "posterFileId": {
-            "type": "string",
-            "description": "event poster file ID",
-            "example": "poster-file-id-123"
-          },
-          "coverPhotoUrl": {
-            "type": "string",
-            "description": "cover photo URL — same 3-tier fallback as the event list (poster → first moderation-visible public attendee photo → first event file); null when the event has no displayable image",
-            "example": "https://example.com/api/event/123/file/abc"
-          },
-          "files": {
-            "type": "array",
-            "description": "list of event files",
-            "items": {
-              "$ref": "#/components/schemas/FileResponseContract"
-            }
-          },
-          "photos": {
-            "type": "array",
-            "description": "list of event photos from attendees",
-            "items": {
-              "$ref": "#/components/schemas/EventPhotoResponseContract"
-            }
-          },
-          "creator": {
-            "$ref": "#/components/schemas/OwnerDetails",
-            "description": "details of the event creator"
-          },
-          "dateCreated": {
-            "type": "string",
-            "format": "date-time",
-            "description": "timestamp when the event was created",
-            "example": "2025-06-01T12:00:00Z"
-          },
-          "dateUpdated": {
-            "type": "string",
-            "format": "date-time",
-            "description": "timestamp when the event was last updated",
-            "example": "2025-06-05T15:30:00Z"
-          }
-        }
-      },
-      "GetEventResponseWrapper": {
-        "type": "object",
-        "properties": {
-          "success": {
-            "type": "boolean",
-            "example": true
-          },
-          "message": {
-            "type": "string",
-            "example": null
-          },
-          "data": {
-            "$ref": "#/components/schemas/GetEventResponseContract"
-          },
-          "errorCode": {
-            "type": "integer",
-            "format": "int32",
-            "example": null
-          },
-          "timestamp": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "statusCode": {
-            "type": "integer",
-            "format": "int32",
-            "example": 200
-          },
-          "path": {
-            "type": "string",
-            "example": "/api/some-endpoint"
-          },
-          "errors": {
-            "type": "array",
-            "example": null,
-            "items": {
-              "type": "string"
-            }
-          }
-        }
-      },
-      "BaseContractResponseGetEventResponseContract": {
-        "type": "object",
-        "properties": {
-          "success": {
-            "type": "boolean",
-            "example": true
-          },
-          "message": {
-            "type": "string",
-            "example": null
-          },
-          "data": {
-            "$ref": "#/components/schemas/GetEventResponseContract"
           },
           "errorCode": {
             "type": "integer",
@@ -25030,6 +27013,7 @@
             "type": "string",
             "description": "media derivative processing status (PENDING/READY/FAILED) or null",
             "enum": [
+              "AWAITING_UPLOAD",
               "PENDING",
               "READY",
               "FAILED"
@@ -25756,6 +27740,30 @@
             "items": {
               "$ref": "#/components/schemas/LocalizedEnumResponse"
             }
+          },
+          "directUploadThresholdBytes": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "multipartMaxBytes": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "capsuleFileMaxBytes": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "capsuleTotalMaxBytes": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "eventFileMaxBytes": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "capsuleMaxFiles": {
+            "type": "integer",
+            "format": "int32"
           }
         }
       },
@@ -26288,6 +28296,7 @@
             "type": "string",
             "description": "Cover-file processing status (D-07): PENDING/READY/FAILED, or null when no variants exist (serve original).",
             "enum": [
+              "AWAITING_UPLOAD",
               "PENDING",
               "READY",
               "FAILED"
@@ -26856,18 +28865,18 @@
           "sort": {
             "$ref": "#/components/schemas/SortObject"
           },
+          "first": {
+            "type": "boolean"
+          },
+          "last": {
+            "type": "boolean"
+          },
           "numberOfElements": {
             "type": "integer",
             "format": "int32"
           },
           "pageable": {
             "$ref": "#/components/schemas/PageableObject"
-          },
-          "first": {
-            "type": "boolean"
-          },
-          "last": {
-            "type": "boolean"
           },
           "empty": {
             "type": "boolean"
@@ -27074,18 +29083,18 @@
           "sort": {
             "$ref": "#/components/schemas/SortObject"
           },
+          "first": {
+            "type": "boolean"
+          },
+          "last": {
+            "type": "boolean"
+          },
           "numberOfElements": {
             "type": "integer",
             "format": "int32"
           },
           "pageable": {
             "$ref": "#/components/schemas/PageableObject"
-          },
-          "first": {
-            "type": "boolean"
-          },
-          "last": {
-            "type": "boolean"
           },
           "empty": {
             "type": "boolean"

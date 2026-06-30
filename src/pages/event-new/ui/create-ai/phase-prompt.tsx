@@ -33,7 +33,7 @@ export function PhasePrompt({
 
       <div className="mx-auto w-full max-w-[680px] px-6 pb-[70px] pt-2.5">
         <div className="animate-in flex flex-col items-center text-center">
-          <span className="mb-[18px] flex size-[54px] items-center justify-center rounded-[16px] bg-[linear-gradient(140deg,#6D5EF6,#9d7bff)] shadow-[0_10px_30px_rgba(109,94,246,0.45)]">
+          <span className="mb-[18px] flex size-[54px] items-center justify-center rounded-[16px] bg-[linear-gradient(140deg,#6670FF,#8387ff)] shadow-[0_10px_30px_rgba(102,112,255,0.45)]">
             <Sparkles size={26} className="text-white" />
           </span>
           <h1 className="text-[30px] font-semibold tracking-[-0.025em]">{t('create.title')}</h1>

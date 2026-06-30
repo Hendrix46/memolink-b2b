@@ -147,7 +147,10 @@
     "delivered": "Fotolar yetkazildi.",
     "deliverFailed": "Fotolarni yetkazib boʻlmadi.",
     "deliver": "Yetkazish",
-    "uploadingState": "Yuklanmoqda… {{pct}}%"
+    "uploadingState": "Yuklanmoqda… {{pct}}%",
+    "tooLarge": "Fayl {{max}} limitidan oshib ketdi.",
+    "limitHint": "Har fayl uchun {{max}} gacha",
+    "resumable": "Qayta tiklanadigan"
   },
   "myUploads": {
     "title": "Mening yuklamalarim",
@@ -284,7 +287,20 @@
     "detailsSubtitle": "Yakunlash uchun bir nechta ma’lumot qoldi.",
     "enterPasswordFor": "{{phone}} uchun parolingizni kiriting.",
     "accountExists": "Bu raqam uchun hisob allaqachon mavjud.",
-    "noAccountForPhone": "Bu raqam uchun hisob topilmadi."
+    "noAccountForPhone": "Bu raqam uchun hisob topilmadi.",
+    "panel": {
+      "kicker": "Tashkilotchilar uchun Memolink",
+      "headlineTop": "Har bir lahza —",
+      "headlineAccent": "mukammal yetkaziladi.",
+      "pillCurate": "Saralash",
+      "pillDeliver": "Yetkazish",
+      "pillMeasure": "Tahlil",
+      "status": {
+        "delivered": "Yetkazildi",
+        "live": "Faol",
+        "curating": "Saralanmoqda"
+      }
+    }
   },
   "dashboard": {
     "greeting": "Xayrli tong, {{name}}",
@@ -1049,7 +1065,8 @@
       "createEvents": "Tadbir yaratish va tahrirlash",
       "curate": "Mediani kuratsiya va yetkazish",
       "manageTeam": "Jamoa va toʻlovlarni boshqarish",
-      "upload": "Media yuklash"
+      "upload": "Media yuklash",
+      "assignPhotographers": "Fotograf biriktirish"
     },
     "invited": "{{email}} manziliga taklif yuborildi.",
     "inviteFailed": "Taklifni yuborib boʻlmadi.",
@@ -1062,7 +1079,8 @@
     "inviteDesc": "Tashkilotga qoʻshilish uchun taklif yuboring.",
     "emailLabel": "Elektron pochta manzili",
     "emailPh": "name@company.com",
-    "roleLabel": "Rol"
+    "roleLabel": "Rol",
+    "permsNote": "Fotograf va Xodim — bu yorliqlar, ular tashkilot darajasida huquq bermaydi. Fotografning haqiqiy imkoniyatlari (katta/qayta tiklanadigan yuklash, foto yetkazish) admin yoki koordinator uni aniq event’ga biriktirgandan keyin paydo bo‘ladi."
   },
   "billing": {
     "title": "Toʻlovlar",

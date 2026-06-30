@@ -87,10 +87,10 @@ export function UploadMediaButton({ eventId }: { eventId: string }) {
           onClick={() => inputRef.current?.click()}
           className={cn(
             'flex w-full flex-col items-center gap-2.5 rounded-[14px] border-[1.5px] border-dashed border-border-strong px-5 py-8 text-center transition-colors',
-            'bg-[linear-gradient(180deg,rgba(109,94,246,0.05),transparent)] hover:border-accent',
+            'bg-[linear-gradient(180deg,rgba(102,112,255,0.05),transparent)] hover:border-accent',
           )}
         >
-          <span className="flex size-12 items-center justify-center rounded-2xl bg-[rgba(109,94,246,0.14)] text-accent-soft">
+          <span className="flex size-12 items-center justify-center rounded-2xl bg-[rgba(102,112,255,0.14)] text-accent-soft">
             <UploadCloud size={22} />
           </span>
           <span className="text-[13.5px] font-semibold">{t('mediaUpload.drop')}</span>

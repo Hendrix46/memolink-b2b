@@ -181,15 +181,20 @@ muammolari. Har bir yozuv: **Endpoint → Observed → Expected → Impact → F
   Frontend'da ticket UI **olib tashlandi** (funksional bo'lganda qaytariladi).
 - **Fix (backend):** Ticketing kerak bo'lsa — ticket tier CRUD + event bilan bog'lash endpointlari.
 
-### E2. 🟡 "Mening fotosurat topshiriqlarim" yo'q
+### E2. ✅ "Mening fotosurat topshiriqlarim" — HAL QILINDI (`filter=assigned`)
 - **Need:** Fotograf lens'i uchun shaxsiy assignment ro'yxati.
-- **Observed:** Maxsus endpoint yo'q; frontend `GET /api/org/events` dan hosil qilyapti.
-- **Fix:** `GET /api/photographer/assignments` qo'shish.
+- **Avval:** maxsus endpoint yo'q deb hisoblanib, frontend `GET /api/org/events` dan hosil qilardi.
+- **Aniqlandi (b2b-photographer-role.md, 2026-06-30):** unified list `GET /api/event/list?filter=assigned`
+  ("events I'm an active photographer on") aynan shu ro'yxatni beradi. `filter`: `mine | public | attending | assigned`.
+- **✅ Bajarildi:** `photographerApi.myEvents()` endi `filter=assigned` ishlatadi (user-scoped, aniq) —
+  org-events derivatsiyasi olib tashlandi.
 
-### E2. 🟡 "Mening fotosurat topshiriqlarim" yo'q
-- **Need:** Fotograf lens'i uchun shaxsiy assignment ro'yxati.
-- **Observed:** Maxsus endpoint yo'q; frontend `GET /api/org/events` dan hosil qilyapti.
-- **Fix:** `GET /api/photographer/assignments` qo'shish.
+### E7. ✅ Event javobida upload-limit maydonlari — HAL QILINDI
+- **Observed (avval):** `swagger.json`'dagi `GetEventResponseContract`'da upload-limit maydonlari yo'q edi.
+- **✅ Swagger yangilandi:** endi `myFileUploadMaxBytes` (int64) va `resumableUploadAllowed` (boolean) bor.
+- **✅ Frontend ulandi:** `GetEventResponseContract` + `EventDetail`'ga `uploadMaxBytes` / `resumableUploadAllowed`
+  qo'shildi (`event.api.ts toDetail`); UploadPage per-file limitni ko'rsatadi, resumable belgisini chiqaradi va
+  oversize fayllarni server 403'idan oldin rad etadi.
 
 ### E3. 🟡 Org-darajasidagi yagona galereya yo'q
 - **Need:** Tashkilotning barcha eventlari bo'yicha umumiy media oqimi.

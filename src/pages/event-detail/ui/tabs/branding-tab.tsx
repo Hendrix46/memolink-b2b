@@ -15,7 +15,7 @@ import { coverBackground } from '@/shared/lib/visual';
 import { cn } from '@/shared/lib/cn';
 import { Button, Card, ErrorState, Field, Input, Select, Skeleton, toast } from '@/shared/ui';
 
-const PALETTE = ['#6D5EF6', '#3DD68C', '#4AA8FF', '#E0A33E', '#F0556E', '#9d7bff'];
+const PALETTE = ['#6670FF', '#3DD68C', '#4AA8FF', '#E0A33E', '#F0556E', '#8387ff'];
 const HEX = /^#([0-9a-fA-F]{6})$/;
 const WATERMARK_TYPES: WatermarkType[] = ['NONE', 'TEXT', 'IMAGE'];
 const WATERMARK_POSITIONS: WatermarkPosition[] = [
@@ -27,7 +27,7 @@ const WATERMARK_POSITIONS: WatermarkPosition[] = [
 ];
 
 function emptyForm(): BrandingAttributes {
-  return { primaryColor: '#6D5EF6', accentColor: '#9d7bff', watermarkType: 'NONE', watermarkOpacity: 50, watermarkPosition: 'BOTTOM_RIGHT' };
+  return { primaryColor: '#6670FF', accentColor: '#8387ff', watermarkType: 'NONE', watermarkOpacity: 50, watermarkPosition: 'BOTTOM_RIGHT' };
 }
 
 /** Per-event branding override (resolved over org default). Changelog §6. */
@@ -42,7 +42,7 @@ export function BrandingTab({ event }: { event: EventDetail }) {
   }, [branding.data]);
 
   const patch = (p: Partial<BrandingAttributes>) => setForm((f) => ({ ...f, ...p }));
-  const accent = form.accentColor || '#6D5EF6';
+  const accent = form.accentColor || '#6670FF';
   const showWatermark = (form.watermarkType ?? 'NONE') !== 'NONE';
 
   const save = () => {

@@ -40,7 +40,7 @@ import {
   toast,
 } from '@/shared/ui';
 
-const TRACK_COLORS = ['#6D5EF6', '#4AA8FF', '#3DD68C', '#E0A33E', '#F0556E', '#9d7bff', '#42c2b8'];
+const TRACK_COLORS = ['#6670FF', '#4AA8FF', '#3DD68C', '#E0A33E', '#F0556E', '#8387ff', '#42c2b8'];
 
 type Directory = Record<string, { name: string } | undefined>;
 
@@ -631,7 +631,7 @@ function SpeakerModal({
                 key={sp.userId}
                 className="flex items-center gap-3 rounded-[10px] border border-border bg-surface px-3 py-2"
               >
-                <span className="flex size-8 flex-none items-center justify-center rounded-full bg-[rgba(109,94,246,0.14)] text-accent">
+                <span className="flex size-8 flex-none items-center justify-center rounded-full bg-[rgba(102,112,255,0.14)] text-accent">
                   <Users2 size={15} />
                 </span>
                 <div className="min-w-0 flex-1">

@@ -84,7 +84,7 @@ export function Toaster() {
                   action.onClick();
                   dismiss(id);
                 }}
-                className="flex-none rounded-md px-2 py-1 text-[12.5px] font-semibold text-accent transition-colors hover:bg-[rgba(109,94,246,0.12)]"
+                className="flex-none rounded-md px-2 py-1 text-[12.5px] font-semibold text-accent transition-colors hover:bg-[rgba(102,112,255,0.12)]"
               >
                 {action.label}
               </button>

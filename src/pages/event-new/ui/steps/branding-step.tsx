@@ -31,7 +31,7 @@ export function BrandingStep() {
               className={cn(
                 'rounded-[10px] border py-2.5 text-[12.5px] font-medium transition-colors',
                 d.layout === l
-                  ? 'border-accent bg-[rgba(109,94,246,0.14)] text-text'
+                  ? 'border-accent bg-[rgba(102,112,255,0.14)] text-text'
                   : 'border-border text-text-secondary hover:border-border-strong',
               )}
             >

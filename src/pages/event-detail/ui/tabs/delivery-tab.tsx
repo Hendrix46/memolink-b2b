@@ -181,7 +181,7 @@ function GalleryEditor({
                 className={cn(
                   'flex w-full items-center gap-3 rounded-[12px] border px-4 py-3 text-left transition-colors',
                   selected
-                    ? 'border-accent bg-[rgba(109,94,246,0.1)]'
+                    ? 'border-accent bg-[rgba(102,112,255,0.1)]'
                     : 'border-border hover:border-border-strong',
                 )}
               >

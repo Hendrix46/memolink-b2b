@@ -47,14 +47,17 @@ export const photographerApi = {
     return http.delete<void>(`${AVAILABILITY}/${availabilityId}`);
   },
 
-  // --- Assignments (derived) ---
+  // --- Assignments ---
   /**
-   * The photographer's assignment list. The backend exposes no dedicated
-   * "my assignments" endpoint, so we derive it best-effort from the active
-   * org's events (changelog §11 / §13 `GET /api/org/events`).
+   * The events the caller is an ACTIVE photographer on — the real assignment
+   * list. The unified event list resolves this via `filter=assigned`
+   * (`mine | public | attending | assigned`), so it is user-scoped and exact,
+   * not derived from the active org's events.
    */
   myEvents(page = 1, size = 50): Promise<PagedResponse<EventSummary>> {
-    return http.get<PagedResponse<EventSummary>>('/api/org/events', { query: { page, size } });
+    return http.get<PagedResponse<EventSummary>>('/api/event/list', {
+      query: { filter: 'assigned', page, size },
+    });
   },
 
   /** Own photos for an event (incl. DRAFT), used to show upload progress. */

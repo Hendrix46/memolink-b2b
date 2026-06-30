@@ -119,7 +119,7 @@ export function InviteCohostModal() {
       width={600}
       title={
         <span className="flex items-center gap-3">
-          <span className="flex size-10 items-center justify-center rounded-[11px] bg-[linear-gradient(140deg,#6D5EF6,#9d7bff)] text-white">
+          <span className="flex size-10 items-center justify-center rounded-[11px] bg-[linear-gradient(140deg,#6670FF,#8387ff)] text-white">
             <UserPlus size={18} />
           </span>
           <span>{t('inviteCohost.title')}</span>
@@ -156,13 +156,13 @@ export function InviteCohostModal() {
             {emails.map((email) => (
               <span
                 key={email}
-                className="flex items-center gap-1.5 rounded-md bg-[rgba(109,94,246,0.16)] py-1 pl-2.5 pr-1.5 text-[12.5px] text-accent-soft"
+                className="flex items-center gap-1.5 rounded-md bg-[rgba(102,112,255,0.16)] py-1 pl-2.5 pr-1.5 text-[12.5px] text-accent-soft"
               >
                 {email}
                 <button
                   aria-label={t('common.remove')}
                   onClick={() => setEmails((prev) => prev.filter((e) => e !== email))}
-                  className="flex size-4 items-center justify-center rounded-full hover:bg-[rgba(109,94,246,0.3)]"
+                  className="flex size-4 items-center justify-center rounded-full hover:bg-[rgba(102,112,255,0.3)]"
                 >
                   <X size={11} />
                 </button>
@@ -195,7 +195,7 @@ export function InviteCohostModal() {
                   key={r}
                   onClick={() => setRole(r)}
                   className={`flex w-full items-center gap-3 rounded-[11px] border px-3.5 py-3 text-left transition-colors ${
-                    active ? 'border-accent bg-[rgba(109,94,246,0.08)]' : 'border-border hover:border-border-strong'
+                    active ? 'border-accent bg-[rgba(102,112,255,0.08)]' : 'border-border hover:border-border-strong'
                   }`}
                 >
                   <span

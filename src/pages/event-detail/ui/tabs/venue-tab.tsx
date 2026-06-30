@@ -213,7 +213,7 @@ function VenueCard({
     <Card className="p-0">
       <div className="flex items-start justify-between gap-4 border-b border-hairline p-4">
         <div className="flex min-w-0 gap-3">
-          <span className="flex size-9 flex-none items-center justify-center rounded-[10px] bg-[rgba(109,94,246,0.14)] text-accent">
+          <span className="flex size-9 flex-none items-center justify-center rounded-[10px] bg-[rgba(102,112,255,0.14)] text-accent">
             <Building2 size={17} />
           </span>
           <div className="min-w-0">
