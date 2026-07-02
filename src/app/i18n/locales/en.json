@@ -1342,5 +1342,17 @@
     "APPROVED": "Approved",
     "REJECTED": "Rejected",
     "FEATURED": "Featured"
+  },
+  "workspaces": {
+    "kind": {
+      "ADMIN": "Admin",
+      "COORDINATOR": "Coordinator",
+      "PHOTOGRAPHER": "Photographer",
+      "STAFF": "Staff"
+    }
+  },
+  "appShell": {
+    "orgsError": "Couldn’t load your workspaces",
+    "orgsErrorDesc": "We couldn’t reach your organization list. Check your connection and try again."
   }
 }

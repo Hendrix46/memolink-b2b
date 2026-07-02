@@ -5,6 +5,7 @@ import { ExternalLink, UserPlus } from 'lucide-react';
 import { useActiveOrgId } from '@/entities/session';
 import { useInviteMember, useOrgPhotographers, type OrgPhotographer } from '@/entities/org';
 import { useUserName, useUserDirectorySeed } from '@/entities/user';
+import { personFullName } from '@/shared/lib/format';
 import { ApiError } from '@/shared/api';
 import { avatarGradient } from '@/shared/lib/visual';
 import {
@@ -135,7 +136,9 @@ function PhotographerRow({ photographer: p }: { photographer: OrgPhotographer })
   const { t } = useTranslation();
   const isPublic = p.profile?.public ?? false;
   const portfolioUrl = p.profile?.portfolioUrl;
-  const name = useUserName(p.userId) ?? t('common.unknownUser');
+  // Prefer the contract identity (buglist E6); fall back to the directory cache.
+  const cached = useUserName(p.userId);
+  const name = personFullName(p.firstName, p.lastName) ?? cached ?? t('common.unknownUser');
 
   return (
     <div className="grid grid-cols-[2fr_1.5fr_1fr_1fr] items-center gap-3 border-b border-hairline px-[18px] py-3.5 transition-colors last:border-0 hover:bg-surface-hover">

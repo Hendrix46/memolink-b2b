@@ -20,6 +20,7 @@ function toAsset(p: PhotographerPhoto, eventId: string): MediaAsset {
   return {
     id: p.eventPhotoId,
     eventId,
+    fileId: p.fileId,
     type: 'image',
     coverSeed: p.fileId,
     thumbnailUrl: p.thumbnailUrl ?? p.fileUrl ?? null,

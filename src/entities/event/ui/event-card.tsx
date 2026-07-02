@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { Calendar, Users } from 'lucide-react';
 
-import { coverFrom } from '@/shared/lib/visual';
+import { useEventCoverBackground } from '@/shared/api';
 import { ProgressBar } from '@/shared/ui';
 import { formatEventDate, formatPercent } from '@/shared/lib/format';
 import type { EventSummary } from '../model/types';
@@ -15,6 +15,7 @@ interface EventCardProps {
 /** Media-led event card: cover, status, attendance + capacity progress. */
 export function EventCard({ event, onOpen }: EventCardProps) {
   const { t } = useTranslation();
+  const cover = useEventCoverBackground(event.eventId, event.posterFileId);
   const cap = event.maxAttendees ?? 0;
   const ratio = cap > 0 ? Math.min(1, event.currentAttendeeCount / cap) : 0;
   return (
@@ -23,7 +24,7 @@ export function EventCard({ event, onOpen }: EventCardProps) {
       onClick={() => onOpen(event.eventId)}
       className="group flex flex-col overflow-hidden rounded-[var(--radius-card)] border border-border bg-surface text-left transition-[border-color,transform] duration-150 hover:-translate-y-0.5 hover:border-border-strong"
     >
-      <div className="relative h-[166px]" style={{ background: coverFrom(event.coverPhotoUrl, event.eventId) }}>
+      <div className="relative h-[166px]" style={{ background: cover }}>
         <span className="absolute left-3 top-3">
           <EventStatusChip status={event.eventStatus} surface />
         </span>

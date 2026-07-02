@@ -1342,5 +1342,17 @@
     "APPROVED": "Tasdiqlangan",
     "REJECTED": "Rad etilgan",
     "FEATURED": "Tanlangan"
+  },
+  "workspaces": {
+    "kind": {
+      "ADMIN": "Admin",
+      "COORDINATOR": "Koordinator",
+      "PHOTOGRAPHER": "Fotograf",
+      "STAFF": "Xodim"
+    }
+  },
+  "appShell": {
+    "orgsError": "Workspace’lar yuklanmadi",
+    "orgsErrorDesc": "Tashkilotlar ro‘yxatini olib bo‘lmadi. Ulanishni tekshirib, qayta urinib ko‘ring."
   }
 }

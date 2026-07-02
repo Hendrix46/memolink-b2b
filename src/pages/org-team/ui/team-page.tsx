@@ -12,6 +12,7 @@ import {
   type OrgMemberRole,
 } from '@/entities/org';
 import { useUserDirectoryMap, useUserDirectorySeed } from '@/entities/user';
+import { personFullName } from '@/shared/lib/format';
 import { ApiError } from '@/shared/api';
 import {
   Avatar,
@@ -119,7 +120,11 @@ export function TeamPage() {
               </div>
             ) : (
               (membersQuery.data ?? []).map((m) => {
-                const name = directory[m.userId]?.name ?? t('common.unknownUser');
+                // Prefer the contract identity (buglist E6); fall back to the directory cache.
+                const name =
+                  personFullName(m.firstName, m.lastName) ??
+                  directory[m.userId]?.name ??
+                  t('common.unknownUser');
                 return (
                 <div
                   key={m.userId}

@@ -25,6 +25,13 @@ export const queryKeys = {
     directorySeed: ['users', 'directory', 'seed'] as const,
   },
 
+  /** Short-lived presigned media URLs (variant/poster) — see shared/api/media-url. */
+  mediaUrl: {
+    variant: (eventId: string, fileId: string, size: string) =>
+      ['media-url', 'variant', eventId, fileId, size] as const,
+    poster: (eventId: string) => ['media-url', 'poster', eventId] as const,
+  },
+
   photographer: {
     assignments: ['photographer', 'assignments'] as const,
     uploads: (eventId?: string) => ['photographer', 'uploads', eventId ?? 'all'] as const,
@@ -43,11 +50,11 @@ export const queryKeys = {
   },
 
   org: {
+    mine: ['org', 'mine'] as const,
     photographers: (orgId: string) => ['org', 'photographers', orgId] as const,
     team: ['org', 'team'] as const,
     members: (orgId: string) => ['org', 'members', orgId] as const,
     invites: (orgId: string) => ['org', 'invites', orgId] as const,
-    events: ['org', 'events'] as const,
     billing: (orgId: string) => ['org', 'billing', orgId] as const,
     branding: (orgId: string) => ['org', 'branding', orgId] as const,
     brandingTemplates: (orgId: string) => ['org', 'branding', 'templates', orgId] as const,

@@ -141,6 +141,8 @@ export function buildCreatePayload(
     maxAttendees: draft.capacity > 0 ? draft.capacity : undefined,
     allowJoinRequests: draft.requireApproval || undefined,
     orgId: orgId || undefined,
+    // The wizard's timezone picker — the naive times above are local to this zone (E5).
+    timezone: draft.timezone || undefined,
   };
 }
 

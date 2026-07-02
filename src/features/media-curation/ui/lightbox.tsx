@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
 import { ChevronLeft, ChevronRight, Download, Eye, Music2, Play, Star, Trash2, X } from 'lucide-react';
 
+import { useEventVariantUrl } from '@/shared/api';
 import { Avatar, IconButton, toast } from '@/shared/ui';
 import { formatDuration } from '@/shared/lib/format';
 import { coverBackground } from '@/shared/lib/visual';
@@ -17,6 +18,14 @@ export function Lightbox() {
   const { t } = useTranslation();
   const { open, assets, index, close, next, prev, onDelete, onFeature } = useLightboxStore();
   const asset = assets[index];
+
+  // Full-screen preview is presigned (bearer-gated variant paths don't work in <img>).
+  const previewUrl = useEventVariantUrl(
+    asset?.eventId,
+    asset?.fileId,
+    'MEDIUM',
+    open && asset?.type !== 'audio',
+  );
 
   // Optimistic feature overrides — the assets array is a snapshot taken at open
   // time, so we track per-asset toggles locally for instant visual feedback.
@@ -84,10 +93,10 @@ export function Lightbox() {
           className="relative flex aspect-[3/2] w-full max-w-[820px] items-center justify-center overflow-hidden rounded-[14px]"
           style={{ background: coverBackground(asset.coverSeed) }}
         >
-          {asset.type !== 'audio' && asset.previewUrl && (
+          {asset.type !== 'audio' && previewUrl && (
             <img
               key={asset.id}
-              src={asset.previewUrl}
+              src={previewUrl}
               alt=""
               onError={(e) => {
                 e.currentTarget.style.display = 'none';

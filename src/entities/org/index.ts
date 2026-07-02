@@ -1,6 +1,7 @@
 export { orgApi } from './api/org.api';
 export type {
   Org,
+  MyOrg,
   CreateOrgInput,
   OrgMember,
   OrgMemberRole,

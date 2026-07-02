@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
-import { coverFrom } from '@/shared/lib/visual';
+import { useEventCoverBackground } from '@/shared/api';
 import { eventStatusMeta } from '@/shared/config/status';
 import { formatEventDate, formatPercent } from '@/shared/lib/format';
 import type { EventSummary } from '../model/types';
@@ -17,6 +17,7 @@ const GRID = 'grid grid-cols-[2.4fr_1fr_1.2fr_1.4fr_1fr] items-center gap-3';
 /** Data-dense table row (spec §1 table view). */
 export function EventRow({ event, onOpen, dense }: EventRowProps) {
   const { t } = useTranslation();
+  const cover = useEventCoverBackground(event.eventId, event.posterFileId);
   const status = eventStatusMeta(event.eventStatus);
   const cap = event.maxAttendees ?? 0;
   const ratio = cap > 0 ? Math.min(1, event.currentAttendeeCount / cap) : 0;
@@ -29,7 +30,7 @@ export function EventRow({ event, onOpen, dense }: EventRowProps) {
       <div className="flex min-w-0 items-center gap-3">
         <span
           className={`${dense ? 'size-8' : 'size-10'} flex-none rounded-lg`}
-          style={{ background: coverFrom(event.coverPhotoUrl, event.eventId) }}
+          style={{ background: cover }}
         />
         <span className="truncate text-sm font-medium">{event.title}</span>
       </div>

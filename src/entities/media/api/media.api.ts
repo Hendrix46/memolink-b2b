@@ -77,6 +77,7 @@ export function toMediaAsset(c: EventPhotoResponseContract, eventId: string): Me
   return {
     id: c.eventPhotoId,
     eventId,
+    fileId: c.fileId,
     type,
     coverSeed: c.fileId,
     thumbnailUrl,

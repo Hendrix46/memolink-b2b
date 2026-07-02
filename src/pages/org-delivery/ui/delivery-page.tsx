@@ -6,8 +6,8 @@ import { Copy, ExternalLink } from 'lucide-react';
 
 import { useEvents } from '@/entities/event';
 import { galleryApi, type Gallery } from '@/entities/gallery';
+import { useEventCoverBackground } from '@/shared/api';
 import { queryKeys } from '@/shared/config/query-keys';
-import { coverFrom } from '@/shared/lib/visual';
 import { buildShareLink } from '@/shared/lib/gallery-link';
 import { Card, EmptyState, PageContainer, PageHeader, Skeleton, toast } from '@/shared/ui';
 import { paths } from '@/shared/config/paths';
@@ -34,15 +34,14 @@ export function OrgDeliveryPage() {
 
   const rows = useMemo(() => {
     const eventTitle = new Map((events ?? []).map((e) => [e.eventId, e]));
-    const out: { gallery: Gallery; eventTitle: string; coverSeed: string; coverUrl?: string | null }[] = [];
+    const out: { gallery: Gallery; eventTitle: string; posterFileId?: string | null }[] = [];
     for (const q of galleryQueries) {
       for (const g of q.data ?? []) {
         const ev = eventTitle.get(g.eventId);
         out.push({
           gallery: g,
           eventTitle: ev?.title ?? g.eventId,
-          coverSeed: g.eventId,
-          coverUrl: ev?.coverPhotoUrl,
+          posterFileId: ev?.posterFileId,
         });
       }
     }
@@ -70,15 +69,12 @@ export function OrgDeliveryPage() {
         <EmptyState title={t('orgDelivery.noTitle')} description={t('orgDelivery.noDesc')} />
       ) : (
         <Card className="p-0">
-          {rows.map(({ gallery, eventTitle, coverSeed, coverUrl }) => (
+          {rows.map(({ gallery, eventTitle, posterFileId }) => (
             <div
               key={gallery.galleryId}
               className="flex items-center gap-4 border-b border-hairline px-5 py-3.5 last:border-0"
             >
-              <span
-                className="size-11 flex-none rounded-[10px]"
-                style={{ background: coverFrom(coverUrl, coverSeed) }}
-              />
+              <GalleryCover eventId={gallery.eventId} posterFileId={posterFileId} />
               <div className="min-w-0 flex-1">
                 <button
                   onClick={() => navigate(`${paths.event(gallery.eventId)}?tab=delivery`)}
@@ -129,4 +125,10 @@ export function OrgDeliveryPage() {
       )}
     </PageContainer>
   );
+}
+
+/** Presigned event-poster swatch for gallery rows (gradient while loading). */
+function GalleryCover({ eventId, posterFileId }: { eventId: string; posterFileId?: string | null }) {
+  const cover = useEventCoverBackground(eventId, posterFileId);
+  return <span className="size-11 flex-none rounded-[10px]" style={{ background: cover }} />;
 }

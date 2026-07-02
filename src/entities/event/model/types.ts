@@ -109,6 +109,8 @@ export interface GetEventResponseContract {
   myFileUploadMaxBytes?: number | null;
   /** Whether the caller may use the resumable (50 GB) door — true only for an active photographer. */
   resumableUploadAllowed?: boolean | null;
+  /** IANA zone the naive event times are local to (buglist E5). */
+  timezone?: string | null;
 }
 
 /* ─────────────────────────── detail view model ─────────────────────────── */
@@ -206,4 +208,6 @@ export interface EventDetail {
   uploadMaxBytes: number | null;
   /** Whether the caller may use the resumable (50 GB) upload door (active photographer). */
   resumableUploadAllowed: boolean;
+  /** IANA zone the naive event times are local to (null on older backends). */
+  timezone: string | null;
 }

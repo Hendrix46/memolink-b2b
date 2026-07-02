@@ -10969,6 +10969,90 @@
         }
       }
     },
+    "/api/capsule/{capsuleId}/files/order": {
+      "patch": {
+        "tags": [
+          "capsule-controller"
+        ],
+        "summary": "Reorder Capsule Files",
+        "description": "CAP-FILE-ORDER — sets an explicit display order for existing files in a capsule (owner-only). Body is a list of {fileId, order} pairs; the new sort_order persists and a subsequent GET returns files sorted by it (legacy unordered files trail after, id-DESC). A fileId not in this capsule is rejected all-or-nothing (404) with zero rows changed. Does NOT touch the upload flow.",
+        "operationId": "reorderCapsuleFiles",
+        "parameters": [
+          {
+            "name": "capsuleId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CapsuleFileOrderRequestContract"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponseVoid"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Not the capsule owner",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponseVoid"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Capsule not found, or a fileId not in this capsule",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponseVoid"
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Default error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseContractResponse",
+                  "example": {
+                    "success": false,
+                    "message": "Error message",
+                    "data": null,
+                    "errorCode": 100,
+                    "timestamp": "2025-07-31T10:55:12.588Z",
+                    "statusCode": 400,
+                    "path": "/api/some-endpoint",
+                    "errors": [
+                      "Validation error occurred"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/waitlist/stats": {
       "get": {
         "tags": [
@@ -18835,6 +18919,12 @@
               "FAILED"
             ],
             "example": "PENDING"
+          },
+          "order": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Explicit display order within the capsule (ascending). Null for legacy files that were never ordered.",
+            "example": 0
           }
         }
       },
@@ -24230,6 +24320,48 @@
           }
         }
       },
+      "CapsuleFileOrderRequestContract": {
+        "type": "object",
+        "description": "Reorder the files inside a capsule",
+        "properties": {
+          "items": {
+            "type": "array",
+            "description": "the {fileId, order} pairs to apply (max 50)",
+            "items": {
+              "$ref": "#/components/schemas/Item"
+            },
+            "maxItems": 50,
+            "minItems": 0
+          }
+        },
+        "required": [
+          "items"
+        ]
+      },
+      "Item": {
+        "type": "object",
+        "description": "a single file's new position within the capsule",
+        "properties": {
+          "fileId": {
+            "type": "string",
+            "description": "the server file UUID to reposition",
+            "example": "unique-file-id",
+            "minLength": 1
+          },
+          "order": {
+            "type": "integer",
+            "format": "int32",
+            "description": "the new zero-based display order (ascending)",
+            "example": 0,
+            "maximum": 50,
+            "minimum": 0
+          }
+        },
+        "required": [
+          "fileId",
+          "order"
+        ]
+      },
       "Pageable": {
         "type": "object",
         "properties": {
@@ -24348,9 +24480,6 @@
           "sort": {
             "$ref": "#/components/schemas/SortObject"
           },
-          "paged": {
-            "type": "boolean"
-          },
           "pageNumber": {
             "type": "integer",
             "format": "int32"
@@ -24358,6 +24487,9 @@
           "pageSize": {
             "type": "integer",
             "format": "int32"
+          },
+          "paged": {
+            "type": "boolean"
           },
           "unpaged": {
             "type": "boolean"

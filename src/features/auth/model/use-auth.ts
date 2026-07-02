@@ -72,8 +72,9 @@ export interface CompleteRegistrationInput {
 }
 
 /**
- * Register step 3: create the account with the verified token, then sign in
- * (register returns the user record, not tokens) and establish the session.
+ * Register step 3: create the account with the verified token. Newer backends
+ * return a token pair directly (buglist C1) — use it; otherwise fall back to a
+ * follow-up login. Either way the session is established.
  */
 export function useRegister() {
   const navigate = useNavigate();
@@ -86,8 +87,19 @@ export function useRegister() {
         password: input.password,
         verificationToken: input.verificationToken,
       };
-      await authApi.register(payload);
-      const tokens = await authApi.login({ phoneNumber: input.phoneNumber, password: input.password });
+      const created = await authApi.register(payload);
+      const tokens: AuthTokens =
+        created.accessToken && created.refreshToken
+          ? {
+              accessToken: created.accessToken,
+              refreshToken: created.refreshToken,
+              expiresIn: created.expiresIn ?? 0,
+              refreshExpiresIn: created.refreshExpiresIn ?? 0,
+              tokenType: 'Bearer',
+              sessionState: '',
+              scope: '',
+            }
+          : await authApi.login({ phoneNumber: input.phoneNumber, password: input.password });
       await establishSession(tokens);
     },
     onSuccess: () => navigate(paths.dashboard, { replace: true }),

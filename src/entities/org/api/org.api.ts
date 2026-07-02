@@ -2,6 +2,7 @@ import { http } from '@/shared/api';
 import type {
   CreateOrgInput,
   InviteOrgMemberInput,
+  MyOrg,
   Org,
   OrgInvite,
   OrgMember,
@@ -15,6 +16,11 @@ export const orgApi = {
   /** Create an organization; the backend auto-admits the caller as ADMIN. */
   create(body: CreateOrgInput): Promise<Org> {
     return http.post<Org>('/api/org', body);
+  },
+
+  /** Organizations the caller belongs to — drives the workspace list at sign-in. */
+  mine(): Promise<MyOrg[]> {
+    return http.get<MyOrg[]>('/api/org/mine');
   },
 
   get(orgId: string): Promise<Org> {

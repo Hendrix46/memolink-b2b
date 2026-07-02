@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Check, Loader2, Music2, Play, Star, Trash2 } from 'lucide-react';
 
+import { useEventVariantUrl } from '@/shared/api';
 import { cn } from '@/shared/lib/cn';
 import { formatDuration } from '@/shared/lib/format';
 import { coverBackground } from '@/shared/lib/visual';
@@ -34,9 +35,12 @@ export function MediaTile({
   const { t } = useTranslation();
   const [imgFailed, setImgFailed] = useState(false);
   const isAudio = asset.type === 'audio';
-  // Show the real thumbnail when one is present and it hasn't failed to load;
-  // otherwise the deterministic gradient underneath shows through.
-  const showImage = !isAudio && Boolean(asset.thumbnailUrl) && !imgFailed;
+  // Display URLs are presigned (`/url` sibling): the raw variant path is
+  // bearer-gated and unusable in <img>. 204 (no preview) resolves to null.
+  const thumbnailUrl = useEventVariantUrl(asset.eventId, asset.fileId, 'THUMBNAIL', !isAudio);
+  // Show the thumbnail once presigned and not failed; otherwise the
+  // deterministic gradient underneath shows through.
+  const showImage = !isAudio && Boolean(thumbnailUrl) && !imgFailed;
   const hasActions = Boolean(onFeature || onRemove);
   // Surface the editorial decision (curation), except the neutral default states.
   const editorial =
@@ -54,7 +58,7 @@ export function MediaTile({
     >
       {showImage && (
         <img
-          src={asset.thumbnailUrl ?? undefined}
+          src={thumbnailUrl ?? undefined}
           alt=""
           loading="lazy"
           onError={() => setImgFailed(true)}

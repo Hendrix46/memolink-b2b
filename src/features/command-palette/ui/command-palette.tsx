@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { BarChart3, CalendarDays, CalendarPlus, LayoutDashboard, Search, Settings, UserPlus } from 'lucide-react';
 
 import { useEvents } from '@/entities/event';
-import { coverFrom } from '@/shared/lib/visual';
+import { useEventCoverBackground } from '@/shared/api';
 import { paths } from '@/shared/config/paths';
 import { useCommandPalette } from '../model/store';
 
@@ -87,7 +87,7 @@ export function CommandPalette() {
             {matches.map((e) => (
               <Row
                 key={e.eventId}
-                icon={<span className="size-6 rounded-md" style={{ background: coverFrom(e.coverPhotoUrl, e.eventId) }} />}
+                icon={<EventCoverIcon eventId={e.eventId} posterFileId={e.posterFileId} />}
                 title={e.title}
                 meta={e.locationName ?? undefined}
                 onClick={() => go(paths.event(e.eventId))}
@@ -134,4 +134,10 @@ function Row({
       {meta && <span className="text-xs text-text-muted">{meta}</span>}
     </button>
   );
+}
+
+/** Tiny presigned event-cover swatch for palette rows (gradient while loading). */
+function EventCoverIcon({ eventId, posterFileId }: { eventId: string; posterFileId?: string | null }) {
+  const cover = useEventCoverBackground(eventId, posterFileId);
+  return <span className="size-6 rounded-md" style={{ background: cover }} />;
 }

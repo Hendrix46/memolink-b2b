@@ -6,6 +6,8 @@ export type MediaType = 'image' | 'video' | 'audio';
 export interface MediaAsset {
   id: string;
   eventId: string;
+  /** Backing file id — used to presign display URLs (variant `/url` endpoints). */
+  fileId: string;
   type: MediaType;
   /** Seconds — videos and audio only. */
   durationSec?: number;

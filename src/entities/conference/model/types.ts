@@ -1,7 +1,10 @@
-/** `SpeakerSummaryContract`. */
+/** `SpeakerSummaryContract` — newer backends add the identity (buglist E6). */
 export interface SpeakerSummary {
   userId: string;
   headline?: string | null;
+  firstName?: string | null;
+  lastName?: string | null;
+  avatarUrl?: string | null;
 }
 
 /** `TrackResponseContract`. */

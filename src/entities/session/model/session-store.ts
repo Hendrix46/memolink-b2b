@@ -2,16 +2,17 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
 import { authToken } from '@/shared/api';
-import type { AuthTokens, Lens, Viewer, Workspace } from './types';
+import type { AuthTokens, Lens, OrgRole, Viewer, Workspace } from './types';
 
 /**
  * Workspaces (organizations) the viewer belongs to.
  *
- * The backend exposes no "list my organizations" endpoint (see BACKEND-ISSUES E1),
- * so the dashboard cannot enumerate orgs at login. Instead, an org becomes known
- * when the user creates one (`POST /api/org`, which auto-admits them as ADMIN) —
- * we persist that entry and use its `orgId` for all org-scoped calls. Until then
- * the list is empty and the shell shows the create-organization onboarding.
+ * Hydrated from `GET /api/org/mine` ("List My Organizations") whenever the shell
+ * mounts (`features/workspace-switch` → `useSyncWorkspaces`), so existing-org
+ * users land straight in their workspace and can't create a duplicate org. The
+ * list is also persisted, so a reload keeps the active org before the refetch
+ * resolves. When the list is genuinely empty the shell shows the
+ * create-organization onboarding (`POST /api/org` auto-admits the caller as ADMIN).
  */
 const EMPTY_WORKSPACES: Workspace[] = [];
 
@@ -45,6 +46,13 @@ interface SessionState {
   setWorkspace: (id: string) => void;
   /** Upsert a workspace (e.g. a newly created org) and make it the active one. */
   setWorkspaceEntry: (workspace: Workspace) => void;
+  /**
+   * Replace the whole workspace list (from `GET /api/org/mine`). Keeps the
+   * current active org when it's still in the list, else picks the first; sets
+   * `orgRole` from the active org. An empty list clears the active workspace
+   * (the shell then shows the create-organization onboarding).
+   */
+  setWorkspaces: (workspaces: Workspace[], roleById?: Record<string, OrgRole>) => void;
 }
 
 /**
@@ -95,6 +103,21 @@ export const useSessionStore = create<SessionState>()(
           return {
             workspaces: [...others, workspace],
             viewer: { ...s.viewer, workspace },
+          };
+        }),
+      setWorkspaces: (workspaces, roleById) =>
+        set((s) => {
+          if (workspaces.length === 0) {
+            return { workspaces: [], viewer: { ...s.viewer, workspace: null } };
+          }
+          const active = workspaces.find((w) => w.id === s.viewer.workspace?.id) ?? workspaces[0];
+          return {
+            workspaces,
+            viewer: {
+              ...s.viewer,
+              workspace: active,
+              orgRole: roleById?.[active.id] ?? s.viewer.orgRole,
+            },
           };
         }),
     }),

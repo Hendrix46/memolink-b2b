@@ -15,13 +15,14 @@ import {
   useUpdateTrack,
   type Session,
   type SessionInput,
+  type SpeakerSummary,
   type Track,
   type TrackInput,
 } from '@/entities/conference';
 import { useVenues } from '@/entities/venue';
 import { UserPicker, useUserDirectoryMap, useUserDirectorySeed } from '@/entities/user';
 import { ApiError } from '@/shared/api';
-import { formatEventDate } from '@/shared/lib/format';
+import { formatEventDate, personFullName } from '@/shared/lib/format';
 import {
   Button,
   Card,
@@ -44,9 +45,12 @@ const TRACK_COLORS = ['#6670FF', '#4AA8FF', '#3DD68C', '#E0A33E', '#F0556E', '#8
 
 type Directory = Record<string, { name: string } | undefined>;
 
-/** Best display name for an assigned speaker: directory name → headline → generic label. */
-const speakerLabel = (dir: Directory, userId: string, headline: string | null | undefined, fallback: string) =>
-  dir[userId]?.name ?? headline ?? fallback;
+/** Best display name for a speaker: contract identity (E6) → directory cache → headline → generic label. */
+const speakerName = (dir: Directory, sp: SpeakerSummary): string | undefined =>
+  personFullName(sp.firstName, sp.lastName) ?? dir[sp.userId]?.name;
+
+const speakerLabel = (dir: Directory, sp: SpeakerSummary, fallback: string) =>
+  speakerName(dir, sp) ?? sp.headline ?? fallback;
 
 interface SessionModalState {
   open: boolean;
@@ -329,7 +333,7 @@ function SessionRow({
                   key={sp.userId}
                   className="rounded-md bg-[rgba(255,255,255,0.05)] px-2 py-0.5 text-[11.5px] text-text-secondary"
                 >
-                  {speakerLabel(directory, sp.userId, sp.headline, t('eventDetail.agenda.speaker'))}
+                  {speakerLabel(directory, sp, t('eventDetail.agenda.speaker'))}
                 </span>
               ))}
             </span>
@@ -623,7 +627,7 @@ function SpeakerModal({
         ) : (
           <div className="space-y-2">
             {session.speakers.map((sp) => {
-              const resolvedName = directory[sp.userId]?.name;
+              const resolvedName = speakerName(directory, sp);
               const primary = resolvedName ?? sp.headline ?? t('eventDetail.agenda.speaker');
               const secondary = resolvedName ? sp.headline : undefined;
               return (

@@ -36,12 +36,21 @@ export interface CreateEventPayload {
   coHostUserIds?: string[];
   allowJoinRequests?: boolean;
   orgId?: string;
+  /** IANA zone (e.g. `Asia/Tashkent`) the naive event times are local to (buglist E5). */
+  timezone?: string;
 }
 
 export type UpdateEventPayload = Partial<
   Pick<
     CreateEventPayload,
-    'title' | 'description' | 'location' | 'accessLevel' | 'eventStartDate' | 'eventEndDate' | 'maxAttendees'
+    | 'title'
+    | 'description'
+    | 'location'
+    | 'accessLevel'
+    | 'eventStartDate'
+    | 'eventEndDate'
+    | 'maxAttendees'
+    | 'timezone'
   >
 > & { eventStatus?: EventStatus };
 
@@ -125,6 +134,7 @@ function toDetail(c: GetEventResponseContract): EventDetail {
     agenda: [],
     uploadMaxBytes: c.myFileUploadMaxBytes ?? null,
     resumableUploadAllowed: Boolean(c.resumableUploadAllowed),
+    timezone: c.timezone ?? null,
   };
 }
 

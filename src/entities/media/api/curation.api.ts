@@ -36,6 +36,7 @@ function toCurationPhoto(c: CurationPhotoContract, eventId: string): CurationPho
   return {
     id: c.eventPhotoId,
     eventId,
+    fileId: c.fileId,
     type: 'image',
     coverSeed: c.fileId,
     thumbnailUrl: c.thumbnailUrl ?? null,

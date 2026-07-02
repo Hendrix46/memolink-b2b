@@ -5,7 +5,7 @@ import { Calendar, ChevronLeft, MapPin, Pencil, Send, Share2 } from 'lucide-reac
 
 import { EventStatusChip, useEvent } from '@/entities/event';
 import { EditEventModal } from './edit-event-modal';
-import { coverFrom } from '@/shared/lib/visual';
+import { useEventCoverBackground } from '@/shared/api';
 import { formatEventDate } from '@/shared/lib/format';
 import { Button, ErrorState, Skeleton, Tabs, type TabItem } from '@/shared/ui';
 import { paths } from '@/shared/config/paths';
@@ -31,6 +31,8 @@ export function EventDetailPage() {
   const [editOpen, setEditOpen] = useState(false);
 
   const { data: event, isLoading, isError, refetch } = useEvent(eventId);
+  // Presigned poster background (called before the early returns — hooks order).
+  const cover = useEventCoverBackground(eventId ?? '', event?.posterFileId);
 
   const setTab = (next: string) => setSearch({ tab: next }, { replace: true });
 
@@ -75,7 +77,7 @@ export function EventDetailPage() {
   return (
     <div>
       {/* Hero */}
-      <div className="relative flex h-[208px] items-end" style={{ background: coverFrom(event.coverPhotoUrl, event.eventId) }}>
+      <div className="relative flex h-[208px] items-end" style={{ background: cover }}>
         <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(11,11,15,0.92)_0%,rgba(11,11,15,0.4)_45%,rgba(11,11,15,0.15)_100%)]" />
         <div className="relative mx-auto w-full max-w-[1500px] px-[34px] pb-5.5" style={{ paddingBottom: 22 }}>
           <button

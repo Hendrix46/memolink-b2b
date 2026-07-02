@@ -56,7 +56,11 @@ export interface VerifyPhoneResult {
   verificationToken: string;
 }
 
-/** Shape returned by `/api/auth/register`. */
+/**
+ * Shape returned by `/api/auth/register`. Newer backends also return a token
+ * pair (buglist C1) so the client can skip the follow-up login round-trip;
+ * older ones return only the user record — both are handled.
+ */
 export interface RegisterResult {
   userId: string;
   phoneNumber: string;
@@ -64,6 +68,10 @@ export interface RegisterResult {
   firstName: string;
   lastName: string;
   status: string;
+  accessToken?: string | null;
+  refreshToken?: string | null;
+  expiresIn?: number | null;
+  refreshExpiresIn?: number | null;
 }
 
 /** Shape returned by `/api/user/me`. */

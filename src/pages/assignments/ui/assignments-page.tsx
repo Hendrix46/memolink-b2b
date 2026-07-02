@@ -6,7 +6,7 @@ import { useMyAssignments } from '@/entities/photographer';
 import type { EventSummary } from '@/entities/event';
 import { EventStatusChip } from '@/entities/event';
 import { paths } from '@/shared/config/paths';
-import { coverFrom } from '@/shared/lib/visual';
+import { useEventCoverBackground } from '@/shared/api';
 import { formatEventDate } from '@/shared/lib/format';
 import {
   Button,
@@ -70,12 +70,13 @@ interface AssignmentCardProps {
 
 function AssignmentCard({ event, onUpload, onView }: AssignmentCardProps) {
   const { t } = useTranslation();
+  const cover = useEventCoverBackground(event.eventId, event.posterFileId);
 
   return (
     <Card compact className="flex items-center gap-[18px]">
       <div
         className="h-24 w-[130px] flex-none rounded-[11px]"
-        style={{ background: coverFrom(event.coverPhotoUrl, event.eventId) }}
+        style={{ background: cover }}
       />
 
       <div className="min-w-0 flex-1">

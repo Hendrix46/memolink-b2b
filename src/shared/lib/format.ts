@@ -97,3 +97,12 @@ function trim(value: number, digits = 1): string {
     .replace(/\.0+$/, '')
     .replace(/(\.\d*?)0+$/, '$1');
 }
+
+/** "First Last" from optional name parts, or `undefined` when both are empty. */
+export function personFullName(
+  firstName?: string | null,
+  lastName?: string | null,
+): string | undefined {
+  const name = `${firstName ?? ''} ${lastName ?? ''}`.trim();
+  return name || undefined;
+}

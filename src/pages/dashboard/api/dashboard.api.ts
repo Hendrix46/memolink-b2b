@@ -21,6 +21,7 @@ export interface UpcomingEvent {
   eventStartDate: string;
   eventEndDate: string;
   coverPhotoUrl?: string | null;
+  posterFileId?: string | null;
   eventStatus: EventStatus;
   /** RSVP / capacity progress. */
   going: number;
@@ -91,6 +92,7 @@ function buildDashboard(events: EventSummary[]): DashboardData {
       eventStartDate: e.eventStartDate,
       eventEndDate: e.eventEndDate,
       coverPhotoUrl: e.coverPhotoUrl,
+      posterFileId: e.posterFileId,
       eventStatus: e.eventStatus,
       going: e.currentAttendeeCount,
       cap: e.maxAttendees ?? 0,
